@@ -1,0 +1,85 @@
+.personGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
+  margin: 2rem 0;
+}
+
+.personTile {
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 1px 8px rgba(162,89,255,0.07);
+  padding: 1.5rem 1.2rem;
+  width: 400px;
+  text-align: left;
+  transition: box-shadow 0.2s, transform 0.2s;
+  cursor: pointer;
+  border: 1px solid #e0d7fa;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.personTile:hover {
+  box-shadow: 0 4px 24px rgba(255,111,60,0.12);
+  transform: translateY(-4px) scale(1.03);
+}
+
+.personName {
+  font-size: 1.2rem;
+  color: #a259ff;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.personId {
+  color: #4b3f72;
+  font-size: 0.95rem;
+  margin-bottom: 0.5rem;
+}
+
+.personActions {
+  margin-top: 1rem;
+  display: flex;
+  gap: 1rem;
+}
+
+.personActionLink {
+  color: #fff;
+  background: #a259ff;
+  padding: 0.3rem 0.9rem;
+  border-radius: 16px;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1rem;
+  transition: background 0.2s, color 0.2s;
+}
+
+.personActionLink:hover {
+  background: #ff6f3c;
+  color: #fffbe7;
+}
+
+.scoreItem {
+  background: #f8f5ff;
+  border-radius: 12px;
+  padding: 0.8rem 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.scoreMean {
+  font-weight: 600;
+  color: #a259ff;
+  font-size: 1.1rem;
+}
+.scoreStdev {
+  color: #4b3f72;
+  font-size: 0.9rem;
+  margin-top: 0.2rem;
+}
+.scoreValues {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  color: #000000;
+}

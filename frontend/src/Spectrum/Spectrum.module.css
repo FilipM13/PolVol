@@ -1,0 +1,164 @@
+
+/* --- Person-style tile grid --- */
+.spectrumGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
+  margin: 2rem 0;
+}
+
+/* --- Person-style tile --- */
+.spectrumTile {
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 1px 8px rgba(162,89,255,0.07);
+  padding: 1.5rem 1.2rem;
+  width: 240px;
+  text-align: left;
+  transition: box-shadow 0.2s, transform 0.2s;
+  cursor: pointer;
+  border: 1px solid #e0d7fa;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.spectrumTile:hover {
+  box-shadow: 0 4px 24px rgba(255,111,60,0.12);
+  transform: translateY(-4px) scale(1.03);
+}
+
+.spectrumName {
+  font-size: 1.2rem;
+  color: #a259ff;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.spectrumId {
+  color: #4b3f72;
+  font-size: 0.95rem;
+  margin-bottom: 0.5rem;
+}
+
+.spectrumActions {
+  margin-top: 1rem;
+  display: flex;
+  gap: 1rem;
+}
+
+.spectrumActionLink {
+  color: #fff;
+  background: #a259ff;
+  padding: 0.3rem 0.9rem;
+  border-radius: 16px;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1rem;
+  transition: background 0.2s, color 0.2s;
+}
+
+.spectrumActionLink:hover {
+  background: #ff6f3c;
+  color: #fffbe7;
+}
+
+/* --- Details card --- */
+.spectrumDetailsCard {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(162,89,255,0.10);
+  padding: 2rem 2rem;
+  margin: 2rem auto;
+  max-width: 540px;
+  color: #4b3f72;
+}
+
+.spectrumDetailsTitle {
+  font-size: 1.5rem;
+  color: #a259ff;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.spectrumDetailsText {
+  font-size: 1.08rem;
+  color: #4b3f72;
+  margin-bottom: 1.2rem;
+}
+
+.spectrumDetailsActions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.spectrumDetailsButton {
+  background: #a259ff;
+  color: #fff;
+  border: none;
+  border-radius: 0.7rem;
+  padding: 0.6rem 1.3rem;
+  font-size: 1.05rem;
+  font-weight: 600;
+  cursor: pointer;
+  /* box-shadow: 0 1px 4px rgba(162,89,255,0.10); */
+  transition: background 0.15s, color 0.15s;
+}
+
+.spectrumDetailsButton:hover {
+  background: #ff6f3c;
+  color: #fffbe7;
+}
+
+/* --- Form styling for create/edit --- */
+.spectrumForm {
+  background: #fff;
+  border-radius: 1.1rem;
+  box-shadow: 0 2px 10px rgba(162,89,255,0.10);
+  padding: 2rem 2rem;
+  max-width: 480px;
+  margin: 2rem auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.spectrumFormLabel {
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: #a259ff;
+  margin-bottom: 0.3rem;
+}
+
+.spectrumFormInput {
+  padding: 0.7rem 1rem;
+  border-radius: 0.6rem;
+  border: 1px solid #b39ddb;
+  font-size: 1rem;
+  background: #fff;
+  color: #4b3f72;
+  margin-bottom: 0.7rem;
+}
+
+.spectrumFormInput:focus {
+  outline: none;
+  border-color: #a259ff;
+}
+
+.spectrumFormButton {
+  color: #fff;
+  background: #a259ff;
+  padding: 0.3rem 0.9rem;
+  border-radius: 16px;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1rem;
+  transition: background 0.2s, color 0.2s;
+}
+
+.spectrumFormButton:hover {
+  background: #ff6f3c;
+  color: #fffbe7;
+}

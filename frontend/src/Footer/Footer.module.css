@@ -1,0 +1,15 @@
+.footer {
+  padding: 1rem 0;
+  background: linear-gradient(90deg, #a259ff 0%, #ff6f3c 100%);
+  color: #fff;
+  text-align: center;
+  border-top: 2px solid #a259ff;
+  font-size: 1.1rem;
+  margin-top: 2rem;
+}
+
+.credits {
+  margin: 0;
+  font-size: 1rem;
+  color: #fffbe7;
+}

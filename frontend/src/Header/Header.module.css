@@ -1,0 +1,38 @@
+.header {
+  padding: 1.5rem 0 1rem 0;
+  border-bottom: 2px solid #a259ff;
+  background: linear-gradient(90deg, #a259ff 0%, #ff6f3c 100%);
+  color: #fff;
+  text-align: center;
+}
+
+.title {
+  margin: 0;
+  font-size: 2.2rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: #fff;
+}
+
+.nav {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.navLink {
+  color: #fff;
+  background: #a259ff;
+  padding: 0.5rem 1.2rem;
+  border-radius: 20px;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1.1rem;
+  transition: background 0.2s, color 0.2s;
+}
+
+.navLink:hover {
+  background: #ff6f3c;
+  color: #fffbe7;
+}
