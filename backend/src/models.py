@@ -17,7 +17,7 @@ class SpectrumDB(Base):
     __tablename__ = "spectrums"
     id = Column(Integer, primary_key=True)
     name = Column(String, nullable=False, unique=True)
-    scores = relationship("SpectrumScoreDB", back_populates="spectrum")
+    scores = relationship("SpectrumScoreDB", back_populates="spectrum", cascade="all, delete-orphan")
 
 
 class SpectrumScoreDB(Base):
@@ -49,6 +49,7 @@ class PersonDB(Base):
     __tablename__ = "persons"
     id = Column(Integer, primary_key=True)
     name = Column(String, nullable=False)
+    stances = relationship("StanceOnEventDB", back_populates="person", cascade="all, delete-orphan")
 
 
 
@@ -63,6 +64,7 @@ class EventDB(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String, nullable=False)
     date = Column(Date, nullable=False)
+    stances = relationship("StanceOnEventDB", back_populates="event", cascade="all, delete-orphan")
 
 
 class StanceOnEventDB(Base):
@@ -75,9 +77,9 @@ class StanceOnEventDB(Base):
     event_id = Column(Integer, ForeignKey("events.id"))
     person_id = Column(Integer, ForeignKey("persons.id"))
     date = Column(Date, nullable=False)
-    event = relationship("EventDB")
-    person = relationship("PersonDB")
-    scores = relationship("SpectrumScoreDB", back_populates="stance")
+    event = relationship("EventDB", back_populates="stances")
+    person = relationship("PersonDB", back_populates="stances")
+    scores = relationship("SpectrumScoreDB", back_populates="stance", cascade="all, delete-orphan")
 
 
 # --- Pydantic Classes for Validation ---

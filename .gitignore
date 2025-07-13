@@ -1,6 +1,7 @@
 backend/venv/
 frontend/node_modules/
 frontend/build/
+frontend/dist/
 *.pyc
 *.pyo
 *.pyd
