@@ -1,0 +1,169 @@
+.ActionButton {
+  background: #f5f5fa;
+  color: #4b3f72;
+  border: 1px solid #d1c4e9;
+  border-radius: 0.7rem;
+  padding: 0.7rem 1.4rem;
+  font-size: 1.05rem;
+  font-weight: 500;
+  cursor: pointer;
+  box-shadow: 0 1px 4px rgba(80, 60, 120, 0.07);
+  transition: background 0.2s, transform 0.2s, border-color 0.2s;
+  text-decoration: none;
+  display: inline-block;
+  margin: 0.2rem 0.4rem;
+}
+.ActionButton:hover, .ActionButton:focus {
+  background: #eceaf6;
+  border-color: #a259ff;
+  transform: translateY(-1px) scale(1.03);
+  outline: none;
+}
+.ErrorWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 120px;
+  width: 100%;
+}
+
+.ErrorIcon {
+  width: 36px;
+  height: 36px;
+  background: #eceaf6;
+  color: #a259ff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  box-shadow: 0 1px 4px rgba(80, 60, 120, 0.07);
+}
+
+.ErrorText {
+  color: #4b3f72;
+  font-size: 1.08rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  text-align: center;
+}
+.LoadingWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100px;
+  width: 100%;
+}
+
+.Spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid #eceaf6;
+  border-top: 3px solid #a259ff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 0.8rem;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.LoadingText {
+  color: #4b3f72;
+  font-size: 1.05rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+}
+.Form {
+  background: #f5f5fa;
+  border-radius: 1rem;
+  box-shadow: 0 1px 8px rgba(80, 60, 120, 0.07);
+  padding: 1.5rem 1.2rem;
+  margin: 1.5rem auto;
+  max-width: 440px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.Form input,
+.Form select,
+.Form textarea {
+  border: 1px solid #d1c4e9;
+  border-radius: 0.5rem;
+  padding: 0.6rem;
+  font-size: 0.98rem;
+  margin-bottom: 0.4rem;
+  background: #fff;
+}
+
+.Form button[type="submit"] {
+  background: #eceaf6;
+  color: #4b3f72;
+  border: 1px solid #d1c4e9;
+  border-radius: 0.5rem;
+  padding: 0.7rem 1.4rem;
+  font-size: 1.05rem;
+  font-weight: 500;
+  cursor: pointer;
+  box-shadow: 0 1px 4px rgba(80, 60, 120, 0.07);
+  transition: background 0.2s, border-color 0.2s, transform 0.2s;
+}
+.Form button[type="submit"]:hover {
+  background: #e0def1;
+  border-color: #a259ff;
+  transform: translateY(-1px) scale(1.03);
+}
+.Panel {
+  background: #f5f5fa;
+  border-radius: 1.2rem;
+  box-shadow: 0 2px 16px rgba(80, 60, 120, 0.08);
+  padding: 2rem 1.5rem;
+  margin: 2rem auto;
+  color: #4b3f72;
+  font-size: 1.13rem;
+  max-width: 680px;
+  min-width: 320px;
+  width: 100%;
+  transition: box-shadow 0.2s, transform 0.2s;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.Panel:hover {
+  box-shadow: 0 4px 32px rgba(80, 60, 120, 0.13);
+  transform: translateY(-2px) scale(1.01);
+}
+.Grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
+  padding: 0.5rem 0;
+  justify-items: stretch;
+  align-items: stretch;
+}
+.Tile {
+  background: #fff;
+  border-radius: 0.9rem;
+  box-shadow: 0 1px 8px rgba(80, 60, 120, 0.07);
+  padding: 1.1rem;
+  margin: 0.7rem;
+  color: #4b3f72;
+  font-size: 1.04rem;
+  transition: box-shadow 0.2s, transform 0.2s;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.Tile:hover {
+  box-shadow: 0 2px 16px rgba(80, 60, 120, 0.13);
+  transform: translateY(-2px) scale(1.01);
+}
