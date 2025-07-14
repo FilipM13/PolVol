@@ -1,14 +1,12 @@
-from sqlalchemy import Column, Integer, String, Float, Date, ForeignKey, Table, Text
+from sqlalchemy import Column, Integer, String, Float, Date, ForeignKey
 from sqlalchemy.orm import declarative_base, relationship
-from sqlalchemy.types import Enum as SqlEnum
-import enum
 
 Base = declarative_base()
 
 # --- SQLAlchemy ORM Classes ---
 
 
-class SpectrumDB(Base):
+class SpectrumDB(Base):  # type: ignore [misc, valid-type]
     """
     Describes a political or ideological spectrum.
     """
@@ -21,7 +19,7 @@ class SpectrumDB(Base):
     )
 
 
-class SpectrumScoreDB(Base):
+class SpectrumScoreDB(Base):  # type: ignore [misc, valid-type]
     """
     Value for specific spectrum (for stance on event, person or political party).
     """
@@ -42,7 +40,7 @@ class SpectrumScoreDB(Base):
     stance = relationship("StanceOnEventDB", back_populates="scores")
 
 
-class PersonDB(Base):
+class PersonDB(Base):  # type: ignore [misc, valid-type]
     """
     Basic template for every person to register.
     """
@@ -55,7 +53,7 @@ class PersonDB(Base):
     )
 
 
-class EventDB(Base):
+class EventDB(Base):  # type: ignore [misc, valid-type]
     """
     Registering and objective description of a single event.
     """
@@ -69,7 +67,7 @@ class EventDB(Base):
     )
 
 
-class StanceOnEventDB(Base):
+class StanceOnEventDB(Base):  # type: ignore [misc, valid-type]
     """
     Stance of a peron on an event with specific scores attached to it.
     """
@@ -84,6 +82,3 @@ class StanceOnEventDB(Base):
     scores = relationship(
         "SpectrumScoreDB", back_populates="stance", cascade="all, delete-orphan"
     )
-
-
-# --- Pydantic Classes for Validation ---

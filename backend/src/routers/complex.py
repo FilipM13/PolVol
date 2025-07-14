@@ -1,3 +1,7 @@
+"""
+Complex queries for specific views in front end.
+"""
+
 from statistics import mean, stdev
 from logger import logger
 from fastapi import APIRouter, Depends
@@ -6,7 +10,7 @@ from models import SpectrumScoreDB, SpectrumDB, StanceOnEventDB
 from models_validators import AverageSpectra
 from db import get_db
 from logger import logger
-from typing import List
+from typing import List, Dict
 
 router = APIRouter()
 
@@ -16,6 +20,10 @@ router = APIRouter()
     "/persons/{person_id}/average_spectra_scores", response_model=List[AverageSpectra]
 )
 def get_person_average_spectra_scores(person_id: int, db: Session = Depends(get_db)):
+    """
+    Get mean value, standard deviation, and count of scores for each spectrum
+    for a given person.
+    """
     logger.info(f"Calculating average spectra for person with ID {person_id}")
     scores = (
         db.query(SpectrumScoreDB)
@@ -24,9 +32,9 @@ def get_person_average_spectra_scores(person_id: int, db: Session = Depends(get_
         .all()
     )
 
-    spectrum_scores = {}
+    spectrum_scores: Dict[int, List[float]] = {}
     for score in scores:
-        spectrum_scores.setdefault(score.spectrum_id, []).append(score.value)
+        spectrum_scores.setdefault(score.spectrum_id, []).append(score.value)  # type: ignore [arg-type]
 
     # Fetch all spectrums for name lookup
     spectrum_objs = db.query(SpectrumDB).all()
@@ -34,11 +42,11 @@ def get_person_average_spectra_scores(person_id: int, db: Session = Depends(get_
 
     average_scores = []
     for spectrum_id, values in spectrum_scores.items():
-        std = stdev if len(values) > 1 else lambda x: 0.0
+        std = stdev if len(values) > 1 else lambda x: 0.0  # type: ignore [misc]
         average_scores.append(
             AverageSpectra.model_validate(
                 {
-                    "spectrum": spectrum_id_to_name.get(spectrum_id, str(spectrum_id)),
+                    "spectrum": spectrum_id_to_name.get(spectrum_id, str(spectrum_id)),  # type: ignore [call-overload]
                     "mean_value": mean(values),
                     "stdev_value": round(std(values), 2),
                     "count": len(values),
@@ -52,6 +60,9 @@ def get_person_average_spectra_scores(person_id: int, db: Session = Depends(get_
 # get avarage score for a spectrum
 @router.get("/spectra/{spectrum_id}/average_scores", response_model=AverageSpectra)
 def get_spectrum_average_scores(spectrum_id: int, db: Session = Depends(get_db)):
+    """
+    Get mean value, standard deviation, and count of scores for a given spectrum.
+    """
     logger.info(f"Calculating average scores for spectrum with ID {spectrum_id}")
     values = [
         v

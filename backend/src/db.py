@@ -15,15 +15,10 @@ Base.metadata.create_all(engine)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 
+# getting session
 def get_db():
     db = SessionLocal()
     try:
         yield db
     finally:
         db.close()
-
-
-# Example usage:
-# with SessionLocal() as session:
-#     # Use session to interact with the database
-#     pass

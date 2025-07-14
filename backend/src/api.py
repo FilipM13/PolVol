@@ -12,6 +12,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# adding routers
 app.include_router(spectra.router)
 app.include_router(person.router)
 app.include_router(event.router)
