@@ -31,9 +31,6 @@ class Person(BaseModel):
     name: str
 
 
-
-
-
 class Event(BaseModel):
     """
     Registering and objective description of a single event.
@@ -60,6 +57,7 @@ class AverageSpectra(BaseModel):
     """
     Average spectra for a person.
     """
+
     spectrum: str
     mean_value: float = Field(..., ge=-50, le=50)
     stdev_value: float = Field(..., ge=0)
