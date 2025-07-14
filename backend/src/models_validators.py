@@ -63,4 +63,4 @@ class AverageSpectra(BaseModel):
     spectrum: str
     mean_value: float = Field(..., ge=-50, le=50)
     stdev_value: float = Field(..., ge=0)
-    count: int = Field(..., ge=1)
+    count: int = Field(..., ge=0)

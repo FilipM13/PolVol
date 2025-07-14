@@ -12,7 +12,7 @@ function PersonScores({ personId }) {
       setLoading(true);
       setError("");
       try {
-        const res = await fetch(`${API_ROOT}/persons/${personId}/average_spectra`);
+        const res = await fetch(`${API_ROOT}/persons/${personId}/average_spectra_scores`);
         if (!res.ok) throw new Error(await res.text());
         const data = await res.json();
         setScores(data);

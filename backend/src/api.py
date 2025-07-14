@@ -19,8 +19,11 @@ from db import SessionLocal
 from typing import List
 from fastapi.middleware.cors import CORSMiddleware
 from statistics import mean, stdev
+from logger import logger
+import datetime
 
 app = FastAPI()
+# no restriction for development purposes
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -41,6 +44,7 @@ def get_db():
 # CRUD for SpectrumDB
 @app.post("/spectra", response_model=Spectrum)
 def create_spectrum(spectrum: Spectrum, db: Session = Depends(get_db)):
+    logger.info(f"Creating spectrum: {spectrum.name}")
     db_spectrum = SpectrumDB(**spectrum.model_dump(exclude_unset=True))
     db.add(db_spectrum)
     db.commit()
@@ -64,6 +68,7 @@ def list_spectrums(db: Session = Depends(get_db)):
 def get_spectrum(spectrum_id: int, db: Session = Depends(get_db)):
     s = db.query(SpectrumDB).get(spectrum_id)
     if not s:
+        logger.warning(f"SpectrumDB with ID {spectrum_id} not found")
         raise HTTPException(status_code=404, detail="SpectrumDB not found")
     fields = Spectrum.model_fields.keys()
     data = {field: getattr(s, field) for field in fields}
@@ -74,8 +79,10 @@ def get_spectrum(spectrum_id: int, db: Session = Depends(get_db)):
 def update_spectrum(
     spectrum_id: int, spectrum: Spectrum, db: Session = Depends(get_db)
 ):
+    logger.info(f"Updating spectrum with ID {spectrum_id}")
     db_spectrum = db.query(SpectrumDB).get(spectrum_id)
     if not db_spectrum:
+        logger.warning(f"SpectrumDB with ID {spectrum_id} not found")
         raise HTTPException(status_code=404, detail="SpectrumDB not found")
     for key, value in spectrum.model_dump(exclude_unset=True).items():
         setattr(db_spectrum, key, value)
@@ -88,8 +95,10 @@ def update_spectrum(
 
 @app.delete("/spectra/{spectrum_id}")
 def delete_spectrum(spectrum_id: int, db: Session = Depends(get_db)):
+    logger.info(f"Deleting spectrum with ID {spectrum_id}")
     db_spectrum = db.query(SpectrumDB).get(spectrum_id)
     if not db_spectrum:
+        logger.warning(f"SpectrumDB with ID {spectrum_id} not found")
         raise HTTPException(status_code=404, detail="SpectrumDB not found")
     db.delete(db_spectrum)
     db.commit()
@@ -99,6 +108,7 @@ def delete_spectrum(spectrum_id: int, db: Session = Depends(get_db)):
 # CRUD for PersonDB
 @app.post("/persons", response_model=Person)
 def create_person(person: Person, db: Session = Depends(get_db)):
+    logger.info(f"Creating person: {person.name}")
     import datetime
     data = person.model_dump(exclude_unset=True)
     if 'date_of_birth' in data and isinstance(data['date_of_birth'], str):
@@ -126,6 +136,7 @@ def list_persons(db: Session = Depends(get_db)):
 def get_person(person_id: int, db: Session = Depends(get_db)):
     p = db.query(PersonDB).get(person_id)
     if not p:
+        logger.warning(f"PersonDB with ID {person_id} not found")
         raise HTTPException(status_code=404, detail="PersonDB not found")
     fields = Person.model_fields.keys()
     data = {field: getattr(p, field) for field in fields}
@@ -134,8 +145,10 @@ def get_person(person_id: int, db: Session = Depends(get_db)):
 
 @app.put("/persons/{person_id}", response_model=Person)
 def update_person(person_id: int, person: Person, db: Session = Depends(get_db)):
+    logger.info(f"Updating person with ID {person_id}") 
     db_person = db.query(PersonDB).get(person_id)
     if not db_person:
+        logger.warning(f"PersonDB with ID {person_id} not found")
         raise HTTPException(status_code=404, detail="PersonDB not found")
     import datetime
     for key, value in person.model_dump(exclude_unset=True).items():
@@ -151,18 +164,20 @@ def update_person(person_id: int, person: Person, db: Session = Depends(get_db))
 
 @app.delete("/persons/{person_id}")
 def delete_person(person_id: int, db: Session = Depends(get_db)):
+    logger.info(f"Deleting person with ID {person_id}")
     db_person = db.query(PersonDB).get(person_id)
     if not db_person:
+        logger.warning(f"PersonDB with ID {person_id} not found")
         raise HTTPException(status_code=404, detail="PersonDB not found")
     db.delete(db_person)
     db.commit()
-    return {"detail": f"Deleted {db_person.first_name} {db_person.last_name}"}
+    return {"detail": f"Deleted."}
 
 
 # CRUD for EventDB
 @app.post("/events", response_model=Event)
 def create_event(event: Event, db: Session = Depends(get_db)):
-    import datetime
+    logger.info(f"Creating event: {event.name}")
     data = event.model_dump(exclude_unset=True)
     if 'date' in data and isinstance(data['date'], str):
         data['date'] = datetime.date.fromisoformat(data['date'])
@@ -189,6 +204,7 @@ def list_events(db: Session = Depends(get_db)):
 def get_event(event_id: int, db: Session = Depends(get_db)):
     e = db.query(EventDB).get(event_id)
     if not e:
+        logger.warning(f"EventDB with ID {event_id} not found")
         raise HTTPException(status_code=404, detail="EventDB not found")
     fields = Event.model_fields.keys()
     data = {field: getattr(e, field) for field in fields}
@@ -197,8 +213,10 @@ def get_event(event_id: int, db: Session = Depends(get_db)):
 
 @app.put("/events/{event_id}", response_model=Event)
 def update_event(event_id: int, event: Event, db: Session = Depends(get_db)):
+    logger.info(f"Updating event with ID {event_id}")
     db_event = db.query(EventDB).get(event_id)
     if not db_event:
+        logger.warning(f"EventDB with ID {event_id} not found") 
         raise HTTPException(status_code=404, detail="EventDB not found")
     import datetime
     for key, value in event.model_dump(exclude_unset=True).items():
@@ -214,18 +232,20 @@ def update_event(event_id: int, event: Event, db: Session = Depends(get_db)):
 
 @app.delete("/events/{event_id}")
 def delete_event(event_id: int, db: Session = Depends(get_db)):
+    logger.info(f"Deleting event with ID {event_id}")
     db_event = db.query(EventDB).get(event_id)
     if not db_event:
+        logger.warning(f"EventDB with ID {event_id} not found")
         raise HTTPException(status_code=404, detail="EventDB not found")
     db.delete(db_event)
     db.commit()
-    return {"detail": f"Deleted {db_event.name} on {db_event.date}"}
+    return {"detail": f"Deleted."}
 
 
 # CRUD for StanceOnEventDB
 @app.post("/stances", response_model=StanceOnEvent)
 def create_stance(stance: StanceOnEvent, db: Session = Depends(get_db)):
-    import datetime
+    logger.info(f"Creating stance for event: {stance.event_id} by person: {stance.person_id}")
     data = stance.model_dump(exclude_unset=True)
     scores_data = data.pop('scores', None)
     if 'date' in data and isinstance(data['date'], str):
@@ -270,6 +290,7 @@ def list_stances(db: Session = Depends(get_db)):
 def get_stance(stance_id: int, db: Session = Depends(get_db)):
     s = db.query(StanceOnEventDB).get(stance_id)
     if not s:
+        logger.warning(f"StanceOnEventDB with ID {stance_id} not found")
         raise HTTPException(status_code=404, detail="StanceOnEventDB not found")
     stance_fields = StanceOnEvent.model_fields.keys()
     score_fields = SpectrumScore.model_fields.keys()
@@ -284,8 +305,10 @@ def get_stance(stance_id: int, db: Session = Depends(get_db)):
 
 @app.put("/stances/{stance_id}", response_model=StanceOnEvent)
 def update_stance(stance_id: int, stance: StanceOnEvent, db: Session = Depends(get_db)):
+    logger.info(f"Updating stance with ID {stance_id}")
     db_stance = db.query(StanceOnEventDB).get(stance_id)
     if not db_stance:
+        logger.warning(f"StanceOnEventDB with ID {stance_id} not found")
         raise HTTPException(status_code=404, detail="StanceOnEventDB not found")
     import datetime
     data = stance.model_dump(exclude_unset=True)
@@ -317,17 +340,19 @@ def update_stance(stance_id: int, stance: StanceOnEvent, db: Session = Depends(g
 
 @app.delete("/stances/{stance_id}")
 def delete_stance(stance_id: int, db: Session = Depends(get_db)):
+    logger.info(f"Deleting stance with ID {stance_id}")
     db_stance = db.query(StanceOnEventDB).get(stance_id)
     if not db_stance:
+        logger.warning(f"StanceOnEventDB with ID {stance_id} not found")
         raise HTTPException(status_code=404, detail="StanceOnEventDB not found")
     db.delete(db_stance)
     db.commit()
-    return {"detail": f"Deleted stance {stance_id}"}
+    return {"detail": f"Deleted."}
 
-# Calculation endpoints
 # get avarage spectrum scores for a person
-@app.get("/persons/{person_id}/average_spectra", response_model=List[AverageSpectra])
-def get_person_average_spectra(person_id: int, db: Session = Depends(get_db)):
+@app.get("/persons/{person_id}/average_spectra_scores", response_model=List[AverageSpectra])
+def get_person_average_spectra_scores(person_id: int, db: Session = Depends(get_db)):
+    logger.info(f"Calculating average spectra for person with ID {person_id}")
     scores = (
         db.query(SpectrumScoreDB)
         .join(StanceOnEventDB)
@@ -355,3 +380,33 @@ def get_person_average_spectra(person_id: int, db: Session = Depends(get_db)):
         }))
 
     return average_scores
+
+# get avarage score for a spectrum
+@app.get("/spectra/{spectrum_id}/average_scores", response_model=AverageSpectra)
+def get_spectrum_average_scores(spectrum_id: int, db: Session = Depends(get_db)):
+    logger.info(f"Calculating average scores for spectrum with ID {spectrum_id}")
+    values = [v for (v,) in db.query(SpectrumScoreDB.value).filter(SpectrumScoreDB.spectrum_id == spectrum_id).all()]
+
+    if not values:
+        logger.warning(f"No scores found for SpectrumDB with ID {spectrum_id}")
+        return AverageSpectra.model_validate({
+            "spectrum": str(spectrum_id),
+            "mean_value": 0,
+            "stdev_value": 0.0,
+            "count": 0,
+        })
+
+    if len(values) == 1:
+        return AverageSpectra.model_validate({
+            "spectrum": str(spectrum_id),
+            "mean_value": values[0],
+            "stdev_value": 0.0,
+            "count": 1,
+        })
+    
+    return AverageSpectra.model_validate({
+        "spectrum": str(spectrum_id),
+        "mean_value": mean(values),
+        "stdev_value": round(stdev(values), 2),
+        "count": len(values),
+    })
