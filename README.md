@@ -2,9 +2,7 @@
 ## To launch:
 Terminal 1 (backend):
 ```bash
-cd backend
-conda activate ./venv
-cd src
+cd backend/src
 python -m pip install -r requirements.txt
 python -m uvicorn api:app
 ```
