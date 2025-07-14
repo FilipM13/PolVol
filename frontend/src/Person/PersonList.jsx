@@ -1,7 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { API_ROOT } from "../../apiConfig";
 import styles from "./Person.module.css";
+import Tile from "../shared/Tile";
+import Grid from "../shared/Grid";
+import Loading from "../shared/Loading";
+import Error from "../shared/Error";
+import Button from "../shared/Button";
+import Link from "../shared/Link";
+import Header from "../shared/Header";
 
 export default function PersonList() {
   const [persons, setPersons] = useState([]);
@@ -26,8 +32,8 @@ export default function PersonList() {
     fetchPersons();
   }, []);
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div style={{ color: "red" }}>{error}</div>;
+  if (loading) return <div><Loading /></div>;
+  if (error) return <div style={{ color: "red" }}>{<Error message={error} />}</div>;
 
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this person?")) return;
@@ -42,22 +48,22 @@ export default function PersonList() {
 
   return (
     <div style={{ maxWidth: 900, margin: "2rem auto" }}>
-      <h2 style={{ color: '#a259ff', textAlign: 'center', marginBottom: '2rem' }}>Persons</h2>
+      <Header>Persons</Header>
       <div style={{ textAlign: 'center', marginTop: '2rem' }}>
-        <Link to="/create-person" className={styles.personActionLink}>Create New Person</Link>
+        <Link to="/create-person">Create New Person</Link>
       </div>
-      <div className={styles.personGrid}>
+      <Grid>
         {persons.map((p) => (
-          <div key={p.id} className={styles.personTile}>
-            <div className={styles.personName}>{p.name}</div>
-            <div className={styles.personActions}>
-              <Link to={`/edit-person/${p.id}`} className={styles.personActionLink}>Edit</Link>
-              <Link to={`/person/${p.id}`} className={styles.personActionLink}>Details</Link>
-              <button className={styles.personActionLink} style={{ border: 'none', cursor: 'pointer' }} onClick={() => handleDelete(p.id)}>Delete</button>
+          <Tile key={p.id}>
+            <div>{p.name}</div>
+            <div style={{gap: '1rem', display: 'flex'}}>
+              <Link to={`/edit-person/${p.id}`} >Edit</Link>
+              <Link to={`/person/${p.id}`} >Details</Link>
+              <Button onClick={() => handleDelete(p.id)}>Delete</Button>
             </div>
-          </div>
+          </Tile>
         ))}
-      </div>
+      </Grid>
     </div>
   );
 }
