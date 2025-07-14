@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { API_ROOT } from "../../apiConfig";
-import styles from "./Person.module.css";
 import Tile from "../shared/Tile";
 import Grid from "../shared/Grid";
 import Loading from "../shared/Loading";

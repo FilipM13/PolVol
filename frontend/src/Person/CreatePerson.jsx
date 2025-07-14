@@ -1,6 +1,11 @@
 import React, { useState } from "react";
 import { API_ROOT } from "../../apiConfig";
-import styles from "./Person.module.css";
+import Form from "../shared/Form";
+import Header from "../shared/Header";
+import Error from "../shared/Error";
+import Success from "../shared/Success";
+import Button from "../shared/Button";
+import Loading from "../shared/Loading";
 
 const initialState = {
   name: ""
@@ -40,10 +45,12 @@ export default function CreatePerson() {
     }
   };
 
+  if (loading) return <Loading />
+
   return (
-    <div className={styles.personTile} style={{ maxWidth: 400, margin: "2rem auto" }}>
-      <h2 className={styles.personName} style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>Create Person</h2>
-      <form onSubmit={handleSubmit}>
+    <>
+      <Form onSubmit={handleSubmit}>
+        <Header>Create Person</Header>
         <input
           name="name"
           value={form.name}
@@ -58,10 +65,10 @@ export default function CreatePerson() {
             fontSize: '1.1rem'
           }}
         />
-        <button type="submit" disabled={loading} className={styles.personActionLink} style={{ width: '100%' }}>Create</button>
-      </form>
-      {error && <div style={{ color: "red", marginTop: '1rem' }}>{error}</div>}
-      {success && <div style={{ color: "green", marginTop: '1rem' }}>{success}</div>}
-    </div>
+        <Button>Create</Button>
+      </Form>
+      {error && <div style={{ color: "red", marginTop: '1rem' }}><Error message={error}/></div>}
+      {success && <div style={{ color: "green", marginTop: '1rem' }}><Success message={success}/></div>}
+    </>
   );
 }

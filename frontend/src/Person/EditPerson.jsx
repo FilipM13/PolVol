@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { API_ROOT } from "../../apiConfig";
-import styles from "./Person.module.css";
+import Header from "../shared/Header";
+import Form from "../shared/Form";
+import Error from "../shared/Error";
+import Success from "../shared/Success";
+import Button from "../shared/Button";
 
 export default function EditPerson({ personId }) {
   const [form, setForm] = useState(null);
@@ -57,9 +61,9 @@ export default function EditPerson({ personId }) {
   if (!form) return null;
 
   return (
-    <div className={styles.personTile} style={{ maxWidth: 400, margin: "2rem auto" }}>
-      <h2 className={styles.personName} style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>Edit Person</h2>
-      <form onSubmit={handleSubmit}>
+    <>
+      <Form onSubmit={handleSubmit}>
+        <Header>Edit Person</Header>
         <input
           name="name"
           value={form.name || ""}
@@ -74,10 +78,10 @@ export default function EditPerson({ personId }) {
             fontSize: '1.1rem'
           }}
         />
-        <button type="submit" disabled={loading} className={styles.personActionLink} style={{ width: '100%' }}>Update</button>
-      </form>
-      {error && <div style={{ color: "red", marginTop: '1rem' }}>{error}</div>}
-      {success && <div style={{ color: "green", marginTop: '1rem' }}>{success}</div>}
-    </div>
+        <Button>Update</Button>
+      </Form>
+      {error && <Error message={error}/>}
+      {success && <Success message={success}/>}
+    </>
   );
 }
