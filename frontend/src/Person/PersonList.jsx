@@ -47,7 +47,7 @@ export default function PersonList() {
 
   return (
     <div style={{ maxWidth: 900, margin: "2rem auto" }}>
-      <H>Persons</H>
+      <H>People</H>
       <div style={{ textAlign: 'center', marginTop: '2rem' }}>
         <Link to="/create-person">Create New Person</Link>
       </div>

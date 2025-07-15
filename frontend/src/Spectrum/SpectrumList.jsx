@@ -18,7 +18,7 @@ export default function SpectrumList() {
       setLoading(true);
       setError("");
       try {
-        const res = await fetch(`${API_ROOT}/spectra`);
+        const res = await fetch(`${API_ROOT}/spectra/`);
         if (!res.ok) throw new Error(await res.text());
         const data = await res.json();
         setSpectra(data);

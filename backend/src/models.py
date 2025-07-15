@@ -1,10 +1,47 @@
-from sqlalchemy import Column, Integer, String, Float, Date, ForeignKey
+from sqlalchemy import Column, Integer, String, Float, Date, ForeignKey, DateTime
 from sqlalchemy.orm import declarative_base, relationship
+from models_validators import Authorizations
 
 Base = declarative_base()
 
 # --- SQLAlchemy ORM Classes ---
 
+class UserDB(Base):  # type: ignore [misc, valid-type]
+    """
+    Represents a user in the system.
+    """
+    __tablename__ = "users"
+    id = Column(Integer, primary_key=True)
+    username = Column(String, nullable=False, unique=True)
+    password = Column(String, nullable=False)
+    authorization = Column(
+        String,
+        default="guest",
+        nullable=False
+    )
+
+    __table_args__ = (
+        {
+            "sqlite_autoincrement": True,
+            "check_constraints": [
+                f"authorization IN ({', '.join([f'\'{auth}\'' for auth in Authorizations])})"
+            ],
+        },
+    )
+
+    tokens = relationship("TokenDB", back_populates="user", cascade="all, delete-orphan")
+
+class TokenDB(Base):  # type: ignore [misc, valid-type]
+    """
+    Represents a token for user authentication.
+    """
+    __tablename__ = "tokens"
+    id = Column(Integer, primary_key=True)
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+    token = Column(String, nullable=False, unique=True)
+    expiration = Column(DateTime, nullable=False)
+
+    user = relationship("UserDB", back_populates="tokens")
 
 class SpectrumDB(Base):  # type: ignore [misc, valid-type]
     """

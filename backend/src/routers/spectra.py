@@ -6,7 +6,7 @@ from db import get_db
 from logger import logger
 from typing import List
 
-router = APIRouter(prefix="/")
+router = APIRouter(prefix="/spectra")
 
 
 @router.post("/", response_model=Spectrum)

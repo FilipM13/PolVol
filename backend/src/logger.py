@@ -6,10 +6,10 @@ logger.setLevel(l.DEBUG)
 formatter = l.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
 
 # console
-ch = l.StreamHandler()
-ch.setLevel(l.DEBUG)
-ch.setFormatter(formatter)
-logger.addHandler(ch)
+# ch = l.StreamHandler()
+# ch.setLevel(l.DEBUG)
+# ch.setFormatter(formatter)
+# logger.addHandler(ch)
 
 # file
 fh = l.FileHandler("polvol.log")

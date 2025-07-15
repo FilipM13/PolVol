@@ -1,6 +1,6 @@
 
 import React from "react";
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Header from "./Header/Header.jsx";
 import Footer from "./Footer/Footer.jsx";
 import CreatePerson from "./Person/CreatePerson.jsx";
@@ -22,16 +22,18 @@ import CreateStanceOnEvent from "./StanceOnEvent/CreateStanceOnEvent.jsx";
 import EditStanceOnEvent from "./StanceOnEvent/EditStanceOnEvent.jsx";
 import StanceOnEventList from "./StanceOnEvent/StanceOnEventList.jsx";
 import StanceOnEventDetails from "./StanceOnEvent/StanceOnEventDetails.jsx";
+import Login from "./Login/Login.jsx";
 
 import styles from "./App.module.css";
 
-export default function App() {
+function App() {
   return (
     <BrowserRouter>
       <Header />
       <div className={styles.appContainer}>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/create-person" element={<CreatePerson />} />
           <Route path="/persons" element={<PersonList />} />
           <Route path="/edit-person/:id" element={<EditPersonWrapper />} />
@@ -95,3 +97,8 @@ function StanceOnEventDetailsWrapper() {
   const { id } = useParams();
   return <StanceOnEventDetails stanceId={id} />;
 }
+
+
+
+
+export default App;
