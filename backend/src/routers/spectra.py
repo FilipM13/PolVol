@@ -6,10 +6,10 @@ from db import get_db
 from logger import logger
 from typing import List
 
-router = APIRouter()
+router = APIRouter(prefix="/")
 
 
-@router.post("/spectra", response_model=Spectrum)
+@router.post("/", response_model=Spectrum)
 def create_spectrum(spectrum: Spectrum, db: Session = Depends(get_db)):
     logger.info(f"Creating spectrum: {spectrum.name}")
     db_spectrum = SpectrumDB(**spectrum.model_dump(exclude_unset=True))
@@ -21,7 +21,7 @@ def create_spectrum(spectrum: Spectrum, db: Session = Depends(get_db)):
     return Spectrum.model_validate(data)
 
 
-@router.get("/spectra", response_model=List[Spectrum])
+@router.get("/", response_model=List[Spectrum])
 def list_spectrums(db: Session = Depends(get_db)):
     spectrums = db.query(SpectrumDB).all()
     fields = Spectrum.model_fields.keys()
@@ -31,7 +31,7 @@ def list_spectrums(db: Session = Depends(get_db)):
     ]
 
 
-@router.get("/spectra/{spectrum_id}", response_model=Spectrum)
+@router.get("/{spectrum_id}", response_model=Spectrum)
 def get_spectrum(spectrum_id: int, db: Session = Depends(get_db)):
     s = db.query(SpectrumDB).get(spectrum_id)
     if not s:
@@ -42,7 +42,7 @@ def get_spectrum(spectrum_id: int, db: Session = Depends(get_db)):
     return Spectrum.model_validate(data)
 
 
-@router.put("/spectra/{spectrum_id}", response_model=Spectrum)
+@router.put("/{spectrum_id}", response_model=Spectrum)
 def update_spectrum(
     spectrum_id: int, spectrum: Spectrum, db: Session = Depends(get_db)
 ):
@@ -60,7 +60,7 @@ def update_spectrum(
     return Spectrum.model_validate(data)
 
 
-@router.delete("/spectra/{spectrum_id}")
+@router.delete("/{spectrum_id}")
 def delete_spectrum(spectrum_id: int, db: Session = Depends(get_db)):
     logger.info(f"Deleting spectrum with ID {spectrum_id}")
     db_spectrum = db.query(SpectrumDB).get(spectrum_id)

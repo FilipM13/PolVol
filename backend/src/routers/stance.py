@@ -7,10 +7,10 @@ from logger import logger
 from typing import List
 import datetime
 
-router = APIRouter()
+router = APIRouter(prefix="/stances")
 
 
-@router.post("/stances", response_model=StanceOnEvent)
+@router.post("/", response_model=StanceOnEvent)
 def create_stance(stance: StanceOnEvent, db: Session = Depends(get_db)):
     logger.info(
         f"Creating stance for event: {stance.event_id} by person: {stance.person_id}"
@@ -46,7 +46,7 @@ def create_stance(stance: StanceOnEvent, db: Session = Depends(get_db)):
     return StanceOnEvent.model_validate(data)
 
 
-@router.get("/stances", response_model=List[StanceOnEvent])
+@router.get("/", response_model=List[StanceOnEvent])
 def list_stances(db: Session = Depends(get_db)):
     stances = db.query(StanceOnEventDB).all()
     stance_fields = StanceOnEvent.model_fields.keys()
@@ -64,7 +64,7 @@ def list_stances(db: Session = Depends(get_db)):
     return result
 
 
-@router.get("/stances/{stance_id}", response_model=StanceOnEvent)
+@router.get("/{stance_id}", response_model=StanceOnEvent)
 def get_stance(stance_id: int, db: Session = Depends(get_db)):
     s = db.query(StanceOnEventDB).get(stance_id)
     if not s:
@@ -81,7 +81,7 @@ def get_stance(stance_id: int, db: Session = Depends(get_db)):
     return stance_dict
 
 
-@router.put("/stances/{stance_id}", response_model=StanceOnEvent)
+@router.put("/{stance_id}", response_model=StanceOnEvent)
 def update_stance(stance_id: int, stance: StanceOnEvent, db: Session = Depends(get_db)):
     logger.info(f"Updating stance with ID {stance_id}")
     db_stance = db.query(StanceOnEventDB).get(stance_id)
@@ -128,7 +128,7 @@ def update_stance(stance_id: int, stance: StanceOnEvent, db: Session = Depends(g
     return StanceOnEvent.model_validate(data)
 
 
-@router.delete("/stances/{stance_id}")
+@router.delete("/{stance_id}")
 def delete_stance(stance_id: int, db: Session = Depends(get_db)):
     logger.info(f"Deleting stance with ID {stance_id}")
     db_stance = db.query(StanceOnEventDB).get(stance_id)

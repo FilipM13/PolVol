@@ -6,10 +6,10 @@ from db import get_db
 from logger import logger
 from typing import List
 
-router = APIRouter()
+router = APIRouter(prefix="/persons")
 
 
-@router.post("/persons", response_model=Person)
+@router.post("/", response_model=Person)
 def create_person(person: Person, db: Session = Depends(get_db)):
     logger.info(f"Creating person: {person.name}")
     import datetime
@@ -26,7 +26,7 @@ def create_person(person: Person, db: Session = Depends(get_db)):
     return Person.model_validate(data)
 
 
-@router.get("/persons", response_model=List[Person])
+@router.get("/", response_model=List[Person])
 def list_persons(db: Session = Depends(get_db)):
     persons = db.query(PersonDB).all()
     fields = Person.model_fields.keys()
@@ -36,7 +36,7 @@ def list_persons(db: Session = Depends(get_db)):
     ]
 
 
-@router.get("/persons/{person_id}", response_model=Person)
+@router.get("/{person_id}", response_model=Person)
 def get_person(person_id: int, db: Session = Depends(get_db)):
     p = db.query(PersonDB).get(person_id)
     if not p:
@@ -47,7 +47,7 @@ def get_person(person_id: int, db: Session = Depends(get_db)):
     return Person.model_validate(data)
 
 
-@router.put("/persons/{person_id}", response_model=Person)
+@router.put("/{person_id}", response_model=Person)
 def update_person(person_id: int, person: Person, db: Session = Depends(get_db)):
     logger.info(f"Updating person with ID {person_id}")
     db_person = db.query(PersonDB).get(person_id)
@@ -67,7 +67,7 @@ def update_person(person_id: int, person: Person, db: Session = Depends(get_db))
     return Person.model_validate(data)
 
 
-@router.delete("/persons/{person_id}")
+@router.delete("/{person_id}")
 def delete_person(person_id: int, db: Session = Depends(get_db)):
     logger.info(f"Deleting person with ID {person_id}")
     db_person = db.query(PersonDB).get(person_id)

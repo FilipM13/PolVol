@@ -7,10 +7,10 @@ from logger import logger
 import datetime
 from typing import List
 
-router = APIRouter()
+router = APIRouter(prefix="/events")
 
 
-@router.post("/events", response_model=Event)
+@router.post("/", response_model=Event)
 def create_event(event: Event, db: Session = Depends(get_db)):
     logger.info(f"Creating event: {event.name}")
     data = event.model_dump(exclude_unset=True)
@@ -25,7 +25,7 @@ def create_event(event: Event, db: Session = Depends(get_db)):
     return Event.model_validate(data)
 
 
-@router.get("/events", response_model=List[Event])
+@router.get("/", response_model=List[Event])
 def list_events(db: Session = Depends(get_db)):
     events = db.query(EventDB).all()
     fields = Event.model_fields.keys()
@@ -35,7 +35,7 @@ def list_events(db: Session = Depends(get_db)):
     ]
 
 
-@router.get("/events/{event_id}", response_model=Event)
+@router.get("/{event_id}", response_model=Event)
 def get_event(event_id: int, db: Session = Depends(get_db)):
     e = db.query(EventDB).get(event_id)
     if not e:
@@ -46,7 +46,7 @@ def get_event(event_id: int, db: Session = Depends(get_db)):
     return Event.model_validate(data)
 
 
-@router.put("/events/{event_id}", response_model=Event)
+@router.put("/{event_id}", response_model=Event)
 def update_event(event_id: int, event: Event, db: Session = Depends(get_db)):
     logger.info(f"Updating event with ID {event_id}")
     db_event = db.query(EventDB).get(event_id)
@@ -66,7 +66,7 @@ def update_event(event_id: int, event: Event, db: Session = Depends(get_db)):
     return Event.model_validate(data)
 
 
-@router.delete("/events/{event_id}")
+@router.delete("/{event_id}")
 def delete_event(event_id: int, db: Session = Depends(get_db)):
     logger.info(f"Deleting event with ID {event_id}")
     db_event = db.query(EventDB).get(event_id)
