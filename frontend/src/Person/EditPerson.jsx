@@ -45,7 +45,7 @@ export default function EditPerson({ personId }) {
     try {
       const res = await fetch(`${API_ROOT}/persons/${personId}`, {
         method: "PUT",
-        Hs: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload)
       });
       if (!res.ok) throw new Error(await res.text());
@@ -79,7 +79,7 @@ export default function EditPerson({ personId }) {
             fontSize: '1.1rem'
           }}
         />
-        <Button>Update</Button>
+        <Button type="submit">Update</Button>
       </Form>
       {error && <Error message={error}/>}
       {success && <Success message={success}/>}

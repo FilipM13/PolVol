@@ -1,3 +1,35 @@
+.SpectrumDisplay {
+  background: #fff;
+  border-radius: 0.7rem;
+  box-shadow: 0 1px 4px rgba(80, 60, 120, 0.06);
+  padding: 0.8rem 1rem;
+  color: #4b3f72;
+  font-size: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  min-width: 180px;
+  max-width: 320px;
+}
+.SpectrumDisplay .H {
+  font-size: 1.08rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #4b3f72;
+}
+.SpectrumDisplay div{
+   position: relative;
+   width: 100%;
+   margin-top: 1rem; 
+}
+.SpectrumDisplay input[type="range"] {
+  margin-top: 0.3rem;
+  width: 100%;
+  accent-color: #a259ff;
+  height: 2px;
+  background: #eceaf6;
+  border-radius: 2px;
+}
 .SuccessWrapper {
   display: flex;
   flex-direction: column;
@@ -33,13 +65,29 @@
   color: #4b3f72;
   width: 100%;
 }
-.HeaderText {
+.H1 {
   text-align: center;
   font-size: 2rem;
   font-weight: 700;
   letter-spacing: 0.02em;
   margin: 0;
-  color: #4b3f72;
+  text-align: center;
+}
+.H2 {
+  text-align: left;
+  font-size: 1.35rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  margin: 0.2rem 0 0.7rem 0;
+  text-align: center;
+}
+.H3 {
+  text-align: left;
+  font-size: 1.08rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  margin: 0.15rem 0 0.5rem 0;
+  text-align: center;
 }
 .ActionButton {
   background: #f5f5fa;

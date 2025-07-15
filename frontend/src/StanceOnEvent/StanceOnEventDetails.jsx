@@ -9,9 +9,11 @@ export default function StanceOnEventDetails({ stanceId }) {
   const [stance, setStance] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [person, setPerson] = useState(null);
+  const [event, setEvent] = useState(null);
 
   useEffect(() => {
-    async function fetchStance() {
+    async function fetchAll() {
       setLoading(true);
       setError("");
       try {
@@ -19,25 +21,35 @@ export default function StanceOnEventDetails({ stanceId }) {
         if (!res.ok) throw new Error(await res.text());
         const data = await res.json();
         setStance(data);
+
+        // Fetch person and event details in parallel
+        const [personRes, eventRes] = await Promise.all([
+          fetch(`${API_ROOT}/persons/${data.person_id}`),
+          fetch(`${API_ROOT}/events/${data.event_id}`)
+        ]);
+        if (!personRes.ok) throw new Error(await personRes.text());
+        if (!eventRes.ok) throw new Error(await eventRes.text());
+        setPerson(await personRes.json());
+        setEvent(await eventRes.json());
       } catch (err) {
-        setError(err.message || "Failed to fetch stance");
+        setError(err.message || "Failed to fetch stance/person/event");
       } finally {
         setLoading(false);
       }
     }
-    fetchStance();
+    fetchAll();
   }, [stanceId]);
 
   if (loading) return <Loading />;
   if (error) return <Error message={error} />;
-  if (!stance) return null;
+  if (!stance || !person || !event) return null;
 
   return (
     <Panel>
       <H>Stance On Event Details</H>
       <div><strong>ID:</strong> {stance.id}</div>
-      <div><strong>Event ID:</strong> {stance.event_id}</div>
-      <div><strong>Person ID:</strong> {stance.person_id}</div>
+      <div><strong>Event:</strong> {event.name} ({event.date})</div>
+      <div><strong>Person:</strong> {person.name}</div>
       <div><strong>Date:</strong> {stance.date}</div>
       <H>Spectrum Scores</H>
       <ul>

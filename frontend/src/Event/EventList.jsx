@@ -54,7 +54,7 @@ export default function EventList() {
       <Grid>
         {events.map((e) => (
           <Tile key={e.id}>
-            <H>{e.name}</H>
+            <H level={2}>{e.name}</H>
             <div>({e.date})</div>
             <div style={{gap: '1rem', display: 'flex'}}>
               <Link to={`/edit-event/${e.id}`}>Edit</Link>

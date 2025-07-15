@@ -32,7 +32,7 @@ export default function CreatePerson() {
     try {
       const res = await fetch(`${API_ROOT}/persons`, {
         method: "POST",
-        Hs: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload)
       });
       if (!res.ok) throw new Error(await res.text());

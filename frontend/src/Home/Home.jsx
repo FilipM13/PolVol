@@ -8,7 +8,7 @@ function Home() {
   return (
     <Panel size={"large"}>
       <H>Welcome to PolVol</H>
-      <H>Measuring Political Volatility</H>
+      <H level={2}>Measuring Political Volatility</H>
       <p style={{textAlign: "center"}}>
         Opinions of public figures can change rapidly and be dishonest depending on the public's preference.
         PolVol is a platform that allows you to track these changes and see how public figures change their opinions on various topics and events.
@@ -18,25 +18,25 @@ function Home() {
       <Grid>
         <Link to="/persons" style={{ textDecoration: "none" }}>
           <Panel size="small">
-            <H>Browse People</H>
+            <H level={2}>Browse People</H>
             <p>See how people change their view on topics and events...</p>
           </Panel>
         </Link>
         <Link to="/events" style={{ textDecoration: "none" }}>
           <Panel size="small">
-            <H>Browse Events</H>
+            <H level={2}>Browse Events</H>
             <p>Stay on top of what's happening around the world...</p>
           </Panel>
         </Link>
         <Link to="/spectra" style={{ textDecoration: "none" }}>
           <Panel size="small">
-            <H>Browse Spectra</H>
+            <H level={2}>Browse Spectra</H>
             <p>Check what spectra in people's opinions do we measure...</p>
           </Panel>
         </Link>
         <Link to="/stances" style={{ textDecoration: "none" }}>
           <Panel size="small">
-            <H>Browse People's Opinions</H>
+            <H level={2}>Browse People's Opinions</H>
             <p>Dive deep and get to know people's opinions...</p>
           </Panel>
         </Link>

@@ -54,7 +54,7 @@ export default function SpectrumList() {
       <Grid>
         {spectra.map((s) => (
           <Tile key={s.id}>
-            <H>{s.name}</H>
+            <H level={2}>{s.name}</H>
             <div style={{gap: '1rem', display: 'flex'}}>
               <Link to={`/edit-spectrum/${s.id}`}>Edit</Link>
               <Link to={`/spectrum/${s.id}`}>Details</Link>

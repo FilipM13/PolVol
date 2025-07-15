@@ -54,7 +54,7 @@ export default function PersonList() {
       <Grid>
         {persons.map((p) => (
           <Tile key={p.id}>
-            <H>{p.name}</H>
+            <H level={2}>{p.name}</H>
             <div style={{gap: '1rem', display: 'flex'}}>
               <Link to={`/edit-person/${p.id}`} >Edit</Link>
               <Link to={`/person/${p.id}`} >Details</Link>
