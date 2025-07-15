@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { API_ROOT } from "../../apiConfig";
-import styles from "./StanceOnEvent.module.css";
+import Panel from "../shared/Panel";
+import H from "../shared/H";
+import Loading from "../shared/Loading";
+import Error from "../shared/Error";
 
 export default function StanceOnEventDetails({ stanceId }) {
   const [stance, setStance] = useState(null);
@@ -25,25 +28,25 @@ export default function StanceOnEventDetails({ stanceId }) {
     fetchStance();
   }, [stanceId]);
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div style={{ color: "red" }}>{error}</div>;
+  if (loading) return <Loading />;
+  if (error) return <Error message={error} />;
   if (!stance) return null;
 
   return (
-    <div className={styles.stanceTile}>
-      <h2 className={styles.stanceTitle} style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>Stance On Event Details</h2>
-      <div className={styles.stanceId}><strong>ID:</strong> {stance.id}</div>
-      <div className={styles.stanceId}><strong>Event ID:</strong> {stance.event_id}</div>
-      <div className={styles.stanceId}><strong>Person ID:</strong> {stance.person_id}</div>
-      <div className={styles.stanceId}><strong>Date:</strong> {stance.date}</div>
-      <h4 style={{ marginTop: '1.2rem', color: '#a259ff' }}>Spectrum Scores</h4>
-      <ul className={styles.stanceScores}>
+    <Panel>
+      <H>Stance On Event Details</H>
+      <div><strong>ID:</strong> {stance.id}</div>
+      <div><strong>Event ID:</strong> {stance.event_id}</div>
+      <div><strong>Person ID:</strong> {stance.person_id}</div>
+      <div><strong>Date:</strong> {stance.date}</div>
+      <H>Spectrum Scores</H>
+      <ul>
         {stance.scores && stance.scores.map((score, idx) => (
           <li key={idx}>
             Spectrum ID: {score.spectrum_id}, Value: {score.value}
           </li>
         ))}
       </ul>
-    </div>
+    </Panel>
   );
 }

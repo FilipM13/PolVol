@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { API_ROOT } from "../../apiConfig";
-import styles from "./StanceOnEvent.module.css";
+import H from "../shared/H";
+import Loading from "../shared/Loading";
+import Error from "../shared/Error";
+import Button from "../shared/Button";
+import Link from "../shared/Link";
+import Grid from "../shared/Grid";
+import Tile from "../shared/Tile";
 
 export default function StanceOnEventList() {
   const [stances, setStances] = useState([]);
@@ -54,27 +59,27 @@ export default function StanceOnEventList() {
       alert(err.message || "Failed to delete stance");
     }
   };
-
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div style={{ color: "red" }}>{error}</div>;
+  
+  if (loading) return <Loading />;
+  if (error) return <Error message={error} />;
 
   return (
     <div style={{ maxWidth: 900, margin: "2rem auto" }}>
-      <h2 style={{ color: '#a259ff', textAlign: 'center', marginBottom: '2rem' }}>Stances On Event</h2>
+      <H>Stances On Event</H>
       <div style={{ textAlign: 'center', marginTop: '2rem' }}>
-        <Link to="/create-stance" className={styles.stanceActionLink}>Create New Stance</Link>
+        <Link to="/create-stance" >Create New Stance</Link>
       </div>
-      <ul className={styles.stanceList}>
+      <Grid>
         {stances.map((s) => {
           const person = persons.find(p => p.id === s.person_id);
           const event = events.find(e => e.id === s.event_id);
           return (
-            <li key={s.id} className={styles.stanceListItem}>
+            <Tile key={s.id}>
               <span>
                 <small>DATE: {s.date}</small><br/> 
                 Person: {person ? person.name : s.person_id}<br/>
                 Event: {event ? `${event.name} (${event.date})` : s.event_id}<br/> 
-                <ul className={styles.stanceScores}>
+                <ul>
                   {s.scores && s.scores.map((score, idx) => {
                     const spectrum = spectrums.find(sp => sp.id === score.spectrum_id);
                     return (
@@ -85,15 +90,15 @@ export default function StanceOnEventList() {
                   })}
                 </ul>
               </span>
-              <span className={styles.stanceListActions}>
-                <Link to={`/edit-stance/${s.id}`} className={styles.stanceActionLink}>Edit</Link>
-                <Link to={`/stance/${s.id}`} className={styles.stanceActionLink}>Details</Link>
-                <button className={styles.stanceActionLink} onClick={() => handleDelete(s.id)}>Delete</button>
-              </span>
-            </li>
+            <div style={{gap: '1rem', display: 'flex'}}>
+                <Link to={`/edit-stance/${s.id}`}>Edit</Link>
+                <Link to={`/stance/${s.id}`}>Details</Link>
+                <Button onClick={() => handleDelete(s.id)}>Delete</Button>
+              </div>
+            </Tile>
           );
         })}
-      </ul>
+      </Grid>
     </div>
   );
 }

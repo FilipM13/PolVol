@@ -1,6 +1,12 @@
 import React, { useState } from "react";
 import { API_ROOT } from "../../apiConfig";
-import styles from "./Event.module.css";
+import H from "../shared/H";
+import Button from "../shared/Button";
+import Form from "../shared/Form";
+import Loading from "../shared/Loading";
+import Error from "../shared/Error";
+import Success from "../shared/Success";
+
 const initialState = {
   name: "",
   date: ""
@@ -38,10 +44,13 @@ export default function CreateEvent() {
     }
   };
 
+  if (loading) return <div><Loading /></div>;
+  if (error) return <div style={{ color: "red" }}>{<Error message={error} />}</div>;
+
   return (
-    <div className={styles.eventTile}>
-      <h2 className={styles.eventTitle} style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>Create Event</h2>
-      <form onSubmit={handleSubmit}>
+    <>
+      <Form onSubmit={handleSubmit}>
+        <H>Create Event</H>
         <input
           name="name"
           value={form.name}
@@ -71,10 +80,10 @@ export default function CreateEvent() {
             fontSize: '1.1rem'
           }}
         />
-        <button type="submit" disabled={loading} className={styles.eventActionLink} style={{ width: '100%' }}>Create</button>
-      </form>
-      {error && <div style={{ color: "red", marginTop: '1rem' }}>{error}</div>}
-      {success && <div style={{ color: "green", marginTop: '1rem' }}>{success}</div>}
-    </div>
+        <Button type="submit">Create</Button>
+      </Form>
+      {error && <div style={{ color: "red", marginTop: '1rem' }}><Error message={error}/></div>}
+      {success && <div style={{ color: "green", marginTop: '1rem' }}><Success message={success}/></div>}
+    </>
   );
 }

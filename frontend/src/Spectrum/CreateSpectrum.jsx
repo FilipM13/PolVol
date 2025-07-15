@@ -1,6 +1,12 @@
 import React, { useState } from "react";
 import { API_ROOT } from "../../apiConfig";
-import styles from "./Spectrum.module.css";
+import H from "../shared/H";
+import Form from "../shared/Form";
+import Button from "../shared/Button";
+import Error from "../shared/Error";
+import Success from "../shared/Success";
+import Loading from "../shared/Loading";
+
 const initialState = {
   name: ""
 };
@@ -37,13 +43,12 @@ export default function CreateSpectrum() {
     }
   };
 
-  if (loading) return <div className={styles.spectrumForm}>Loading...</div>;
+  if (loading) return <Loading />;
   return (
-    <div className={styles.spectrumForm}>
-      <h2 className={styles.spectrumDetailsTitle}>Create Spectrum</h2>
-      <form onSubmit={handleSubmit}>
+    <>
+      <Form onSubmit={handleSubmit}>
+        <H>Create Spectrum</H>
         <input
-          className={styles.spectrumFormInput}
           id="name"
           name="name"
           value={form.name}
@@ -51,10 +56,10 @@ export default function CreateSpectrum() {
           placeholder="Name"
           required
         />
-        <button className={styles.spectrumFormButton} type="submit" disabled={loading}>Create</button>
-      </form>
-      {error && <div style={{ color: "red", marginTop: "1rem" }}>{error}</div>}
-      {success && <div style={{ color: "green", marginTop: "1rem" }}>{success}</div>}
-    </div>
+        <Button type="submit">Create</Button>
+      </Form>
+      {error && <Error message={error}/>}
+      {success && <Success message={success}/>}
+    </>
   );
 }

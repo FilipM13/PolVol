@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { API_ROOT } from "../../apiConfig";
-import styles from "./Spectrum.module.css";
+import Form from "../shared/Form";
+import H from "../shared/H";
+import Button from "../shared/Button";
+import Error from "../shared/Error";
+import Success from "../shared/Success";
+import Loading from "../shared/Loading";
 
 export default function EditSpectrum({ spectrumId }) {
   const [form, setForm] = useState(null);
@@ -51,16 +56,15 @@ export default function EditSpectrum({ spectrumId }) {
     }
   };
 
-  if (loading) return <div className={styles.spectrumForm}>Loading...</div>;
-  if (error) return <div className={styles.spectrumForm} style={{ color: "red" }}>{error}</div>;
+  if (loading) return <Loading />;
+  if (error) return <Error message={error}/>
   if (!form) return null;
 
   return (
-    <div className={styles.spectrumForm}>
-      <h2 className={styles.spectrumDetailsTitle}>Edit Spectrum</h2>
-      <form onSubmit={handleSubmit}>
+    <>
+      <Form onSubmit={handleSubmit}>
+      <H>Edit Spectrum</H>
         <input
-          className={styles.spectrumFormInput}
           id="name"
           name="name"
           value={form.name || ""}
@@ -68,10 +72,10 @@ export default function EditSpectrum({ spectrumId }) {
           placeholder="Name"
           required
         />
-        <button className={styles.spectrumFormButton} type="submit" disabled={loading}>Update</button>
-      </form>
-      {error && <div style={{ color: "red", marginTop: "1rem" }}>{error}</div>}
-      {success && <div style={{ color: "green", marginTop: "1rem" }}>{success}</div>}
-    </div>
+        <Button type="submit">Update</Button>
+      </Form>
+      {error && <Error message={error}/>}
+      {success && <Success message={success}/>}
+    </>
   );
 }

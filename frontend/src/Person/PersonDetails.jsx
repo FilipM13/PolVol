@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { API_ROOT } from "../../apiConfig";
 import Panel from "../shared/Panel";
-import Header from "../shared/Header";
+import H from "../shared/H";
 import Tile from "../shared/Tile";
 import Grid from "../shared/Grid";
 
@@ -36,7 +36,7 @@ function PersonScores({ personId }) {
     <Grid>
       {scores.map((score, indx) => (
         <Tile key={indx}>
-          <Header>{score.spectrum}</Header>
+          <H>{score.spectrum}</H>
           <div>Mean: {score.mean_value}</div>
           <div>Volatility: {score.stdev_value}</div>
           <div>Number of datapoints: {score.count}</div>
@@ -75,7 +75,7 @@ export default function PersonDetails({ personId }) {
 
   return (
     <Panel>
-      <Header>Person Details</Header>
+      <H>Person Details</H>
       <div><strong>Name:</strong> {person.name}</div>
       <div><strong>ID:</strong> {person.id}</div>
       <PersonScores personId={personId}/>

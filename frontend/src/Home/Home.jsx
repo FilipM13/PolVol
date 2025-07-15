@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import Header from "../shared/Header";
+import H from "../shared/H";
 import Panel from "../shared/Panel";
 import Grid from "../shared/Grid";
 import Tile from "../shared/Tile";
@@ -7,8 +7,8 @@ import Tile from "../shared/Tile";
 function Home() {
   return (
     <Panel>
-      <Header>Welcome to PolVol</Header>
-      <Header>Measuring Political Volatility</Header>
+      <H>Welcome to PolVol</H>
+      <H>Measuring Political Volatility</H>
       <p style={{textAlign: "center"}}>
         Opinions of public figures can change rapidly and be dishonest depending on the public's preference.
         PolVol is a platform that allows you to track these changes and see how public figures change their opinions on various topics and events.
@@ -18,25 +18,25 @@ function Home() {
       <Grid>
         <Link to="/persons" style={{ textDecoration: "none" }}>
           <Tile>
-            <Header>Browse People</Header>
+            <H>Browse People</H>
             <p>See how people change their view on topics and events...</p>
           </Tile>
         </Link>
         <Link to="/events" style={{ textDecoration: "none" }}>
           <Tile>
-            <Header>Browse Events</Header>
+            <H>Browse Events</H>
             <p>Stay on top of what's happening around the world...</p>
           </Tile>
         </Link>
         <Link to="/spectra" style={{ textDecoration: "none" }}>
           <Tile>
-            <Header>Browse Spectra</Header>
+            <H>Browse Spectra</H>
             <p>Check what spectra in people's opinions do we measure...</p>
           </Tile>
         </Link>
         <Link to="/stances" style={{ textDecoration: "none" }}>
           <Tile>
-            <Header>Browse People's Opinions</Header>
+            <H>Browse People's Opinions</H>
             <p>Dive deep and get to know people's opinions...</p>
           </Tile>
         </Link>

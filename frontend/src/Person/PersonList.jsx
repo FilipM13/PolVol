@@ -6,7 +6,7 @@ import Loading from "../shared/Loading";
 import Error from "../shared/Error";
 import Button from "../shared/Button";
 import Link from "../shared/Link";
-import Header from "../shared/Header";
+import H from "../shared/H";
 
 export default function PersonList() {
   const [persons, setPersons] = useState([]);
@@ -31,8 +31,8 @@ export default function PersonList() {
     fetchPersons();
   }, []);
 
-  if (loading) return <div><Loading /></div>;
-  if (error) return <div style={{ color: "red" }}>{<Error message={error} />}</div>;
+  if (loading) return <Loading />;
+  if (error) return <Error message={error} />;
 
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this person?")) return;
@@ -47,14 +47,14 @@ export default function PersonList() {
 
   return (
     <div style={{ maxWidth: 900, margin: "2rem auto" }}>
-      <Header>Persons</Header>
+      <H>Persons</H>
       <div style={{ textAlign: 'center', marginTop: '2rem' }}>
         <Link to="/create-person">Create New Person</Link>
       </div>
       <Grid>
         {persons.map((p) => (
           <Tile key={p.id}>
-            <div>{p.name}</div>
+            <H>{p.name}</H>
             <div style={{gap: '1rem', display: 'flex'}}>
               <Link to={`/edit-person/${p.id}`} >Edit</Link>
               <Link to={`/person/${p.id}`} >Details</Link>

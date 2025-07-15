@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { API_ROOT } from "../../apiConfig";
 import Form from "../shared/Form";
-import Header from "../shared/Header";
+import H from "../shared/H";
 import Error from "../shared/Error";
 import Success from "../shared/Success";
 import Button from "../shared/Button";
@@ -32,7 +32,7 @@ export default function CreatePerson() {
     try {
       const res = await fetch(`${API_ROOT}/persons`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        Hs: { "Content-Type": "application/json" },
         body: JSON.stringify(payload)
       });
       if (!res.ok) throw new Error(await res.text());
@@ -50,7 +50,7 @@ export default function CreatePerson() {
   return (
     <>
       <Form onSubmit={handleSubmit}>
-        <Header>Create Person</Header>
+        <H>Create Person</H>
         <input
           name="name"
           value={form.name}
@@ -67,8 +67,8 @@ export default function CreatePerson() {
         />
         <Button>Create</Button>
       </Form>
-      {error && <div style={{ color: "red", marginTop: '1rem' }}><Error message={error}/></div>}
-      {success && <div style={{ color: "green", marginTop: '1rem' }}><Success message={success}/></div>}
+      {error && <Error message={error}/>}
+      {success && <Success message={success}/>}
     </>
   );
 }

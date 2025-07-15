@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { API_ROOT } from "../../apiConfig";
-import Header from "../shared/Header";
+import H from "../shared/H";
 import Form from "../shared/Form";
 import Error from "../shared/Error";
 import Success from "../shared/Success";
@@ -44,7 +44,7 @@ export default function EditPerson({ personId }) {
     try {
       const res = await fetch(`${API_ROOT}/persons/${personId}`, {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
+        Hs: { "Content-Type": "application/json" },
         body: JSON.stringify(payload)
       });
       if (!res.ok) throw new Error(await res.text());
@@ -63,7 +63,7 @@ export default function EditPerson({ personId }) {
   return (
     <>
       <Form onSubmit={handleSubmit}>
-        <Header>Edit Person</Header>
+        <H>Edit Person</H>
         <input
           name="name"
           value={form.name || ""}

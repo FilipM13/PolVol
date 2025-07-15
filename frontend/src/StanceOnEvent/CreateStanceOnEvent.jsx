@@ -1,6 +1,11 @@
 import React, { useState } from "react";
 import { API_ROOT } from "../../apiConfig";
-import styles from "./StanceOnEvent.module.css";
+import Form from "../shared/Form";
+import H from "../shared/H";
+import Error from "../shared/Error";
+import Success from "../shared/Success";
+import Button from "../shared/Button";
+import Loading from "../shared/Loading";
 
 const initialState = {
   event_id: "",
@@ -123,11 +128,13 @@ export default function CreateStanceOnEvent() {
       setLoading(false);
     }
   };
+  
+  if (loading) return <Loading />
 
   return (
-    <div className={styles.stanceTile}>
-      <h2 className={styles.stanceTitle} style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>Create Stance On Event</h2>
-      <form onSubmit={handleSubmit}>
+    <>
+      <Form onSubmit={handleSubmit}>
+        <H>Create Stance On Event</H>
         <select
           name="event_id"
           value={form.event_id}
@@ -191,7 +198,7 @@ export default function CreateStanceOnEvent() {
             fontSize: '1.1rem'
           }}
         />
-        <h4 style={{ marginTop: '1.2rem', color: '#a259ff' }}>Spectrum Scores</h4>
+        <H>Spectrum Scores</H>
         {form.scores.map((score, idx) => (
           <div key={idx} style={{ marginBottom: "0.5rem", display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
             <select
@@ -212,15 +219,15 @@ export default function CreateStanceOnEvent() {
             </select>
             {spectraError && <div style={{ color: 'red', marginBottom: '1rem' }}>{spectraError}</div>}
             <input name="value" value={score.value} onChange={e => handleScoreChange(idx, e)} placeholder="Value (-50 to 50)" type="number" min="-50" max="50" required style={{ width: '110px', padding: '0.5rem', borderRadius: '8px', border: '1px solid #e0d7fa' }} />
-            <button type="button" onClick={() => handleRemoveScore(idx)} className={styles.stanceActionLink}>Remove</button>
+            <Button type="button" onClick={() => handleRemoveScore(idx)}>Remove</Button>
           </div>
         ))}
-        <button type="button" onClick={handleAddScore} className={styles.stanceActionLink}>Add Score</button>
+        <Button type="button" onClick={handleAddScore}>Add Score</Button>
         <br /><br />
-        <button type="submit" disabled={loading} className={styles.stanceActionLink} style={{ width: '100%' }}>Create</button>
-      </form>
-      {error && <div style={{ color: "red", marginTop: '1rem' }}>{error}</div>}
-      {success && <div style={{ color: "green", marginTop: '1rem' }}>{success}</div>}
-    </div>
+        <Button type="submit">Create</Button>
+      </Form>
+      {error && <Error message={error}/>}
+      {success && <Success message={success}/>}
+    </>
   );
 }

@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { API_ROOT } from "../../apiConfig";
-import styles from "./Spectrum.module.css";
+import Panel from "../shared/Panel";
+import H from "../shared/H";
+import Loading from "../shared/Loading";
+import Error from "../shared/Error";
 
 export default function SpectrumDetails({ spectrumId }) {
   const [spectrum, setSpectrum] = useState(null);
@@ -32,25 +35,23 @@ export default function SpectrumDetails({ spectrumId }) {
     fetchSpectrumAndScores();
   }, [spectrumId]);
 
-  if (loading) return <div className={styles.spectrumDetailsCard}>Loading...</div>;
-  if (error) return <div className={styles.spectrumDetailsCard} style={{ color: "red" }}>{error}</div>;
+  if (loading) return <Loading />
+  if (error) return <Error message={error} />;
   if (!spectrum) return null;
 
   return (
-    <div className={styles.spectrumDetailsCard}>
-      <h2 className={styles.spectrumDetailsTitle}>Spectrum Details</h2>
-      <div className={styles.spectrumDetailsText}><strong>Name:</strong> {spectrum.name}</div>
-      <div className={styles.spectrumDetailsText}><strong>ID:</strong> {spectrum.id}</div>
+    <Panel>
+      <H>Spectrum Details</H>
+      <div><strong>Name:</strong> {spectrum.name}</div>
+      <div><strong>ID:</strong> {spectrum.id}</div>
+      <H>Average Scores</H>
       {scores && (
-        <div className={styles.spectrumScoresSection}>
-          <h3 className={styles.spectrumScoresTitle}>Average Scores</h3>
-          <ul className={styles.spectrumScoresList}>
-            <li><strong>Mean:</strong> {scores.mean_value}</li>
-            <li><strong>Stdev:</strong> {scores.stdev_value}</li>
-            <li><strong>Count:</strong> {scores.count}</li>
-          </ul>
-        </div>
+        <ul>
+          <li><strong>Mean:</strong> {scores.mean_value}</li>
+          <li><strong>Stdev:</strong> {scores.stdev_value}</li>
+          <li><strong>Count:</strong> {scores.count}</li>
+        </ul>
       )}
-    </div>
+    </Panel>
   );
 }

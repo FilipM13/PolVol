@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
 import { API_ROOT } from "../../apiConfig";
-import styles from "./Spectrum.module.css";
+import H from "../shared/H";
+import Loading from "../shared/Loading";
+import Error from "../shared/Error";
+import Button from "../shared/Button";
+import Link from "../shared/Link";
+import Grid from "../shared/Grid";
+import Tile from "../shared/Tile";
 
 export default function SpectrumList() {
   const [spectra, setSpectra] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchSpectra() {
@@ -38,29 +42,27 @@ export default function SpectrumList() {
     }
   };
 
-  if (loading) return <div className={styles.spectrumGrid}>Loading...</div>;
-  if (error) return <div style={{ color: "red" }}>{error}</div>;
+  if (loading) return <Loading />;
+  if (error) return <Error message={error} />;
 
   return (
-    <div>
-      <h2 style={{ color: '#a259ff', textAlign: 'center', marginBottom: '2rem' }}>Spectra</h2>
+    <div style={{ maxWidth: 900, margin: "2rem auto" }}>
+      <H>Spectra</H>
       <div style={{ textAlign: 'center', marginTop: '2rem' }}>
-        <Link to="/create-spectrum">
-          <button className={styles.spectrumFormButton}>Create Spectrum</button>
-        </Link>
+        <Link to="/create-spectrum">Create Spectrum</Link>
       </div>
-      <div className={styles.spectrumGrid}>
+      <Grid>
         {spectra.map((s) => (
-          <div key={s.id} className={styles.spectrumTile}>
-            <div className={styles.spectrumName}>{s.name}</div>
-            <div className={styles.spectrumActions}>
-              <Link className={styles.spectrumActionLink} to={`/spectrum/${s.id}`}>Details</Link>
-              <Link className={styles.spectrumActionLink} to={`/edit-spectrum/${s.id}`}>Edit</Link>
-              <button className={styles.spectrumActionLink} style={{ border: "none" }} onClick={() => handleDelete(s.id)}>Delete</button>
+          <Tile key={s.id}>
+            <H>{s.name}</H>
+            <div style={{gap: '1rem', display: 'flex'}}>
+              <Link to={`/spectrum/${s.id}`}>Details</Link>
+              <Link to={`/edit-spectrum/${s.id}`}>Edit</Link>
+              <Button onClick={() => handleDelete(s.id)}>Delete</Button>
             </div>
-          </div>
+          </Tile>
         ))}
-      </div>
+      </Grid>
     </div>
   );
 }

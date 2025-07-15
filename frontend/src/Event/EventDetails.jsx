@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { API_ROOT } from "../../apiConfig";
-import styles from "./Event.module.css";
+import Panel from "../shared/Panel";
+import H from "../shared/H";
+import Loading from "../shared/Loading";
+import Error from "../shared/Error";
+
 export default function EventDetails({ eventId }) {
   const [event, setEvent] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -24,16 +28,16 @@ export default function EventDetails({ eventId }) {
     fetchEvent();
   }, [eventId]);
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div style={{ color: "red" }}>{error}</div>;
+  if (loading) return <div><Loading /></div>;
+  if (error) return <div style={{ color: "red" }}>{<Error message={error} />}</div>;
   if (!event) return null;
 
   return (
-    <div className={styles.eventTile}>
-      <h2 className={styles.eventTitle} style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>Event Details</h2>
-      <div className={styles.eventId}><strong>Name:</strong> {event.name}</div>
-      <div className={styles.eventId}><strong>Date:</strong> {event.date}</div>
-      <div className={styles.eventId}><strong>ID:</strong> {event.id}</div>
-    </div>
+    <Panel>
+      <H>Event Details</H>
+      <div><strong>Name:</strong> {event.name}</div>
+      <div><strong>Date:</strong> {event.date}</div>
+      <div><strong>ID:</strong> {event.id}</div>
+    </Panel>
   );
 }

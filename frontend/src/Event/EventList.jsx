@@ -1,7 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { API_ROOT } from "../../apiConfig";
-import styles from "./Event.module.css";
+import H from "../shared/H";
+import Loading from "../shared/Loading";
+import Error from "../shared/Error";
+import Button from "../shared/Button";
+import Link from "../shared/Link";
+import Tile from "../shared/Tile";
+import Grid from "../shared/Grid";
+
 export default function EventList() {
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -36,30 +42,28 @@ export default function EventList() {
     }
   };
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div style={{ color: "red" }}>{error}</div>;
+  if (loading) return <div><Loading /></div>;
+  if (error) return <div style={{ color: "red" }}>{<Error message={error} />}</div>;
 
   return (
-    <div style={{ maxWidth: 700, margin: "2rem auto" }}>
-      <h2 style={{ color: '#a259ff', textAlign: 'center', marginBottom: '2rem' }}>Events</h2>
+    <div style={{ maxWidth: 900, margin: "2rem auto" }}>
+      <H>Events</H>
       <div style={{ textAlign: 'center', marginTop: '2rem' }}>
-        <Link to="/create-event" className={styles.eventActionLink}>Create New Event</Link>
+        <Link to="/create-event">Create New Event</Link>
       </div>
-      <div className={styles.eventTileGrid}>
+      <Grid>
         {events.map((e) => (
-          <div key={e.id} className={styles.eventTile}>
-            <div className={styles.eventTileHeader}>
-              <span className={styles.eventTileName}>{e.name}</span><br/>
-              <span className={styles.eventTileDate}>({e.date})</span>
+          <Tile key={e.id}>
+            <H>{e.name}</H>
+            <div>({e.date})</div>
+            <div style={{gap: '1rem', display: 'flex'}}>
+              <Link to={`/edit-event/${e.id}`}>Edit</Link>
+              <Link to={`/event/${e.id}`}>Details</Link>
+              <Button onClick={() => handleDelete(e.id)}>Delete</Button>
             </div>
-            <div className={styles.eventActions}>
-              <Link to={`/edit-event/${e.id}`} className={styles.eventActionLink}>Edit</Link>
-              <Link to={`/event/${e.id}`} className={styles.eventActionLink}>Details</Link>
-              <button className={styles.eventActionLink} onClick={() => handleDelete(e.id)}>Delete</button>
-            </div>
-          </div>
+          </Tile>
         ))}
-      </div>
+      </Grid>
     </div>
   );
 }
