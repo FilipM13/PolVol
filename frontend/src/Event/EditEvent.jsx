@@ -56,8 +56,8 @@ export default function EditEvent({ eventId }) {
     }
   };
 
-  if (loading) return <div><Loading /></div>;
-  if (error) return <div style={{ color: "red" }}>{<Error message={error} />}</div>;
+  if (loading) return <Loading />;
+  if (error) return <Error message={error} />;
   if (!form) return null;
 
   return (
@@ -95,8 +95,8 @@ export default function EditEvent({ eventId }) {
         />
         <Button type="submit">Update</Button>
       </Form>
-      {error && <div style={{ color: "red", marginTop: '1rem' }}><Error message={error}/></div>}
-      {success && <div style={{ color: "green", marginTop: '1rem' }}><Success message={success}/></div>}
+      {error && <Error message={error}/>}
+      {success && <Success message={success}/>}
     </>
   );
 }

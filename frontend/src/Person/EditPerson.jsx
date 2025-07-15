@@ -5,6 +5,7 @@ import Form from "../shared/Form";
 import Error from "../shared/Error";
 import Success from "../shared/Success";
 import Button from "../shared/Button";
+import Loading from "../shared/Loading";
 
 export default function EditPerson({ personId }) {
   const [form, setForm] = useState(null);
@@ -56,8 +57,8 @@ export default function EditPerson({ personId }) {
     }
   };
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div style={{ color: "red" }}>{error}</div>;
+  if (loading) return <Loading />;
+  if (error) return <Error message={error} />;
   if (!form) return null;
 
   return (

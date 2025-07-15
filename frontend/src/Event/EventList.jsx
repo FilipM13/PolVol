@@ -42,8 +42,8 @@ export default function EventList() {
     }
   };
 
-  if (loading) return <div><Loading /></div>;
-  if (error) return <div style={{ color: "red" }}>{<Error message={error} />}</div>;
+  if (loading) return <Loading />;
+  if (error) return <Error message={error} />;
 
   return (
     <div style={{ maxWidth: 900, margin: "2rem auto" }}>

@@ -44,8 +44,8 @@ export default function CreateEvent() {
     }
   };
 
-  if (loading) return <div><Loading /></div>;
-  if (error) return <div style={{ color: "red" }}>{<Error message={error} />}</div>;
+  if (loading) return <Loading />;
+  if (error) return <Error message={error} />;
 
   return (
     <>
@@ -82,8 +82,8 @@ export default function CreateEvent() {
         />
         <Button type="submit">Create</Button>
       </Form>
-      {error && <div style={{ color: "red", marginTop: '1rem' }}><Error message={error}/></div>}
-      {success && <div style={{ color: "green", marginTop: '1rem' }}><Success message={success}/></div>}
+      {error && <Error message={error}/>}
+      {success && <Success message={success}/>}
     </>
   );
 }

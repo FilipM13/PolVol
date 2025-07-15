@@ -4,6 +4,8 @@ import Panel from "../shared/Panel";
 import H from "../shared/H";
 import Tile from "../shared/Tile";
 import Grid from "../shared/Grid";
+import Loading from "../shared/Loading";
+import Error from "../shared/Error";
 
 function PersonScores({ personId }) {
   const [scores, setScores] = useState([]);
@@ -69,8 +71,8 @@ export default function PersonDetails({ personId }) {
     fetchPerson();
   }, [personId]);
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div style={{ color: "red" }}>{error}</div>;
+  if (loading) return <Loading />;
+  if (error) return <Error message={error} />;
   if (!person) return null;
 
   return (

@@ -31,8 +31,6 @@
 }
 .Header {
   color: #4b3f72;
-  max-width: 680px;
-  min-width: 320px;
   width: 100%;
 }
 .HeaderText {
@@ -174,13 +172,22 @@
   margin: 2rem auto;
   color: #4b3f72;
   font-size: 1.13rem;
-  max-width: 680px;
-  min-width: 320px;
-  width: 100%;
   transition: box-shadow 0.2s, transform 0.2s;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+}
+.PanelSmall{
+  max-width: 680px;
+  min-width: 320px;
+}
+.PanelMedium{
+  max-width: 800px;
+  min-width: 400px;
+}
+.PanelLarge{
+  max-width: 1200px;
+  min-width: 500px;
 }
 .Panel:hover {
   box-shadow: 0 4px 32px rgba(80, 60, 120, 0.13);
@@ -191,8 +198,11 @@
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 1.5rem;
   padding: 0.5rem 0;
-  justify-items: stretch;
-  align-items: stretch;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
 }
 .Tile {
   background: #fff;

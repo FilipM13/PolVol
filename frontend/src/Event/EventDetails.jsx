@@ -28,8 +28,8 @@ export default function EventDetails({ eventId }) {
     fetchEvent();
   }, [eventId]);
 
-  if (loading) return <div><Loading /></div>;
-  if (error) return <div style={{ color: "red" }}>{<Error message={error} />}</div>;
+  if (loading) return <Loading />;
+  if (error) return <Error message={error} />;
   if (!event) return null;
 
   return (

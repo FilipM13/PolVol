@@ -56,8 +56,8 @@ export default function SpectrumList() {
           <Tile key={s.id}>
             <H>{s.name}</H>
             <div style={{gap: '1rem', display: 'flex'}}>
-              <Link to={`/spectrum/${s.id}`}>Details</Link>
               <Link to={`/edit-spectrum/${s.id}`}>Edit</Link>
+              <Link to={`/spectrum/${s.id}`}>Details</Link>
               <Button onClick={() => handleDelete(s.id)}>Delete</Button>
             </div>
           </Tile>
