@@ -2,6 +2,29 @@
 
 Sample project of online platform.
 
+## Concept
+
+User (with necessary authorization) can add 3 base data components:
+
+- Person
+- Event
+- Spectrum (for example "conservative - liberal")
+
+Next these elements can be linked via Stance (stance of a person on an event) which can be described as Scores within a Spectrum (from -50 to 50, where -50 in example above would be extremely conservative and 50 would be extremely liberal). Later average Scores with standard deviation for each Spectrum for each Person can be viewed in person's details page. This (in theory) should objectively show how extreme (average score) and consistent (standard deviation) the person is in their stance withing given spectrum.
+
+### Example for Winnie The Pooh
+
+People:
+[<img src="README_data/people.png">](people)
+Events:
+[<img src="README_data/events.png">](events)
+Spectra:
+[<img src="README_data/spectra.png">](spectra)
+Stances:
+[<img src="README_data/stances.png">](stances)
+Winnie The Pooh Details:
+[<img src="README_data/person_details.png">](person details)
+
 ## Tech Stack
 
 | Component | Technology |

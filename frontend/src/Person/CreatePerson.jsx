@@ -65,7 +65,7 @@ export default function CreatePerson() {
             fontSize: "1.1rem",
           }}
         />
-        <Button>Create</Button>
+        <Button type="submit">Create</Button>
       </Form>
       {error && <Error message={error} />}
       {success && <Success message={success} />}
