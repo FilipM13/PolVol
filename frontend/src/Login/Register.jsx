@@ -80,9 +80,15 @@ function Register() {
         value={password}
         onChange={(e) => setPassword(e.target.value)}
         required
+        style={{
+          borderColor: password ? "green" : "red",
+        }}
       />
       <input
-        style={{ borderColor: repeatPassword === password ? "green" : "red" }}
+        style={{
+          borderColor:
+            password && repeatPassword === password ? "green" : "red",
+        }}
         placeholder="Repeat Password"
         type={passwordShow ? "text" : "password"}
         value={repeatPassword}
@@ -105,7 +111,7 @@ function Register() {
           </option>
         ))}
       </select>
-      <Button type="submit" disabled={password !== repeatPassword}>
+      <Button type="submit" disabled={password && password !== repeatPassword}>
         {loading ? "Logging in..." : "Register"}
       </Button>
       {error && <Error message={error} />}
