@@ -33,7 +33,7 @@ React frontend created with Vite. `src` directory is devided by views for specif
 Python FastApi api handling all CRUD operations on different data models, authentication, generating and removing JSON Web Tokens (JWT).
 It is using Pydantic data models to verify body of the request.
 
-## Batabase
+## Database
 
 SQLite database created with Python SQLAlchemy. For each database data model there is matching Pydantic model for validation (`backend.src.models.PersonDB` -> `backend.src.models_validators.Person` etc.).
 
