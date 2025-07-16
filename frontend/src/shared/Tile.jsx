@@ -1,9 +1,5 @@
-import styles from './shared.module.css';
+import styles from "./shared.module.css";
 
 export default function Tile({ children }) {
-  return (
-    <div className={styles.Tile}>
-      {children}
-    </div>
-  );
+  return <div className={styles.Tile}>{children}</div>;
 }

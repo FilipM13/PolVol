@@ -1,5 +1,5 @@
-import styles from './shared.module.css';
-import { Link as RouterLink } from 'react-router-dom';
+import styles from "./shared.module.css";
+import { Link as RouterLink } from "react-router-dom";
 
 export default function Link({ children, to, ...props }) {
   return (

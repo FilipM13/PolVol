@@ -9,11 +9,14 @@ function Home() {
     <Panel size={"large"}>
       <H>Welcome to PolVol</H>
       <H level={2}>Measuring Political Volatility</H>
-      <p style={{textAlign: "center"}}>
-        Opinions of public figures can change rapidly and be dishonest depending on the public's preference.
-        PolVol is a platform that allows you to track these changes and see how public figures change their opinions on various topics and events.
-        We strive to provide a transparent and open platform for everyone to see how public figures evolve in their views and how volatile their opinions are.
-        We hope to help you make informed decisions based on these objective information.
+      <p style={{ textAlign: "center" }}>
+        Opinions of public figures can change rapidly and be dishonest depending
+        on the public's preference. PolVol is a platform that allows you to
+        track these changes and see how public figures change their opinions on
+        various topics and events. We strive to provide a transparent and open
+        platform for everyone to see how public figures evolve in their views
+        and how volatile their opinions are. We hope to help you make informed
+        decisions based on these objective information.
       </p>
       <Grid>
         <Link to="/persons" style={{ textDecoration: "none" }}>

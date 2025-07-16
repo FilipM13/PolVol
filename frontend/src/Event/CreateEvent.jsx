@@ -9,7 +9,7 @@ import Success from "../shared/Success";
 
 const initialState = {
   name: "",
-  date: ""
+  date: "",
 };
 
 export default function CreateEvent() {
@@ -32,7 +32,7 @@ export default function CreateEvent() {
       const res = await fetch(`${API_ROOT}/events`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form)
+        body: JSON.stringify(form),
       });
       if (!res.ok) throw new Error(await res.text());
       setSuccess("Event created successfully!");
@@ -58,11 +58,11 @@ export default function CreateEvent() {
           placeholder="Name"
           required
           style={{
-            padding: '0.7rem',
-            marginBottom: '1rem',
-            borderRadius: '8px',
-            border: '1px solid #e0d7fa',
-            fontSize: '1.1rem'
+            padding: "0.7rem",
+            marginBottom: "1rem",
+            borderRadius: "8px",
+            border: "1px solid #e0d7fa",
+            fontSize: "1.1rem",
           }}
         />
         <input
@@ -73,17 +73,17 @@ export default function CreateEvent() {
           placeholder="Date"
           required
           style={{
-            padding: '0.7rem',
-            marginBottom: '1rem',
-            borderRadius: '8px',
-            border: '1px solid #e0d7fa',
-            fontSize: '1.1rem'
+            padding: "0.7rem",
+            marginBottom: "1rem",
+            borderRadius: "8px",
+            border: "1px solid #e0d7fa",
+            fontSize: "1.1rem",
           }}
         />
         <Button type="submit">Create</Button>
       </Form>
-      {error && <Error message={error}/>}
-      {success && <Success message={success}/>}
+      {error && <Error message={error} />}
+      {success && <Success message={success} />}
     </>
   );
 }

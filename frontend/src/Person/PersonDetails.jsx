@@ -17,7 +17,9 @@ function PersonScores({ personId }) {
       setLoading(true);
       setError("");
       try {
-        const res = await fetch(`${API_ROOT}/persons/${personId}/average_spectra_scores`);
+        const res = await fetch(
+          `${API_ROOT}/persons/${personId}/average_spectra_scores`
+        );
         if (!res.ok) throw new Error(await res.text());
         const data = await res.json();
         setScores(data);
@@ -32,7 +34,8 @@ function PersonScores({ personId }) {
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div style={{ color: "red" }}>{error}</div>;
-  if (!scores || scores.length === 0) return <div>No spectra data available for this person.</div>;
+  if (!scores || scores.length === 0)
+    return <div>No spectra data available for this person.</div>;
 
   return (
     <Grid>
@@ -78,9 +81,13 @@ export default function PersonDetails({ personId }) {
   return (
     <Panel>
       <H>Person Details</H>
-      <div><strong>Name:</strong> {person.name}</div>
-      <div><strong>ID:</strong> {person.id}</div>
-      <PersonScores personId={personId}/>
+      <div>
+        <strong>Name:</strong> {person.name}
+      </div>
+      <div>
+        <strong>ID:</strong> {person.id}
+      </div>
+      <PersonScores personId={personId} />
     </Panel>
   );
 }

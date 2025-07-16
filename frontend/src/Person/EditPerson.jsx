@@ -46,7 +46,7 @@ export default function EditPerson({ personId }) {
       const res = await fetch(`${API_ROOT}/persons/${personId}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload)
+        body: JSON.stringify(payload),
       });
       if (!res.ok) throw new Error(await res.text());
       setSuccess("Person updated successfully!");
@@ -72,17 +72,17 @@ export default function EditPerson({ personId }) {
           placeholder="Name"
           required
           style={{
-            padding: '0.7rem',
-            marginBottom: '1rem',
-            borderRadius: '8px',
-            border: '1px solid #e0d7fa',
-            fontSize: '1.1rem'
+            padding: "0.7rem",
+            marginBottom: "1rem",
+            borderRadius: "8px",
+            border: "1px solid #e0d7fa",
+            fontSize: "1.1rem",
           }}
         />
         <Button type="submit">Update</Button>
       </Form>
-      {error && <Error message={error}/>}
-      {success && <Success message={success}/>}
+      {error && <Error message={error} />}
+      {success && <Success message={success} />}
     </>
   );
 }

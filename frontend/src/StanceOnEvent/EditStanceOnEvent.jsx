@@ -34,7 +34,7 @@ export default function EditStanceOnEvent({ stanceId }) {
           event_id: data.event_id,
           person_id: data.person_id,
           date: data.date,
-          scores: data.scores || []
+          scores: data.scores || [],
         });
       } catch (err) {
         setError(err.message || "Failed to fetch stance");
@@ -105,7 +105,10 @@ export default function EditStanceOnEvent({ stanceId }) {
   };
 
   const handleAddScore = () => {
-    setForm((prev) => ({ ...prev, scores: [...prev.scores, { spectrum_id: "", value: "" }] }));
+    setForm((prev) => ({
+      ...prev,
+      scores: [...prev.scores, { spectrum_id: "", value: "" }],
+    }));
   };
 
   const handleRemoveScore = (idx) => {
@@ -122,12 +125,15 @@ export default function EditStanceOnEvent({ stanceId }) {
     setError("");
     setSuccess("");
     const payload = { ...form };
-    payload.scores = payload.scores.map(s => ({ ...s, value: parseFloat(s.value) }));
+    payload.scores = payload.scores.map((s) => ({
+      ...s,
+      value: parseFloat(s.value),
+    }));
     try {
       const res = await fetch(`${API_ROOT}/stances/${stanceId}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload)
+        body: JSON.stringify(payload),
       });
       if (!res.ok) throw new Error(await res.text());
       setSuccess("Stance updated successfully!");
@@ -152,12 +158,12 @@ export default function EditStanceOnEvent({ stanceId }) {
           onChange={handleChange}
           required
           style={{
-            padding: '0.7rem',
-            marginBottom: '1rem',
-            borderRadius: '8px',
-            border: '1px solid #e0d7fa',
-            fontSize: '1.1rem',
-            width: '100%'
+            padding: "0.7rem",
+            marginBottom: "1rem",
+            borderRadius: "8px",
+            border: "1px solid #e0d7fa",
+            fontSize: "1.1rem",
+            width: "100%",
           }}
         >
           <option value="" disabled>
@@ -169,19 +175,23 @@ export default function EditStanceOnEvent({ stanceId }) {
             </option>
           ))}
         </select>
-        {eventsError && <div style={{ color: 'red', marginBottom: '1rem' }}>{eventsError}</div>}
+        {eventsError && (
+          <div style={{ color: "red", marginBottom: "1rem" }}>
+            {eventsError}
+          </div>
+        )}
         <select
           name="person_id"
           value={form.person_id}
           onChange={handleChange}
           required
           style={{
-            padding: '0.7rem',
-            marginBottom: '1rem',
-            borderRadius: '8px',
-            border: '1px solid #e0d7fa',
-            fontSize: '1.1rem',
-            width: '100%'
+            padding: "0.7rem",
+            marginBottom: "1rem",
+            borderRadius: "8px",
+            border: "1px solid #e0d7fa",
+            fontSize: "1.1rem",
+            width: "100%",
           }}
         >
           <option value="" disabled>
@@ -193,7 +203,11 @@ export default function EditStanceOnEvent({ stanceId }) {
             </option>
           ))}
         </select>
-        {personsError && <div style={{ color: 'red', marginBottom: '1rem' }}>{personsError}</div>}
+        {personsError && (
+          <div style={{ color: "red", marginBottom: "1rem" }}>
+            {personsError}
+          </div>
+        )}
         <input
           name="date"
           value={form.date}
@@ -202,22 +216,35 @@ export default function EditStanceOnEvent({ stanceId }) {
           placeholder="Date"
           required
           style={{
-            padding: '0.7rem',
-            marginBottom: '1rem',
-            borderRadius: '8px',
-            border: '1px solid #e0d7fa',
-            fontSize: '1.1rem'
+            padding: "0.7rem",
+            marginBottom: "1rem",
+            borderRadius: "8px",
+            border: "1px solid #e0d7fa",
+            fontSize: "1.1rem",
           }}
         />
         <H>Spectrum Scores</H>
         {form.scores.map((score, idx) => (
-          <div key={idx} style={{ marginBottom: "0.5rem", display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+          <div
+            key={idx}
+            style={{
+              marginBottom: "0.5rem",
+              display: "flex",
+              gap: "0.5rem",
+              alignItems: "center",
+            }}
+          >
             <select
               name="spectrum_id"
               value={score.spectrum_id}
-              onChange={e => handleScoreChange(idx, e)}
+              onChange={(e) => handleScoreChange(idx, e)}
               required
-              style={{ flex: 1, padding: '0.5rem', borderRadius: '8px', border: '1px solid #e0d7fa' }}
+              style={{
+                flex: 1,
+                padding: "0.5rem",
+                borderRadius: "8px",
+                border: "1px solid #e0d7fa",
+              }}
             >
               <option value="" disabled>
                 {spectraLoading ? "Loading spectra..." : "Select Spectrum"}
@@ -228,17 +255,41 @@ export default function EditStanceOnEvent({ stanceId }) {
                 </option>
               ))}
             </select>
-            {spectraError && <div style={{ color: 'red', marginBottom: '1rem' }}>{spectraError}</div>}
-            <input name="value" value={score.value} onChange={e => handleScoreChange(idx, e)} placeholder="Value (-50 to 50)" type="number" min="-50" max="50" required style={{ width: '110px', padding: '0.5rem', borderRadius: '8px', border: '1px solid #e0d7fa' }} />
-            <Button type="button" onClick={() => handleRemoveScore(idx)}>Remove</Button>
+            {spectraError && (
+              <div style={{ color: "red", marginBottom: "1rem" }}>
+                {spectraError}
+              </div>
+            )}
+            <input
+              name="value"
+              value={score.value}
+              onChange={(e) => handleScoreChange(idx, e)}
+              placeholder="Value (-50 to 50)"
+              type="number"
+              min="-50"
+              max="50"
+              required
+              style={{
+                width: "110px",
+                padding: "0.5rem",
+                borderRadius: "8px",
+                border: "1px solid #e0d7fa",
+              }}
+            />
+            <Button type="button" onClick={() => handleRemoveScore(idx)}>
+              Remove
+            </Button>
           </div>
         ))}
-        <Button type="button" onClick={handleAddScore}>Add Score</Button>
-        <br /><br />
+        <Button type="button" onClick={handleAddScore}>
+          Add Score
+        </Button>
+        <br />
+        <br />
         <Button type="submit">Update</Button>
       </Form>
-      {error && <Error message={error}/>}
-      {success && <Success message={success}/>}
+      {error && <Error message={error} />}
+      {success && <Success message={success} />}
     </>
   );
 }

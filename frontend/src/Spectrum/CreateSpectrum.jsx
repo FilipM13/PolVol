@@ -8,7 +8,7 @@ import Success from "../shared/Success";
 import Loading from "../shared/Loading";
 
 const initialState = {
-  name: ""
+  name: "",
 };
 
 export default function CreateSpectrum() {
@@ -31,7 +31,7 @@ export default function CreateSpectrum() {
       const res = await fetch(`${API_ROOT}/spectra`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form)
+        body: JSON.stringify(form),
       });
       if (!res.ok) throw new Error(await res.text());
       setSuccess("Spectrum created successfully!");
@@ -58,8 +58,8 @@ export default function CreateSpectrum() {
         />
         <Button type="submit">Create</Button>
       </Form>
-      {error && <Error message={error}/>}
-      {success && <Success message={success}/>}
+      {error && <Error message={error} />}
+      {success && <Success message={success} />}
     </>
   );
 }

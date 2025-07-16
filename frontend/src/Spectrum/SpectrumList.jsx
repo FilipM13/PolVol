@@ -32,9 +32,12 @@ export default function SpectrumList() {
   }, []);
 
   const handleDelete = async (id) => {
-    if (!window.confirm("Are you sure you want to delete this spectrum?")) return;
+    if (!window.confirm("Are you sure you want to delete this spectrum?"))
+      return;
     try {
-      const res = await fetch(`${API_ROOT}/spectra/${id}`, { method: "DELETE" });
+      const res = await fetch(`${API_ROOT}/spectra/${id}`, {
+        method: "DELETE",
+      });
       if (!res.ok) throw new Error(await res.text());
       setSpectra((prev) => prev.filter((s) => s.id !== id));
     } catch (err) {
@@ -48,14 +51,14 @@ export default function SpectrumList() {
   return (
     <div style={{ maxWidth: 900, margin: "2rem auto" }}>
       <H>Spectra</H>
-      <div style={{ textAlign: 'center', marginTop: '2rem' }}>
+      <div style={{ textAlign: "center", marginTop: "2rem" }}>
         <Link to="/create-spectrum">Create Spectrum</Link>
       </div>
       <Grid>
         {spectra.map((s) => (
           <Tile key={s.id}>
             <H level={2}>{s.name}</H>
-            <div style={{gap: '1rem', display: 'flex'}}>
+            <div style={{ gap: "1rem", display: "flex" }}>
               <Link to={`/edit-spectrum/${s.id}`}>Edit</Link>
               <Link to={`/spectrum/${s.id}`}>Details</Link>
               <Button onClick={() => handleDelete(s.id)}>Delete</Button>

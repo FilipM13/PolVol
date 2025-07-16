@@ -18,7 +18,7 @@ export default function SpectrumDetails({ spectrumId }) {
       try {
         const [spectrumRes, scoresRes] = await Promise.all([
           fetch(`${API_ROOT}/spectra/${spectrumId}`),
-          fetch(`${API_ROOT}/spectra/${spectrumId}/average_scores`)
+          fetch(`${API_ROOT}/spectra/${spectrumId}/average_scores`),
         ]);
         if (!spectrumRes.ok) throw new Error(await spectrumRes.text());
         if (!scoresRes.ok) throw new Error(await scoresRes.text());
@@ -35,21 +35,31 @@ export default function SpectrumDetails({ spectrumId }) {
     fetchSpectrumAndScores();
   }, [spectrumId]);
 
-  if (loading) return <Loading />
+  if (loading) return <Loading />;
   if (error) return <Error message={error} />;
   if (!spectrum) return null;
 
   return (
     <Panel>
       <H>Spectrum Details</H>
-      <div><strong>Name:</strong> {spectrum.name}</div>
-      <div><strong>ID:</strong> {spectrum.id}</div>
+      <div>
+        <strong>Name:</strong> {spectrum.name}
+      </div>
+      <div>
+        <strong>ID:</strong> {spectrum.id}
+      </div>
       <H>Average Scores</H>
       {scores && (
         <ul>
-          <li><strong>Mean:</strong> {scores.mean_value}</li>
-          <li><strong>Stdev:</strong> {scores.stdev_value}</li>
-          <li><strong>Count:</strong> {scores.count}</li>
+          <li>
+            <strong>Mean:</strong> {scores.mean_value}
+          </li>
+          <li>
+            <strong>Stdev:</strong> {scores.stdev_value}
+          </li>
+          <li>
+            <strong>Count:</strong> {scores.count}
+          </li>
         </ul>
       )}
     </Panel>

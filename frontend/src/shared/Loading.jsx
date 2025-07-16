@@ -1,4 +1,4 @@
-import styles from './shared.module.css';
+import styles from "./shared.module.css";
 
 export default function Loading() {
   return (

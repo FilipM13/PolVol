@@ -25,7 +25,7 @@ export default function StanceOnEventDetails({ stanceId }) {
         // Fetch person and event details in parallel
         const [personRes, eventRes] = await Promise.all([
           fetch(`${API_ROOT}/persons/${data.person_id}`),
-          fetch(`${API_ROOT}/events/${data.event_id}`)
+          fetch(`${API_ROOT}/events/${data.event_id}`),
         ]);
         if (!personRes.ok) throw new Error(await personRes.text());
         if (!eventRes.ok) throw new Error(await eventRes.text());
@@ -47,17 +47,26 @@ export default function StanceOnEventDetails({ stanceId }) {
   return (
     <Panel>
       <H>Stance On Event Details</H>
-      <div><strong>ID:</strong> {stance.id}</div>
-      <div><strong>Event:</strong> {event.name} ({event.date})</div>
-      <div><strong>Person:</strong> {person.name}</div>
-      <div><strong>Date:</strong> {stance.date}</div>
+      <div>
+        <strong>ID:</strong> {stance.id}
+      </div>
+      <div>
+        <strong>Event:</strong> {event.name} ({event.date})
+      </div>
+      <div>
+        <strong>Person:</strong> {person.name}
+      </div>
+      <div>
+        <strong>Date:</strong> {stance.date}
+      </div>
       <H>Spectrum Scores</H>
       <ul>
-        {stance.scores && stance.scores.map((score, idx) => (
-          <li key={idx}>
-            Spectrum ID: {score.spectrum_id}, Value: {score.value}
-          </li>
-        ))}
+        {stance.scores &&
+          stance.scores.map((score, idx) => (
+            <li key={idx}>
+              Spectrum ID: {score.spectrum_id}, Value: {score.value}
+            </li>
+          ))}
       </ul>
     </Panel>
   );

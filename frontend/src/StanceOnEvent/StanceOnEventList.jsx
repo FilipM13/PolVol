@@ -23,12 +23,13 @@ export default function StanceOnEventList() {
       setLoading(true);
       setError("");
       try {
-        const [stancesRes, personsRes, eventsRes, spectrumsRes] = await Promise.all([
-          fetch(`${API_ROOT}/stances`),
-          fetch(`${API_ROOT}/persons`),
-          fetch(`${API_ROOT}/events`),
-          fetch(`${API_ROOT}/spectra`)
-        ]);
+        const [stancesRes, personsRes, eventsRes, spectrumsRes] =
+          await Promise.all([
+            fetch(`${API_ROOT}/stances`),
+            fetch(`${API_ROOT}/persons`),
+            fetch(`${API_ROOT}/events`),
+            fetch(`${API_ROOT}/spectra`),
+          ]);
         if (!stancesRes.ok) throw new Error(await stancesRes.text());
         if (!personsRes.ok) throw new Error(await personsRes.text());
         if (!eventsRes.ok) throw new Error(await eventsRes.text());
@@ -42,7 +43,9 @@ export default function StanceOnEventList() {
         setEvents(eventsData);
         setSpectrums(spectrumsData);
       } catch (err) {
-        setError(err.message || "Failed to fetch stances/persons/events/spectrums");
+        setError(
+          err.message || "Failed to fetch stances/persons/events/spectrums"
+        );
       } finally {
         setLoading(false);
       }
@@ -53,43 +56,55 @@ export default function StanceOnEventList() {
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this stance?")) return;
     try {
-      const res = await fetch(`${API_ROOT}/stances/${id}`, { method: "DELETE" });
+      const res = await fetch(`${API_ROOT}/stances/${id}`, {
+        method: "DELETE",
+      });
       if (!res.ok) throw new Error(await res.text());
       setStances((prev) => prev.filter((s) => s.id !== id));
     } catch (err) {
       alert(err.message || "Failed to delete stance");
     }
   };
-  
+
   if (loading) return <Loading />;
   if (error) return <Error message={error} />;
 
   return (
     <div style={{ maxWidth: 900, margin: "2rem auto" }}>
       <H level={2}>Stances On Event</H>
-      <div style={{ textAlign: 'center', marginTop: '2rem' }}>
-        <Link to="/create-stance" >Create New Stance</Link>
+      <div style={{ textAlign: "center", marginTop: "2rem" }}>
+        <Link to="/create-stance">Create New Stance</Link>
       </div>
       <Grid>
         {stances.map((s) => {
-          const person = persons.find(p => p.id === s.person_id);
-          const event = events.find(e => e.id === s.event_id);
+          const person = persons.find((p) => p.id === s.person_id);
+          const event = events.find((e) => e.id === s.event_id);
           return (
             <Tile key={s.id}>
               <span>
-                <small>DATE: {s.date}</small><br/> 
-                Person: {person ? person.name : s.person_id}<br/>
-                Event: {event ? `${event.name} (${event.date})` : s.event_id}<br/> 
+                <small>DATE: {s.date}</small>
+                <br />
+                Person: {person ? person.name : s.person_id}
+                <br />
+                Event: {event ? `${event.name} (${event.date})` : s.event_id}
+                <br />
                 <ul>
-                  {s.scores && s.scores.map((score, idx) => {
-                    const spectrum = spectrums.find(sp => sp.id === score.spectrum_id);
-                    return (
-                      <SpectrumDisplay key={idx} spectrum={spectrum} value={score.value}/>
-                    );
-                  })}
+                  {s.scores &&
+                    s.scores.map((score, idx) => {
+                      const spectrum = spectrums.find(
+                        (sp) => sp.id === score.spectrum_id
+                      );
+                      return (
+                        <SpectrumDisplay
+                          key={idx}
+                          spectrum={spectrum}
+                          value={score.value}
+                        />
+                      );
+                    })}
                 </ul>
               </span>
-            <div style={{gap: '1rem', display: 'flex'}}>
+              <div style={{ gap: "1rem", display: "flex" }}>
                 <Link to={`/edit-stance/${s.id}`}>Edit</Link>
                 <Link to={`/stance/${s.id}`}>Details</Link>
                 <Button onClick={() => handleDelete(s.id)}>Delete</Button>

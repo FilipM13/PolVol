@@ -48,7 +48,7 @@ export default function EventList() {
   return (
     <div style={{ maxWidth: 900, margin: "2rem auto" }}>
       <H>Events</H>
-      <div style={{ textAlign: 'center', marginTop: '2rem' }}>
+      <div style={{ textAlign: "center", marginTop: "2rem" }}>
         <Link to="/create-event">Create New Event</Link>
       </div>
       <Grid>
@@ -56,7 +56,7 @@ export default function EventList() {
           <Tile key={e.id}>
             <H level={2}>{e.name}</H>
             <div>({e.date})</div>
-            <div style={{gap: '1rem', display: 'flex'}}>
+            <div style={{ gap: "1rem", display: "flex" }}>
               <Link to={`/edit-event/${e.id}`}>Edit</Link>
               <Link to={`/event/${e.id}`}>Details</Link>
               <Button onClick={() => handleDelete(e.id)}>Delete</Button>

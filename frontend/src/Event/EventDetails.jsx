@@ -35,9 +35,15 @@ export default function EventDetails({ eventId }) {
   return (
     <Panel>
       <H>Event Details</H>
-      <div><strong>Name:</strong> {event.name}</div>
-      <div><strong>Date:</strong> {event.date}</div>
-      <div><strong>ID:</strong> {event.id}</div>
+      <div>
+        <strong>Name:</strong> {event.name}
+      </div>
+      <div>
+        <strong>Date:</strong> {event.date}
+      </div>
+      <div>
+        <strong>ID:</strong> {event.id}
+      </div>
     </Panel>
   );
 }

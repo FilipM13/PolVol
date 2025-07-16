@@ -17,10 +17,10 @@
   margin-bottom: 0.5rem;
   color: #4b3f72;
 }
-.SpectrumDisplay div{
-   position: relative;
-   width: 100%;
-   margin-top: 1rem; 
+.SpectrumDisplay div {
+  position: relative;
+  width: 100%;
+  margin-top: 1rem;
 }
 .SpectrumDisplay input[type="range"] {
   margin-top: 0.3rem;
@@ -104,7 +104,8 @@
   display: inline-block;
   margin: 0.2rem 0.4rem;
 }
-.ActionButton:hover, .ActionButton:focus {
+.ActionButton:hover,
+.ActionButton:focus {
   background: #eceaf6;
   border-color: #a259ff;
   transform: translateY(-1px) scale(1.03);
@@ -161,8 +162,12 @@
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 .LoadingText {
@@ -225,15 +230,15 @@
   flex-direction: column;
   align-items: flex-start;
 }
-.PanelSmall{
+.PanelSmall {
   max-width: 680px;
   min-width: 320px;
 }
-.PanelMedium{
+.PanelMedium {
   max-width: 800px;
   min-width: 400px;
 }
-.PanelLarge{
+.PanelLarge {
   max-width: 1200px;
   min-width: 500px;
 }

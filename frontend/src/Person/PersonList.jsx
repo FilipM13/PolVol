@@ -37,7 +37,9 @@ export default function PersonList() {
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this person?")) return;
     try {
-      const res = await fetch(`${API_ROOT}/persons/${id}`, { method: "DELETE" });
+      const res = await fetch(`${API_ROOT}/persons/${id}`, {
+        method: "DELETE",
+      });
       if (!res.ok) throw new Error(await res.text());
       setPersons((prev) => prev.filter((p) => p.id !== id));
     } catch (err) {
@@ -48,16 +50,16 @@ export default function PersonList() {
   return (
     <div style={{ maxWidth: 900, margin: "2rem auto" }}>
       <H>People</H>
-      <div style={{ textAlign: 'center', marginTop: '2rem' }}>
+      <div style={{ textAlign: "center", marginTop: "2rem" }}>
         <Link to="/create-person">Create New Person</Link>
       </div>
       <Grid>
         {persons.map((p) => (
           <Tile key={p.id}>
             <H level={2}>{p.name}</H>
-            <div style={{gap: '1rem', display: 'flex'}}>
-              <Link to={`/edit-person/${p.id}`} >Edit</Link>
-              <Link to={`/person/${p.id}`} >Details</Link>
+            <div style={{ gap: "1rem", display: "flex" }}>
+              <Link to={`/edit-person/${p.id}`}>Edit</Link>
+              <Link to={`/person/${p.id}`}>Details</Link>
               <Button onClick={() => handleDelete(p.id)}>Delete</Button>
             </div>
           </Tile>

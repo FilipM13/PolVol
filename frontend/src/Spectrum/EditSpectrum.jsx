@@ -45,7 +45,7 @@ export default function EditSpectrum({ spectrumId }) {
       const res = await fetch(`${API_ROOT}/spectra/${spectrumId}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form)
+        body: JSON.stringify(form),
       });
       if (!res.ok) throw new Error(await res.text());
       setSuccess("Spectrum updated successfully!");
@@ -57,13 +57,13 @@ export default function EditSpectrum({ spectrumId }) {
   };
 
   if (loading) return <Loading />;
-  if (error) return <Error message={error}/>
+  if (error) return <Error message={error} />;
   if (!form) return null;
 
   return (
     <>
       <Form onSubmit={handleSubmit}>
-      <H>Edit Spectrum</H>
+        <H>Edit Spectrum</H>
         <input
           id="name"
           name="name"
@@ -74,8 +74,8 @@ export default function EditSpectrum({ spectrumId }) {
         />
         <Button type="submit">Update</Button>
       </Form>
-      {error && <Error message={error}/>}
-      {success && <Success message={success}/>}
+      {error && <Error message={error} />}
+      {success && <Success message={success} />}
     </>
   );
 }
