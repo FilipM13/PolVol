@@ -47,7 +47,7 @@ def get_person_average_spectra_scores(person_id: int, db: Session = Depends(get_
             AverageSpectra.model_validate(
                 {
                     "spectrum": spectrum_id_to_name.get(spectrum_id, str(spectrum_id)),  # type: ignore [call-overload]
-                    "mean_value": mean(values),
+                    "mean_value": round(mean(values), 2),
                     "stdev_value": round(std(values), 2),
                     "count": len(values),
                 }
@@ -95,7 +95,7 @@ def get_spectrum_average_scores(spectrum_id: int, db: Session = Depends(get_db))
     return AverageSpectra.model_validate(
         {
             "spectrum": str(spectrum_id),
-            "mean_value": mean(values),
+            "mean_value": round(mean(values), 2),
             "stdev_value": round(stdev(values), 2),
             "count": len(values),
         }
