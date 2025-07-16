@@ -15,15 +15,19 @@ Next these elements can be linked via Stance (stance of a person on an event) wh
 ### Example for Winnie The Pooh
 
 People:
-[<img src="README_data/people.png">](people)
+<img src="README_data/people.png">
+
 Events:
-[<img src="README_data/events.png">](events)
+<img src="README_data/events.png">
+
 Spectra:
-[<img src="README_data/spectra.png">](spectra)
+<img src="README_data/spectra.png">
+
 Stances:
-[<img src="README_data/stances.png">](stances)
+<img src="README_data/stances.png">
+
 Winnie The Pooh Details:
-[<img src="README_data/person_details.png">](person details)
+<img src="README_data/person_details.png">
 
 ## Tech Stack
 
