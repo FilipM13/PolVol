@@ -14,6 +14,8 @@ Next these elements can be linked via Stance (stance of a person on an event) wh
 
 ### Example for Winnie The Pooh
 
+Based on three stances Winnie shared on two events, we can see that's he's very ProHoney (39/50, unsurprisingly he's near extremist).
+
 People:
 <img src="README_data/people.png">
 
