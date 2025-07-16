@@ -1,0 +1,16 @@
+<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="gradP" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#ff4d00; stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#8000ff; stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="gradL" x1="0%" y1="150%" x2="0%" y2="-50%">
+      <stop offset="0%" style="stop-color:#ff6f3c; stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#a259ff; stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <circle cx="100" cy="100" r="85" fill="#ede4ff" stroke="url(#gradP)" stroke-width="10"/>
+  <text x="50%" y="50%" text-anchor="middle" fill="url(#gradP)" font-family="Segoe UI, serif" font-size="90" font-weight="bolder" dy=".35em">
+    PV
+  </text>
+</svg>

@@ -19,25 +19,25 @@ function Home() {
         decisions based on these objective information.
       </p>
       <Grid>
-        <Link to="/persons" style={{ textDecoration: "none" }}>
+        <Link to="/persons" style={{ textDecoration: "none", margin: 0 }}>
           <Panel size="small">
             <H level={2}>Browse People</H>
             <p>See how people change their view on topics and events...</p>
           </Panel>
         </Link>
-        <Link to="/events" style={{ textDecoration: "none" }}>
+        <Link to="/events" style={{ textDecoration: "none", margin: 0 }}>
           <Panel size="small">
             <H level={2}>Browse Events</H>
             <p>Stay on top of what's happening around the world...</p>
           </Panel>
         </Link>
-        <Link to="/spectra" style={{ textDecoration: "none" }}>
+        <Link to="/spectra" style={{ textDecoration: "none", margin: 0 }}>
           <Panel size="small">
             <H level={2}>Browse Spectra</H>
             <p>Check what spectra in people's opinions do we measure...</p>
           </Panel>
         </Link>
-        <Link to="/stances" style={{ textDecoration: "none" }}>
+        <Link to="/stances" style={{ textDecoration: "none", margin: 0 }}>
           <Panel size="small">
             <H level={2}>Browse People's Opinions</H>
             <p>Dive deep and get to know people's opinions...</p>

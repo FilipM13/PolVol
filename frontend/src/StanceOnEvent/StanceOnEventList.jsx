@@ -71,7 +71,7 @@ export default function StanceOnEventList() {
 
   return (
     <div style={{ maxWidth: 900, margin: "2rem auto" }}>
-      <H level={2}>Stances On Event</H>
+      <H>Stances On Event</H>
       <div style={{ textAlign: "center", marginTop: "2rem" }}>
         <Link to="/create-stance">Create New Stance</Link>
       </div>

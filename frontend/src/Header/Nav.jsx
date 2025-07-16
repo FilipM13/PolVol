@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import Link from "../shared/Link";
 import Button from "../shared/Button";
-import { default as SharedLink } from "../shared/Link";
 import { API_ROOT } from "../../apiConfig";
 import loginCheck from "../loginCheck";
 
@@ -33,27 +32,37 @@ function Nav({ navClass, linkClass }) {
 
   return (
     <nav className={navClass}>
-      <Link to="/" className={linkClass}>
+      <Link to="/" style={{ background: "var(--bg1)" }}>
         Home
       </Link>
-      <Link to="/persons" className={linkClass}>
+      <Link to="/persons" style={{ background: "var(--bg1)" }}>
         People
       </Link>
-      <Link to="/events" className={linkClass}>
+      <Link to="/events" style={{ background: "var(--bg1)" }}>
         Events
       </Link>
-      <Link to="/spectra" className={linkClass}>
+      <Link to="/spectra" style={{ background: "var(--bg1)" }}>
         Spectra
       </Link>
-      <Link to="/stances" className={linkClass}>
+      <Link to="/stances" style={{ background: "var(--bg1)" }}>
         Stances
       </Link>
       {isLoggedIn ? (
-        <Button onClick={handleLogout}>Logout</Button>
+        <Button onClick={handleLogout} style={{ background: "var(--bg2)" }}>
+          Logout
+        </Button>
       ) : (
-        <SharedLink to="/login">Login</SharedLink>
+        <Link to="/login" style={{ background: "var(--bg2)" }}>
+          Login
+        </Link>
       )}
-      {isLoggedIn ? <></> : <SharedLink to="/register">Register</SharedLink>}
+      {isLoggedIn ? (
+        <></>
+      ) : (
+        <Link to="/register" style={{ background: "var(--bg2)" }}>
+          Register
+        </Link>
+      )}
     </nav>
   );
 }
