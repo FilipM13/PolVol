@@ -11,8 +11,8 @@ from jose import jwt, JWTError
 
 router = APIRouter(prefix="/auth")
 
-KEY = 'abcd1234'  # change to github secret
-ALGO = 'HS256'
+KEY = "abcd1234"  # change to github secret
+ALGO = "HS256"
 
 bcrypt_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 oath2_bearer = OAuth2PasswordBearer(tokenUrl="/auth/token")
@@ -26,15 +26,20 @@ def get_current_user(token: str = Depends(oath2_bearer), db: Session = Depends(g
         payload = jwt.decode(token, KEY, algorithms=ALGO)
         username = payload.get("sub")
         if username is None:
-            raise HTTPException(status_code=401, detail="Invalid authentication credentials")
+            raise HTTPException(
+                status_code=401, detail="Invalid authentication credentials"
+            )
     except JWTError:
-        raise HTTPException(status_code=401, detail="Invalid authentication credentials")
+        raise HTTPException(
+            status_code=401, detail="Invalid authentication credentials"
+        )
 
     user = db.query(UserDB).filter(UserDB.username == username).first()
     if user is None:
         raise HTTPException(status_code=404, detail="User not found")
 
     return user
+
 
 @router.get("/", response_model=User)
 def get_current_user_info(current_user: User = Depends(get_current_user)):
@@ -63,13 +68,15 @@ def register_user(user: User, db: Session = Depends(get_db)):
     new_user = UserDB(
         username=user.username,
         password=hashed_password,
-        authorization=user.authorization.value
+        authorization=user.authorization.value,
     )
     db.add(new_user)
     db.commit()
     db.refresh(new_user)
     fields = User.model_fields.keys()
-    new_user = User.model_validate({f: getattr(new_user, f) for f in fields})  # Convert to Pydantic model
+    new_user = User.model_validate(
+        {f: getattr(new_user, f) for f in fields}
+    )  # Convert to Pydantic model
     logger.info(f"User {user.username} registered successfully.")
     new_user.password = "******"  # Hide password in response
     return new_user
@@ -84,7 +91,7 @@ def delete_user(user_id: int, db: Session = Depends(get_db)):
     if not user:
         logger.warning(f"User with ID {user_id} not found.")
         raise HTTPException(status_code=404, detail="User not found")
-    
+
     db.delete(user)
     db.commit()
     fields = User.model_fields.keys()
@@ -95,25 +102,29 @@ def delete_user(user_id: int, db: Session = Depends(get_db)):
 
 
 @router.post("/login", response_model=Token)
-def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
+def login(
+    form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)
+):
     """
     Generate a JWT token for user authentication.
     """
     user = db.query(UserDB).filter(UserDB.username == form_data.username).first()
-    if not user or not bcrypt_context.verify(form_data.password, getattr(user, 'password')):
+    if not user or not bcrypt_context.verify(
+        form_data.password, getattr(user, "password")
+    ):
         logger.warning("Invalid username or password.")
         raise HTTPException(status_code=401, detail="Invalid username or password")
 
     token_data = {
         "sub": user.username,
-        "exp": datetime.datetime.now(datetime.UTC) + datetime.timedelta(hours=1)
+        "exp": datetime.datetime.now(datetime.UTC) + datetime.timedelta(hours=1),
     }
     token = jwt.encode(token_data, KEY, algorithm=ALGO)
-    
+
     new_token = TokenDB(
-        user_id=user.id, 
-        token=token, 
-        expiration=datetime.datetime.now(datetime.UTC) + datetime.timedelta(hours=1)
+        user_id=user.id,
+        token=token,
+        expiration=datetime.datetime.now(datetime.UTC) + datetime.timedelta(hours=1),
     )
     db.add(new_token)
     db.commit()
@@ -122,6 +133,7 @@ def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depend
     new_token = Token.model_validate({f: getattr(new_token, f) for f in fields})
     logger.info(f"Token generated for user {user.username}.")
     return new_token
+
 
 @router.delete("/logout")
 def logout(token: str = Depends(oath2_bearer), db: Session = Depends(get_db)):

@@ -6,19 +6,17 @@ Base = declarative_base()
 
 # --- SQLAlchemy ORM Classes ---
 
+
 class UserDB(Base):  # type: ignore [misc, valid-type]
     """
     Represents a user in the system.
     """
+
     __tablename__ = "users"
     id = Column(Integer, primary_key=True)
     username = Column(String, nullable=False, unique=True)
     password = Column(String, nullable=False)
-    authorization = Column(
-        String,
-        default="guest",
-        nullable=False
-    )
+    authorization = Column(String, default="guest", nullable=False)
 
     __table_args__ = (
         {
@@ -29,12 +27,16 @@ class UserDB(Base):  # type: ignore [misc, valid-type]
         },
     )
 
-    tokens = relationship("TokenDB", back_populates="user", cascade="all, delete-orphan")
+    tokens = relationship(
+        "TokenDB", back_populates="user", cascade="all, delete-orphan"
+    )
+
 
 class TokenDB(Base):  # type: ignore [misc, valid-type]
     """
     Represents a token for user authentication.
     """
+
     __tablename__ = "tokens"
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
@@ -42,6 +44,7 @@ class TokenDB(Base):  # type: ignore [misc, valid-type]
     expiration = Column(DateTime, nullable=False)
 
     user = relationship("UserDB", back_populates="tokens")
+
 
 class SpectrumDB(Base):  # type: ignore [misc, valid-type]
     """

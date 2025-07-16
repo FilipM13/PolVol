@@ -3,10 +3,12 @@ from typing import Optional, List
 from datetime import date, datetime
 from enum import Enum
 
+
 class Authorizations(Enum):
     """
     Enum for different authorization levels.
     """
+
     ADMIN = "admin"  # all permissions, assigning autorhizations to other users
     DATA_ANALYST = "data_analyst"  # all below + CU on stances
     DATA_PROVIDER = "data_provider"  # all below + CU events, spectra, people
@@ -17,6 +19,7 @@ class User(BaseModel):
     """
     User model for authentication and authorization.
     """
+
     id: Optional[int] = None
     username: str
     password: str
@@ -27,6 +30,7 @@ class Token(BaseModel):
     """
     Token model for user authentication.
     """
+
     id: Optional[int] = None
     user_id: int
     token: str
