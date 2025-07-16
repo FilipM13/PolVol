@@ -35,11 +35,11 @@ It is using Pydantic data models to verify body of the request.
 
 ## Batabase
 
-SQLite database created with Python SQLAlchemy. For each database data model there is matching Pydantic model for validation (`PersonDB` -> `Person` etc.).
+SQLite database created with Python SQLAlchemy. For each database data model there is matching Pydantic model for validation (`backend.src.models.PersonDB` -> `backend.src.models_validators.Person` etc.).
 
 ## Authorization and Authentication
 
-Authentication is managed by JWT. Token are automatically removed from database after their expiration datetime is exceeded (via celery scheduled job [not yet implemented]). Authorization is devided into 4 levels specified in `backend.src.model_validators.Authorizations`:
+Authentication is managed by JWT. Token are automatically removed from database after their expiration datetime is exceeded (via celery scheduled job [not yet implemented]). Authorization is devided into 4 levels specified in `backend.src.models_validators.Authorizations`:
 
 ```python
 class Authorizations(Enum):
