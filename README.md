@@ -78,7 +78,11 @@ class Authorizations(Enum):
     GUEST = "guest"  # R all
 ```
 
-After user registers for a specific authorization level, another user of the same level or higher has to approve him. Until that, newly registered user has lowest authorization (guest). [not yet implemented]
+After user registers for a specific authorization level, another user of higher level has to approve him.
+Users with higher level of authorization can change status of users with lower level of authorizations and can remove their account
+<img src="README_data/user_approval.png">
+
+Until approved, user has lowest authorization level (guest). [not yet implemented]
 
 ## Launching (temporary, until deployed to Azure)
 

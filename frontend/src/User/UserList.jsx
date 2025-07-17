@@ -56,7 +56,7 @@ function UserList() {
     if (res.ok) {
       setSuccess(`User ${uid} updated to status ${status}.`);
     } else {
-      setError(`Can't update user ${uid} with status ${status}. ${res.text()}`);
+      setError(`Can't update user ${uid} with status ${status}.`);
     }
   }
 
@@ -71,7 +71,7 @@ function UserList() {
     if (res.ok) {
       setSuccess(`User ${uid} deleted.\nRefresh to see changes.`);
     } else {
-      setError(`Can't delete user ${uid}.\n${res.text()}`);
+      setError(`Can't delete user ${uid}.`);
     }
   }
 
@@ -110,7 +110,7 @@ function UserList() {
               }}
             >
               <td>
-                {u.username} (ID: {u.id}) {u.id === user.id ? "(you)" : null}
+                {u.username} {u.id === user.id ? "(you)" : null} (ID: {u.id})
               </td>
               <td>{u.authorization}</td>
               <td>
