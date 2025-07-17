@@ -120,6 +120,12 @@ function UserList() {
                   <select
                     onChange={(e) => updateUserStatus(u.id, e.target.value)}
                     defaultValue={u.status}
+                    style={{
+                      flex: 1,
+                      padding: "0.5rem",
+                      borderRadius: "8px",
+                      border: "1px solid #e0d7fa",
+                    }}
                   >
                     {statuses.map((v, i) => (
                       <option key={i} value={v}>
@@ -133,14 +139,26 @@ function UserList() {
                 {authMap[u.authorization] >= authMap[user.authorization] ? (
                   "Not permited"
                 ) : (
-                  <>
+                  <div
+                    style={{
+                      position: "relative",
+                    }}
+                  >
                     <img
                       src={delete_user}
                       alt="delete"
                       title="remove user"
                       onClick={() => removeUser(u.id)}
+                      style={{
+                        position: "absolute",
+                        margin: "auto",
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        bottom: 0,
+                      }}
                     />
-                  </>
+                  </div>
                 )}
               </td>
             </tr>
