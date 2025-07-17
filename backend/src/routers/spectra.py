@@ -1,10 +1,10 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-from models import SpectrumDB
-from models_validators import Spectrum
-from db import get_db
-from logger import logger
 from typing import List
+from ..models import SpectrumDB
+from ..models_validators import Spectrum
+from ..db import get_db
+from ..logger import logger
 
 router = APIRouter(prefix="/spectra")
 

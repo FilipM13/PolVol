@@ -1,12 +1,12 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from models import Base
+from .models import Base
 
 # SQLite database URL
 DATABASE_URL = "sqlite:///polvol.db"
 
 # Create engine
-engine = create_engine(DATABASE_URL, echo=True)
+engine = create_engine(DATABASE_URL, echo=False)
 
 # Create all tables defined in models.py
 Base.metadata.create_all(engine)

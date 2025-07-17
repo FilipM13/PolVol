@@ -3,14 +3,14 @@ Complex queries for specific views in front end.
 """
 
 from statistics import mean, stdev
-from logger import logger
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
-from models import SpectrumScoreDB, SpectrumDB, StanceOnEventDB
-from models_validators import AverageSpectra
-from db import get_db
-from logger import logger
 from typing import List, Dict
+from ..logger import logger
+from ..models import SpectrumScoreDB, SpectrumDB, StanceOnEventDB
+from ..models_validators import AverageSpectra
+from ..db import get_db
+from ..logger import logger
 
 router = APIRouter()
 

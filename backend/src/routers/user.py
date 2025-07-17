@@ -1,14 +1,14 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-from models import UserDB, TokenDB
-from models_validators import User, Token
-from db import get_db
-from logger import logger
 import datetime
 from passlib.context import CryptContext
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from jose import jwt, JWTError
 from typing import List
+from ..models import UserDB, TokenDB
+from ..models_validators import User, Token
+from ..db import get_db
+from ..logger import logger
 
 router = APIRouter(prefix="/auth")
 
@@ -34,10 +34,16 @@ def get_current_user(token: str = Depends(oath2_bearer), db: Session = Depends(g
         raise HTTPException(
             status_code=401, detail="Invalid authentication credentials"
         )
-
     user = db.query(UserDB).filter(UserDB.username == username).first()
     if user is None:
-        raise HTTPException(status_code=404, detail="User not found")
+        raise HTTPException(status_code=401, detail="User not found")
+    valid_token = (
+        db.query(TokenDB)
+        .filter(TokenDB.token == token, TokenDB.user_id == user.id)
+        .first()
+    )
+    if valid_token is None:
+        raise HTTPException(status_code=401, detail="Invalid token")
 
     return user
 

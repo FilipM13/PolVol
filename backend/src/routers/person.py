@@ -1,10 +1,10 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-from models import PersonDB
-from models_validators import Person
-from db import get_db
-from logger import logger
 from typing import List
+from ..models import PersonDB
+from ..db import get_db
+from ..models_validators import Person
+from ..logger import logger
 
 router = APIRouter(prefix="/persons")
 

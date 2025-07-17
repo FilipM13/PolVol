@@ -91,7 +91,7 @@ Terminal 1 (backend):
 ```bash
 cd backend/src
 python -m pip install -r requirements.txt
-python -m uvicorn api:app
+python -m src
 ```
 
 Terminal 2 (frontend):
@@ -103,9 +103,9 @@ npm run build
 serve -s dist
 ```
 
-## Automation (Celery)
+## Background Jobs [might be changed to Celery + Redis]
 
-not yet implemented
+Currently there is one background job `backend.src.automation.clear_tokens` implemented running every 2 minutes. It is removing outdated tokens from the database. The job is setup using [schedule](https://pypi.org/project/schedule/) package in Python.
 
 ## DevOps (GitHub Actions)
 

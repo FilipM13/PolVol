@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, String, Float, Date, ForeignKey, DateTime
 from sqlalchemy.orm import declarative_base, relationship
-from models_validators import Authorizations, UserStatus
+from .models_validators import Authorizations, UserStatus
 
 Base = declarative_base()
 

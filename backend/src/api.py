@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from routers import spectra, person, event, stance, complex, user
+from .routers import spectra, person, event, stance, complex, user
 
 app = FastAPI()
 # no restriction for development purposes

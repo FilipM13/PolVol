@@ -1,11 +1,11 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-from models import StanceOnEventDB, SpectrumScoreDB
-from models_validators import StanceOnEvent, SpectrumScore
-from db import get_db
-from logger import logger
 from typing import List
 import datetime
+from ..models import StanceOnEventDB, SpectrumScoreDB
+from ..models_validators import StanceOnEvent, SpectrumScore
+from ..db import get_db
+from ..logger import logger
 
 router = APIRouter(prefix="/stances")
 

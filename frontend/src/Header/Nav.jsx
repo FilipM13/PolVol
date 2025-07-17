@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Link from "../shared/Link";
 import Button from "../shared/Button";
 import { API_ROOT } from "../../apiConfig";
-import myDetails from "../loginCheck";
+import { myDetails } from "../loginCheck";
 import Loading from "../shared/Loading";
 
 function Nav({ navClass, linkClass }) {
@@ -18,7 +18,6 @@ function Nav({ navClass, linkClass }) {
 
   useEffect(() => {
     getDetails();
-    console.log(user);
   }, []);
 
   const handleLogout = async () => {
@@ -32,7 +31,7 @@ function Nav({ navClass, linkClass }) {
     if (res.ok) {
       console.group("token removed");
     } else {
-      console.log("cont remove token");
+      console.log("cant remove token");
     }
     localStorage.removeItem("token");
     window.location.reload();
