@@ -60,7 +60,8 @@ function UserList() {
     }
   }
 
-  async function removeUser(uid) {
+  async function deleteUser(uid) {
+    if (!window.confirm("Are you sure you want to delete this user?")) return;
     const res = await fetch(`${API_ROOT}/auth/delete/${uid}`, {
       method: "DELETE",
       headers: {
@@ -148,7 +149,7 @@ function UserList() {
                       src={delete_user}
                       alt="delete"
                       title="remove user"
-                      onClick={() => removeUser(u.id)}
+                      onClick={() => deleteUser(u.id)}
                       style={{
                         position: "absolute",
                         margin: "auto",

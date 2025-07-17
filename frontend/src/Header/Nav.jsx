@@ -2,18 +2,23 @@ import React, { useState, useEffect } from "react";
 import Link from "../shared/Link";
 import Button from "../shared/Button";
 import { API_ROOT } from "../../apiConfig";
-import loginCheck from "../loginCheck";
+import myDetails from "../loginCheck";
+import Loading from "../shared/Loading";
 
 function Nav({ navClass, linkClass }) {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(false);
 
-  const checkLoginStatus = async () => {
-    const loggedIn = await loginCheck();
-    setIsLoggedIn(loggedIn);
-  };
+  async function getDetails() {
+    setLoading(true);
+    var u = await myDetails();
+    setUser(u);
+    setLoading(false);
+  }
 
   useEffect(() => {
-    checkLoginStatus();
+    getDetails();
+    console.log(user);
   }, []);
 
   const handleLogout = async () => {
@@ -33,6 +38,8 @@ function Nav({ navClass, linkClass }) {
     window.location.reload();
   };
 
+  if (loading) return <Loading />;
+
   return (
     <nav className={navClass}>
       <Link to="/" style={{ background: "var(--bg1)" }}>
@@ -50,7 +57,7 @@ function Nav({ navClass, linkClass }) {
       <Link to="/stances" style={{ background: "var(--bg1)" }}>
         Stances
       </Link>
-      {isLoggedIn ? (
+      {user ? (
         <Button onClick={handleLogout} style={{ background: "var(--bg2)" }}>
           Logout
         </Button>
@@ -59,7 +66,7 @@ function Nav({ navClass, linkClass }) {
           Login
         </Link>
       )}
-      {isLoggedIn ? (
+      {user ? (
         <>
           <Link to="user-details" style={{ background: "var(--bg2)" }}>
             My Account
