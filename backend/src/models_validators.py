@@ -15,6 +15,11 @@ class Authorizations(Enum):
     GUEST = "guest"  # R all
 
 
+class UserStatus(Enum):
+    APPROVED = "approved"
+    NOT_APPROVED = "not_approved"
+
+
 class User(BaseModel):
     """
     User model for authentication and authorization.
@@ -23,6 +28,7 @@ class User(BaseModel):
     id: Optional[int] = None
     username: str
     password: str
+    status: UserStatus = UserStatus.NOT_APPROVED
     authorization: Authorizations = Authorizations.GUEST
 
 

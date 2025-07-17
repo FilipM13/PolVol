@@ -25,8 +25,11 @@ function Nav({ navClass, linkClass }) {
       },
     });
     if (res.ok) {
-      localStorage.removeItem("token");
+      console.group("token removed");
+    } else {
+      console.log("cont remove token");
     }
+    localStorage.removeItem("token");
     window.location.reload();
   };
 

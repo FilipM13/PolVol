@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, String, Float, Date, ForeignKey, DateTime
 from sqlalchemy.orm import declarative_base, relationship
-from models_validators import Authorizations
+from models_validators import Authorizations, UserStatus
 
 Base = declarative_base()
 
@@ -16,13 +16,15 @@ class UserDB(Base):  # type: ignore [misc, valid-type]
     id = Column(Integer, primary_key=True)
     username = Column(String, nullable=False, unique=True)
     password = Column(String, nullable=False)
+    status = Column(String, default="not_approved", nullable=False)
     authorization = Column(String, default="guest", nullable=False)
 
     __table_args__ = (
         {
             "sqlite_autoincrement": True,
             "check_constraints": [
-                f"authorization IN ({', '.join([f'\'{auth}\'' for auth in Authorizations])})"
+                f"authorization IN ({', '.join([f'\'{a}\'' for a in Authorizations])})",
+                f"status IN ({', '.join([f'\'{u}\'' for u in UserStatus])})",
             ],
         },
     )

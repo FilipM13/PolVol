@@ -60,7 +60,7 @@ def get_all_users(db: Session = Depends(get_db)):
     """
     List all users.
     """
-    users = db.query(UserDB).all()
+    users = db.query(UserDB).order_by(UserDB.authorization).all()
     fields = User.model_fields.keys()
     rv = list()
     for u in users:
@@ -99,7 +99,11 @@ def register_user(user: User, db: Session = Depends(get_db)):
 
 
 @router.delete("/delete/{user_id}", response_model=User)
-def delete_user(user_id: int, db: Session = Depends(get_db)):
+def delete_user(
+    user_id: int,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
     """
     Delete a user by ID.
     """
@@ -113,7 +117,34 @@ def delete_user(user_id: int, db: Session = Depends(get_db)):
     fields = User.model_fields.keys()
     user = User.model_validate({f: getattr(user, f) for f in fields})
     user.password = "******"  # Hide password in response
-    logger.info(f"User with ID {user_id} deleted successfully.")
+    logger.info(f"User {current_user.id} removing user with ID {user_id}.")
+    return user
+
+
+@router.put("/update-status/{user_id}/{status}", response_model=User)
+def update_user_status(
+    user_id: int,
+    status: str,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    """
+    Update user status
+    """
+    user = db.query(UserDB).get(user_id)
+    if not user:
+        logger.warning(f"User with ID {user_id} not found.")
+        raise HTTPException(status_code=404, detail="User not found")
+    logger.info(
+        f"User {current_user.id} updating status of user with ID {user_id} to {status}."
+    )
+
+    user.status = status
+    db.commit()
+    db.refresh(user)
+    fields = User.model_fields.keys()
+    user = User.model_validate({f: getattr(user, f) for f in fields})
+    user.password = "******"  # Hide password in response
     return user
 
 
