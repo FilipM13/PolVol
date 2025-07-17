@@ -3,7 +3,6 @@ import Error from "../shared/Error";
 import Success from "../shared/Success";
 import Panel from "../shared/Panel";
 import H from "../shared/H";
-import Tile from "../shared/Tile";
 import { useState, useEffect } from "react";
 import { myDetails } from "../loginCheck";
 import { API_ROOT } from "../../apiConfig";
@@ -19,13 +18,11 @@ const authMap = {
 const statuses = ["approved", "not_approved"];
 
 function UserList() {
+  const [users, setUsers] = useState([]);
+  const [success, setSuccess] = useState("");
+  const [error, setError] = useState(null);
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const [success, setSuccess] = useState("");
-  const [users, setUsers] = useState([
-    { username: "aaa", authorization: "guest" },
-  ]);
 
   async function getDetails() {
     setLoading(true);

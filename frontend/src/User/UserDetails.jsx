@@ -1,7 +1,6 @@
 import { myDetails } from "../loginCheck";
 import Panel from "../shared/Panel";
 import H from "../shared/H";
-import Success from "../shared/Success";
 import Error from "../shared/Error";
 import Loading from "../shared/Loading";
 import { useState, useEffect } from "react";

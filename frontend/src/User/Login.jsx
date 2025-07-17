@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import styles from "../shared/shared.module.css";
 import Button from "../shared/Button";
 import Error from "../shared/Error";
 import Loading from "../shared/Loading";
