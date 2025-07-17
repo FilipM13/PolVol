@@ -34,7 +34,8 @@ export default function EventDetails({ eventId }) {
 
   return (
     <Panel>
-      <H>Event Details</H>
+      <H>{event.name}</H>
+      <H level={2}>Details</H>
       <div>
         <strong>Name:</strong> {event.name}
       </div>

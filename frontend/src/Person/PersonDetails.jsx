@@ -41,7 +41,7 @@ function PersonScores({ personId }) {
     <Grid>
       {scores.map((score, indx) => (
         <Tile key={indx}>
-          <H>{score.spectrum}</H>
+          <H level={2}>{score.spectrum}</H>
           <div>Mean: {score.mean_value}</div>
           <div>Volatility: {score.stdev_value}</div>
           <div>Number of datapoints: {score.count}</div>

@@ -21,8 +21,10 @@ import CreateStanceOnEvent from "./StanceOnEvent/CreateStanceOnEvent.jsx";
 import EditStanceOnEvent from "./StanceOnEvent/EditStanceOnEvent.jsx";
 import StanceOnEventList from "./StanceOnEvent/StanceOnEventList.jsx";
 import StanceOnEventDetails from "./StanceOnEvent/StanceOnEventDetails.jsx";
-import Login from "./Login/Login.jsx";
-import Register from "./Login/Register.jsx";
+import Login from "./User/Login.jsx";
+import Register from "./User/Register.jsx";
+import UserDetails from "./User/UserDetails.jsx";
+import UserList from "./User/UserList.jsx";
 
 import styles from "./App.module.css";
 
@@ -34,6 +36,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/user-details" element={<UserDetails />} />
+          <Route path="/users" element={<UserList />} />
           <Route path="/register" element={<Register />} />
           <Route path="/create-person" element={<CreatePerson />} />
           <Route path="/persons" element={<PersonList />} />

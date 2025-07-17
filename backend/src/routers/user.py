@@ -8,6 +8,7 @@ import datetime
 from passlib.context import CryptContext
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from jose import jwt, JWTError
+from typing import List
 
 router = APIRouter(prefix="/auth")
 
@@ -52,6 +53,21 @@ def get_current_user_info(current_user: User = Depends(get_current_user)):
     user_info = User.model_validate({f: getattr(current_user, f) for f in fields})
     user_info.password = "******"  # Hide password in response
     return user_info
+
+
+@router.get("/users", response_model=List[User])
+def get_all_users(db: Session = Depends(get_db)):
+    """
+    List all users.
+    """
+    users = db.query(UserDB).all()
+    fields = User.model_fields.keys()
+    rv = list()
+    for u in users:
+        rv.append(User.model_validate({f: getattr(u, f) for f in fields}))
+    for r in rv:
+        r.password = "******"
+    return rv
 
 
 @router.post("/register", response_model=User)

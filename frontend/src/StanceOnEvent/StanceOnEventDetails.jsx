@@ -46,12 +46,9 @@ export default function StanceOnEventDetails({ stanceId }) {
 
   return (
     <Panel>
-      <H>Stance On Event Details</H>
+      <H level={2}>Stance On Event Details</H>
       <div>
         <strong>ID:</strong> {stance.id}
-      </div>
-      <div>
-        <strong>Event:</strong> {event.name} ({event.date})
       </div>
       <div>
         <strong>Person:</strong> {person.name}
@@ -59,7 +56,10 @@ export default function StanceOnEventDetails({ stanceId }) {
       <div>
         <strong>Date:</strong> {stance.date}
       </div>
-      <H>Spectrum Scores</H>
+      <div>
+        <strong>Event:</strong> {event.name} ({event.date})
+      </div>
+      <H level={2}>Spectrum Scores</H>
       <ul>
         {stance.scores &&
           stance.scores.map((score, idx) => (

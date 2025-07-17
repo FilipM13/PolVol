@@ -57,7 +57,14 @@ function Nav({ navClass, linkClass }) {
         </Link>
       )}
       {isLoggedIn ? (
-        <></>
+        <>
+          <Link to="user-details" style={{ background: "var(--bg2)" }}>
+            My Account
+          </Link>
+          <Link to="users" style={{ background: "var(--bg2)" }}>
+            Other Users
+          </Link>
+        </>
       ) : (
         <Link to="/register" style={{ background: "var(--bg2)" }}>
           Register

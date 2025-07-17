@@ -41,14 +41,15 @@ export default function SpectrumDetails({ spectrumId }) {
 
   return (
     <Panel>
-      <H>Spectrum Details</H>
+      <H>{spectrum.name}</H>
+      <H level={2}>Details</H>
       <div>
         <strong>Name:</strong> {spectrum.name}
       </div>
       <div>
         <strong>ID:</strong> {spectrum.id}
       </div>
-      <H>Average Scores</H>
+      <H level={2}>Scores</H>
       {scores && (
         <ul>
           <li>

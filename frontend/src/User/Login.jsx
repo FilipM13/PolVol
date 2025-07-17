@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "../shared/shared.module.css";
 import Button from "../shared/Button";
 import Error from "../shared/Error";
@@ -7,6 +7,7 @@ import Success from "../shared/Success";
 import { API_ROOT } from "../../apiConfig";
 import Form from "../shared/Form";
 import H from "../shared/H";
+import loginCheck from "../loginCheck";
 
 const Login = ({ onLogin }) => {
   const [username, setUsername] = useState("");
@@ -15,6 +16,7 @@ const Login = ({ onLogin }) => {
   const [passwordShow, setPasswordShow] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -53,6 +55,20 @@ const Login = ({ onLogin }) => {
   const showPassword = () => {
     setPasswordShow((prev) => !prev);
   };
+
+  async function checkLogIn() {
+    setLoading(true);
+    var v = await loginCheck();
+    setIsLoggedIn((i) => v);
+    setLoading(false);
+  }
+
+  useEffect(() => {
+    checkLogIn();
+  }, []);
+
+  if (loading) return <Loading />;
+  if (isLoggedIn) return <Success message="You are logged in." />;
 
   return (
     <Form onSubmit={handleSubmit}>
