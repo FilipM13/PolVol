@@ -88,29 +88,32 @@ Until approved, user has lowest authorization level (guest). [not yet implemente
 
 No volumes for database and logs yet. Will be done later.
 
-Build docker image:
+Build docker image for backend:
 
 ```bash
 cd backend
 docker build -t backend:0.0.1
 ```
 
-Run api:
+Run backend:
 
 ```bash
 docker run -p 8000:8000 backend:0.0.1
 # or docker run -d -p 800:8000 backend:0.0.1
 ```
 
-Run forntend in terminal:
-
-This will be changed to docker as well.
+Build docker image for backend:
 
 ```bash
 cd frontend
-npm install
-npm run build
-serve -s dist
+docker build -t frontend:0.0.1
+```
+
+Run frontend:
+
+```bash
+docker run -p 5173:80 font:0.0.1
+# or docker run -p 5173:80 font:0.0.1
 ```
 
 ## Background Jobs [might be changed to Celery + Redis]
