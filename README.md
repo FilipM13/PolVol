@@ -86,15 +86,25 @@ Until approved, user has lowest authorization level (guest). [not yet implemente
 
 ## Launching (temporary, until deployed to Azure)
 
-Terminal 1 (backend):
+No volumes for database and logs yet. Will be done later.
+
+Build docker image:
 
 ```bash
-cd backend/src
-python -m pip install -r requirements.txt
-python -m src
+cd backend
+docker build -t backend:0.0.1
 ```
 
-Terminal 2 (frontend):
+Run api:
+
+```bash
+docker run -p 8000:8000 backend:0.0.1
+# or docker run -d -p 800:8000 backend:0.0.1
+```
+
+Run forntend in terminal:
+
+This will be changed to docker as well.
 
 ```bash
 cd frontend
