@@ -12,7 +12,7 @@ formatter = l.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
 # logger.addHandler(ch)
 
 # file
-fh = l.FileHandler("polvol.log")
+fh = l.FileHandler("/data/logs/polvol.log")
 fh.setLevel(l.DEBUG)
 fh.setFormatter(formatter)
 logger.addHandler(fh)

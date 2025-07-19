@@ -1,0 +1,13 @@
+services:
+  frontend:
+    image: frontend:0.0.1
+    ports:
+      - 5173:80
+  backend:
+    image: backend:0.0.1
+    volumes:
+      - polvolVolume:/data
+    ports:
+      - 8000:8000
+volumes:
+  polvolVolume:

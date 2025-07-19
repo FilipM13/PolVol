@@ -86,8 +86,6 @@ Until approved, user has lowest authorization level (guest). [not yet implemente
 
 ## Launching (temporary, until deployed to Azure)
 
-No volumes for database and logs yet. Will be done later.
-
 Build docker image for backend:
 
 ```bash
@@ -98,8 +96,8 @@ docker build -t backend:0.0.1
 Run backend:
 
 ```bash
-docker run -p 8000:8000 backend:0.0.1
-# or docker run -d -p 800:8000 backend:0.0.1
+docker run -p 8000:8000 -v polvolVolume:/data backend:0.0.1
+# or docker run -d -p 8000:8000 backend:0.0.1
 ```
 
 Build docker image for backend:
@@ -115,6 +113,8 @@ Run frontend:
 docker run -p 5173:80 font:0.0.1
 # or docker run -p 5173:80 font:0.0.1
 ```
+
+All services and volumes are referenced in docker compose.yml file.
 
 ## Background Jobs [might be changed to Celery + Redis]
 
