@@ -84,7 +84,7 @@ Users with higher level of authorization can change status of users with lower l
 
 Until approved, user has lowest authorization level (guest). [not yet implemented]
 
-## Launching (temporary, until deployed to Azure)
+## Containerization (Docker)
 
 Build docker image for backend:
 
@@ -121,10 +121,6 @@ All services and volumes are referenced in docker compose.yml file.
 Currently there is one background job `backend.src.automation.clear_tokens` implemented running every 2 minutes. It is removing outdated tokens from the database. The job is setup using [schedule](https://pypi.org/project/schedule/) package in Python.
 
 ## DevOps (GitHub Actions)
-
-not yet implemented
-
-## Containerization (Docker)
 
 not yet implemented
 
