@@ -68,7 +68,9 @@ class Person(BaseModel):
     """
 
     id: Optional[int] = None
-    name: str
+    first_name: str
+    middle_name: Optional[str] = None
+    last_name: str
 
 
 class Event(BaseModel):

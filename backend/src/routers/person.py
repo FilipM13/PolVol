@@ -11,7 +11,7 @@ router = APIRouter(prefix="/persons")
 
 @router.post("/", response_model=Person)
 def create_person(person: Person, db: Session = Depends(get_db)):
-    logger.info(f"Creating person: {person.name}")
+    logger.info(f"Creating person: {person}")
     import datetime
 
     data = person.model_dump(exclude_unset=True)

@@ -82,7 +82,13 @@ export default function PersonDetails({ personId }) {
     <Panel>
       <H>Person Details</H>
       <div>
-        <strong>Name:</strong> {person.name}
+        <strong>First Name:</strong> {person.first_name}
+      </div>
+      <div>
+        <strong>Middle Name:</strong> {person.middle_name}
+      </div>
+      <div>
+        <strong>First Name:</strong> {person.last_name}
       </div>
       <div>
         <strong>ID:</strong> {person.id}

@@ -89,7 +89,9 @@ class PersonDB(Base):  # type: ignore [misc, valid-type]
 
     __tablename__ = "persons"
     id = Column(Integer, primary_key=True)
-    name = Column(String, nullable=False)
+    first_name = Column(String, nullable=False)
+    middle_name = Column(String, nullable=True)
+    last_name = Column(String, nullable=False)
     stances = relationship(
         "StanceOnEventDB", back_populates="person", cascade="all, delete-orphan"
     )

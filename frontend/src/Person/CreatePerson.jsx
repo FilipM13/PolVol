@@ -52,10 +52,37 @@ export default function CreatePerson() {
       <Form onSubmit={handleSubmit}>
         <H>Create Person</H>
         <input
-          name="name"
-          value={form.name}
+          name="first_name"
+          value={form.first_name}
           onChange={handleChange}
-          placeholder="Name"
+          placeholder="First Name"
+          required
+          style={{
+            padding: "0.7rem",
+            marginBottom: "1rem",
+            borderRadius: "8px",
+            border: "1px solid #e0d7fa",
+            fontSize: "1.1rem",
+          }}
+        />
+        <input
+          name="middle_name"
+          value={form.middle_name}
+          onChange={handleChange}
+          placeholder="Middle Name"
+          style={{
+            padding: "0.7rem",
+            marginBottom: "1rem",
+            borderRadius: "8px",
+            border: "1px solid #e0d7fa",
+            fontSize: "1.1rem",
+          }}
+        />
+        <input
+          name="last_name"
+          value={form.last_name}
+          onChange={handleChange}
+          placeholder="Last Name"
           required
           style={{
             padding: "0.7rem",
