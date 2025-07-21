@@ -12,24 +12,41 @@ export default function PersonList() {
   const [persons, setPersons] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [pics, setPics] = useState({});
 
-  useEffect(() => {
-    async function fetchPersons() {
-      setLoading(true);
-      setError("");
-      try {
-        const res = await fetch(`${API_ROOT}/persons`);
-        if (!res.ok) throw new Error(await res.text());
-        const data = await res.json();
-        setPersons(data);
-      } catch (err) {
-        setError(err.message || "Failed to fetch persons");
-      } finally {
-        setLoading(false);
-      }
+  async function get_picture(pid) {
+    var data = await fetch(`${API_ROOT}/persons/picture/${pid}`);
+    var blob = await data.blob();
+    if (blob.size > 0) {
+      var url = URL.createObjectURL(blob);
+    } else {
+      var url = null;
     }
+    setPics((prev) => ({ ...prev, [pid]: url }));
+  }
+  async function fetchPersons() {
+    setLoading(true);
+    setError("");
+    try {
+      const res = await fetch(`${API_ROOT}/persons`);
+      if (!res.ok) throw new Error(await res.text());
+      const data = await res.json();
+      setPersons(data);
+    } catch (err) {
+      setError(err.message || "Failed to fetch persons");
+    } finally {
+      setLoading(false);
+    }
+  }
+  useEffect(() => {
     fetchPersons();
   }, []);
+  useEffect(() => {
+    for (let i = 0; i < persons.length; i++) {
+      const person = persons[i];
+      get_picture(person.id);
+    }
+  }, [persons]);
 
   if (loading) return <Loading />;
   if (error) return <Error message={error} />;
@@ -56,6 +73,29 @@ export default function PersonList() {
       <Grid>
         {persons.map((p) => (
           <Tile key={p.id}>
+            {pics[p.id] ? (
+              <img
+                src={pics[p.id]}
+                alt="picture"
+                height={80}
+                style={{
+                  marginLeft: "auto",
+                  marginRight: "auto",
+                  borderRadius: "1.2rem",
+                }}
+              />
+            ) : (
+              <div
+                style={{
+                  height: 80,
+                  width: 80,
+                  background: "var(--bg1)",
+                  marginLeft: "auto",
+                  marginRight: "auto",
+                  borderRadius: "1.2rem",
+                }}
+              />
+            )}
             <H level={2}>
               {p.first_name} {p.middle_name && p.middle_name} {p.last_name}
             </H>

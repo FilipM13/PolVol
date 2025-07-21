@@ -19,11 +19,7 @@ def run_schedule():
 api = Process(
     target=uvicorn.run,
     name="Backend Api",
-    kwargs={
-        "app": app,
-        "host": "0.0.0.0",
-        "port": 8000
-    },
+    kwargs={"app": app, "host": "0.0.0.0", "port": 8000},
 )
 s = Process(target=run_schedule, name="Scheduled Jobs")
 

@@ -1,10 +1,13 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, UploadFile
 from sqlalchemy.orm import Session
 from typing import List
 from ..models import PersonDB
 from ..db import get_db
 from ..models_validators import Person
 from ..logger import logger
+import datetime
+from fastapi.responses import StreamingResponse
+import io
 
 router = APIRouter(prefix="/persons")
 
@@ -12,8 +15,6 @@ router = APIRouter(prefix="/persons")
 @router.post("/", response_model=Person)
 def create_person(person: Person, db: Session = Depends(get_db)):
     logger.info(f"Creating person: {person}")
-    import datetime
-
     data = person.model_dump(exclude_unset=True)
     if "date_of_birth" in data and isinstance(data["date_of_birth"], str):
         data["date_of_birth"] = datetime.date.fromisoformat(data["date_of_birth"])
@@ -24,6 +25,29 @@ def create_person(person: Person, db: Session = Depends(get_db)):
     fields = Person.model_fields.keys()
     data = {field: getattr(db_person, field) for field in fields}
     return Person.model_validate(data)
+
+
+@router.post("/picture_upload/{person_id}")
+async def picture_upload(
+    person_id: int, file: UploadFile, db: Session = Depends(get_db)
+):
+    person = db.query(PersonDB).filter(PersonDB.id == person_id).first()
+    if not person:
+        raise HTTPException(404, "Person not found")
+    person.picture = await file.read()  # type: ignore [assignment]
+    db.commit()
+    db.refresh(person)
+    fields = Person.model_fields.keys()
+    data = {field: getattr(person, field) for field in fields}
+    return Person.model_validate(data)
+
+
+@router.get("/picture/{person_id}")
+def get_picture(person_id: int, db: Session = Depends(get_db)):
+    person = db.query(PersonDB).filter(PersonDB.id == person_id).first()
+    if not person:
+        raise HTTPException(404, "Person not found")
+    return StreamingResponse(io.BytesIO(person.picture), media_type="image/png")
 
 
 @router.get("/", response_model=List[Person])

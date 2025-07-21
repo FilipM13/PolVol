@@ -55,8 +55,19 @@ export default function PersonDetails({ personId }) {
   const [person, setPerson] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [pic, setPic] = useState(null);
 
   useEffect(() => {
+    async function get_picture(pid) {
+      var data = await fetch(`${API_ROOT}/persons/picture/${pid}`);
+      var blob = await data.blob();
+      if (blob.size > 0) {
+        var url = URL.createObjectURL(blob);
+      } else {
+        var url = null;
+      }
+      setPic((prev) => url);
+    }
     async function fetchPerson() {
       setLoading(true);
       setError("");
@@ -64,6 +75,7 @@ export default function PersonDetails({ personId }) {
         const res = await fetch(`${API_ROOT}/persons/${personId}`);
         if (!res.ok) throw new Error(await res.text());
         const data = await res.json();
+        console.log(data);
         setPerson(data);
       } catch (err) {
         setError(err.message || "Failed to fetch person");
@@ -72,6 +84,7 @@ export default function PersonDetails({ personId }) {
       }
     }
     fetchPerson();
+    get_picture(personId);
   }, [personId]);
 
   if (loading) return <Loading />;
@@ -81,6 +94,29 @@ export default function PersonDetails({ personId }) {
   return (
     <Panel>
       <H>Person Details</H>
+      {pic ? (
+        <img
+          src={pic}
+          alt="picture"
+          height={80}
+          style={{
+            marginLeft: "auto",
+            marginRight: "auto",
+            borderRadius: "1.2rem",
+          }}
+        />
+      ) : (
+        <div
+          style={{
+            height: 80,
+            width: 80,
+            background: "var(--bg1)",
+            marginLeft: "auto",
+            marginRight: "auto",
+            borderRadius: "1.2rem",
+          }}
+        />
+      )}
       <div>
         <strong>First Name:</strong> {person.first_name}
       </div>

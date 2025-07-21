@@ -8,7 +8,10 @@ import Button from "../shared/Button";
 import Loading from "../shared/Loading";
 
 const initialState = {
-  name: "",
+  first_name: "",
+  middle_name: "",
+  last_name: "",
+  picture: null,
 };
 
 export default function CreatePerson() {
@@ -29,6 +32,8 @@ export default function CreatePerson() {
     setSuccess("");
     // Prepare payload
     const payload = { ...form };
+    payload.picture = null;
+    console.log(form);
     try {
       const res = await fetch(`${API_ROOT}/persons`, {
         method: "POST",
@@ -36,6 +41,19 @@ export default function CreatePerson() {
         body: JSON.stringify(payload),
       });
       if (!res.ok) throw new Error(await res.text());
+      if (form.picture) {
+        var data = await res.json();
+        const formData = new FormData();
+        formData.append("file", form.picture);
+        const res_pic = await fetch(
+          `${API_ROOT}/persons/picture_upload/${data.id}`,
+          {
+            method: "POST",
+            body: formData,
+          }
+        );
+        if (!res_pic.ok) throw new Error(await res_pic.text());
+      }
       setSuccess("Person created successfully!");
       setForm(initialState);
     } catch (err) {
@@ -84,6 +102,19 @@ export default function CreatePerson() {
           onChange={handleChange}
           placeholder="Last Name"
           required
+          style={{
+            padding: "0.7rem",
+            marginBottom: "1rem",
+            borderRadius: "8px",
+            border: "1px solid #e0d7fa",
+            fontSize: "1.1rem",
+          }}
+        />
+        <input
+          type="file"
+          name="picture"
+          accept="image/png"
+          onChange={(e) => setForm({ ...form, picture: e.target.files[0] })}
           style={{
             padding: "0.7rem",
             marginBottom: "1rem",

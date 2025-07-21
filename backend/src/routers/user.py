@@ -96,12 +96,12 @@ def register_user(user: User, db: Session = Depends(get_db)):
     db.commit()
     db.refresh(new_user)
     fields = User.model_fields.keys()
-    new_user = User.model_validate(
+    val_user = User.model_validate(
         {f: getattr(new_user, f) for f in fields}
     )  # Convert to Pydantic model
     logger.info(f"User {user.username} registered successfully.")
-    new_user.password = "******"  # Hide password in response
-    return new_user
+    val_user.password = "******"  # Hide password in response
+    return val_user
 
 
 @router.delete("/delete/{user_id}", response_model=User)
@@ -183,9 +183,9 @@ def login(
     db.commit()
     db.refresh(new_token)
     fields = Token.model_fields.keys()
-    new_token = Token.model_validate({f: getattr(new_token, f) for f in fields})
+    val_token = Token.model_validate({f: getattr(new_token, f) for f in fields})
     logger.info(f"Token generated for user {user.username}.")
-    return new_token
+    return val_token
 
 
 @router.delete("/logout")

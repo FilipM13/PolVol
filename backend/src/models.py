@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Float, Date, ForeignKey, DateTime
+from sqlalchemy import Column, Integer, String, Float, Date, ForeignKey, DateTime, BLOB
 from sqlalchemy.orm import declarative_base, relationship
 from .models_validators import Authorizations, UserStatus
 
@@ -92,6 +92,7 @@ class PersonDB(Base):  # type: ignore [misc, valid-type]
     first_name = Column(String, nullable=False)
     middle_name = Column(String, nullable=True)
     last_name = Column(String, nullable=False)
+    picture = Column(BLOB, nullable=True)
     stances = relationship(
         "StanceOnEventDB", back_populates="person", cascade="all, delete-orphan"
     )
