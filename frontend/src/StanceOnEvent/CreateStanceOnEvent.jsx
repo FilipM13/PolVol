@@ -188,7 +188,7 @@ export default function CreateStanceOnEvent() {
           </option>
           {persons.map((p) => (
             <option key={p.id} value={p.id}>
-              {p.name} (ID: {p.id})
+              {p.first_name} {p.middle_name} {p.last_name} (ID: {p.id})
             </option>
           ))}
         </select>

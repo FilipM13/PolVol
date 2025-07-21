@@ -84,7 +84,14 @@ export default function StanceOnEventList() {
               <span>
                 <small>DATE: {s.date}</small>
                 <br />
-                Person: {person ? person.name : s.person_id}
+                Person:{" "}
+                {person ? (
+                  <>
+                    {person.first_name} {person.last_name}
+                  </>
+                ) : (
+                  s.person_id
+                )}
                 <br />
                 Event: {event ? `${event.name} (${event.date})` : s.event_id}
                 <br />

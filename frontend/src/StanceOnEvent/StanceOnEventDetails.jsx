@@ -51,7 +51,8 @@ export default function StanceOnEventDetails({ stanceId }) {
         <strong>ID:</strong> {stance.id}
       </div>
       <div>
-        <strong>Person:</strong> {person.name}
+        <strong>Person:</strong> {person.first_name} {person.middle_name}{" "}
+        {person.last_name}
       </div>
       <div>
         <strong>Date:</strong> {stance.date}
