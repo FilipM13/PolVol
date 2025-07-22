@@ -1,2 +1,4 @@
 mypy==1.16.1
 black==25.1.0
+types-python-jose
+types-passlib
