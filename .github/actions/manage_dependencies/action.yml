@@ -3,7 +3,10 @@ description: install python packages (pip) from requirements and requirements_de
 inputs:
   python-version:
     required: false
-    default: '3.10'
+    default: "3.10"
+  path:
+    required: false
+    default: "."
 
 runs:
   using: composite
@@ -12,11 +15,12 @@ runs:
       uses: actions/setup-python@v5
       with:
         python-version: ${{ inputs.python-version }}
-        cache: 'pip'
-        cache-dependency-path: 'requirements*.txt'
+        cache: "pip"
+        cache-dependency-path: "requirements*.txt"
 
     - name: dependencies
       run: |
+        cd ${{inputs.path}}
         python -m pip install .
         python -m pip install -r requirements_dev.txt
       shell: bash
