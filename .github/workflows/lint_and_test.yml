@@ -28,8 +28,9 @@ jobs:
         with:
           node-version: 18
       - name: Install Node.js dependencies
-        run: npm ci
-      - run: cd frontend
+        run: |
+          cd frontend
+          npm ci
       - name: run lint check on js
         uses: wearerequired/lint-action@v2
         with:
