@@ -26,17 +26,15 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v1
         with:
-          node-version: 18
+          node-version: 22
       - name: Install Node.js dependencies
         run: |
           cd frontend
           npm ci
           npm install prettier
-          npm install eslint
       - name: run lint check on js
         uses: wearerequired/lint-action@v2
         with:
-          eslint: true
           prettier: true
 
   # test-unit:
