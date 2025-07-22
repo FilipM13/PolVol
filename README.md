@@ -9,7 +9,7 @@ PolVol is a full-stack web platform designed to analyze the volatility of public
 
 # Platform Concept
 
-The initial idea of this platform was to measure how volatile are political opinions of public individuals (hence the name PolVol). The main goal for me was to give it a meaning, motivating myself to make progress in the first phase of development (it worked). While the political theme adds context, the main goal of this project was to build and deploy a complex full-stack application. Below you will find description of main features of the app (maybe not up to date, so I recomend launching the app).
+The initial idea of this platform was to measure how volatile are political opinions of public individuals (hence the name PolVol). The main goal for me was to give it a meaning, motivating myself to make progress in the first phase of development (it worked). While the political theme adds context, the main goal of this project was to build and deploy a complex full-stack application. Below you will find description of main features of the app (maybe not up to date, so I recommend launching the app).
 
 ## Main Features / Components
 
@@ -19,7 +19,7 @@ User (with necessary authorization) can add 3 base data components:
 - Event
 - Spectrum (for example "left - right")
 
-Next these elements can be linked via Stance (stance of a person on an event) which has additional attributes of Scores within a Spectrum (from -50 to 50, where -50 in example above would be extremely left-leaning and 50 would be extremely right-leaning). Later average Scores with standard deviation for each Spectrum for each Person can be viewed in person's details page, indicating his/her general position. This (in theory) should objectively show how extreme (average score) and consistent (standard deviation) the person is in their stance withing given spectrum.
+Next these elements can be linked via Stance (stance of a person on an event) which has additional attributes of Scores within a Spectrum (from -50 to 50, where -50 in example above would be extremely left-leaning and 50 would be extremely right-leaning). Later average Scores with standard deviation for each Spectrum for each Person can be viewed in person's details page, indicating his/her general position. This (in theory) should objectively show how extreme (average score) and consistent (standard deviation) the person is in their stance within given spectrum.
 
 ## Example for Winnie The Pooh
 
@@ -57,11 +57,11 @@ We can see that Winnie is strongly ProHoney (39/50) and is very consistent (8) i
 
 ## Frontend
 
-React frontend created with Vite. `src` directory is divided by views views and data models (`src/Header` for navigation and header, `src/Login` for user login and registration, `src/Person` for CRUD operations on Person data model etc.). Reusable components (tiles, panels, grids, headings etc.) have been created in `src/shared` directory to keep the style consistent across all views and to minimize code repetitions (mostly css). This react app is using React Router to redirect to specific views/components.
+React frontend created with Vite. `src` directory is divided by views and data models (`src/Header` for navigation and header, `src/Login` for user login and registration, `src/Person` for CRUD operations on Person data model etc.). Reusable components (tiles, panels, grids, headings etc.) have been created in `src/shared` directory to keep the style consistent across all views and to minimize code repetitions (mostly css). This react app is using React Router to redirect to specific views/components.
 
 ## Backend
 
-Backend has been created with Python FastApi and besides standard open endpoints has implemented authentication with JSON Web Token. The api is using pydantic data models to validate requests and responses.
+Backend has been created with Python FastApi and besides standard open endpoints has implemented authentication with JSON Web Token. The api is using Pydantic data models to validate requests and responses.
 
 ## Database
 
@@ -69,9 +69,9 @@ SQLite database has been created with Python SQLAlchemy. For each database data 
 
 ## Authorization and Authentication
 
-Authentication is managed by JWT. Tokens are automatically removed from database after their expiration datetime is exceeded (with dedicated scheduled reoccuring job).
+Authentication is managed by JWT. Tokens are automatically removed from database after their expiration datetime is exceeded (with dedicated scheduled reoccurring job).
 
-Authorization is devided into 4 levels specified in `backend.src.models_validators.Authorizations`. The basis of each authorization level are CRUD operation on different models:
+Authorization is divided into 4 levels specified in `backend.src.models_validators.Authorizations`. The basis of each authorization level are CRUD operation on different models:
 
 ```python
 class Authorizations(Enum):
@@ -125,15 +125,24 @@ Currently there is one background job `backend.src.automation.clear_tokens` impl
 
 ## DevOps (GitHub Actions)
 
-As of today, GitHub Actions has been configured to perform formatting checks on frondend (prettier) and backend code (black), as well as type checks on backend (mypy).
+As of today, GitHub Actions has been configured to perform formatting checks on frontend (prettier) and backend code (black), as well as type checks on backend (mypy).
 
-It will be further extended to run unit and module tests on the api (once I create the tests...) and to build and tag docker images.
+It will be further extended to run unit and module tests on the api, and to build and tag docker images.
 
 ## Cloud (Azure)
 
 not yet implemented
 
-The platform is hosted on Azure Container App with Docker compose under [this link](https://www.youtube.com/watch?v=dQw4w9WgXcQ).
+The project can be run locally with commands below:
+
+```bash
+git clone https://github.com/FilipM13/PolVol.git
+docker build -t backend:0.0.1 ./backend
+docker build -t frontend:0.0.1 ./frontend
+docker compose up
+```
+
+The platform is hosted on Azure Container App with Docker compose under [this link]() (not deployed, no valid url).
 
 ## LLM (Ollama / HuggingFace)
 
