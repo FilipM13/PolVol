@@ -6,7 +6,7 @@ inputs:
     default: "3.10"
   path:
     required: false
-    default: "."
+    default: "./"
 
 runs:
   using: composite
@@ -16,7 +16,7 @@ runs:
       with:
         python-version: ${{ inputs.python-version }}
         cache: "pip"
-        cache-dependency-path: "requirements*.txt"
+        cache-dependency-path: "${{inputs.path}}requirements*.txt"
 
     - name: dependencies
       run: |
