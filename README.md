@@ -2,77 +2,73 @@
 
 Sample project of online platform.
 
-## Concept
+1. [Platform concept (just for context)](#concept)
+2. [Technical documentation](#technical-documentation)
+
+# Platform Concept
+
+The initial idea of this platform was to measure how volatile are political stances of public individuals (hence the name PolVol), which in perect world would allow people to identify those who are trustworthy. The main goal for me was to give it a meaning, motivating myself to make progress in the first phase of development (it worked). The context of the app is not realative to actual goal of the project - creating something complex. Below you will find description of main features of the app (possibly not up to date, so I recomend launching the app).
+
+## Main Features / Components
 
 User (with necessary authorization) can add 3 base data components:
 
 - Person
 - Event
-- Spectrum (for example "conservative - liberal")
+- Spectrum (for example "left - right")
 
-Next these elements can be linked via Stance (stance of a person on an event) which can be described as Scores within a Spectrum (from -50 to 50, where -50 in example above would be extremely conservative and 50 would be extremely liberal). Later average Scores with standard deviation for each Spectrum for each Person can be viewed in person's details page. This (in theory) should objectively show how extreme (average score) and consistent (standard deviation) the person is in their stance withing given spectrum.
+Next these elements can be linked via Stance (stance of a person on an event) which has additional attributes of Scores within a Spectrum (from -50 to 50, where -50 in example above would be extremely left-leaning and 50 would be extremely right-leaning). Later average Scores with standard deviation for each Spectrum for each Person can be viewed in person's details page, indicating his/her general position. This (in theory) should objectively show how extreme (average score) and consistent (standard deviation) the person is in their stance withing given spectrum.
 
-### Example for Winnie The Pooh
+## Example for Winnie The Pooh
 
-Based on three stances Winnie shared on two events, we can see that's he's very ProHoney (39/50, unsurprisingly he's near extremist).
-
-People:
+People view:
 <img src="README_data/people.png">
 
-Events:
+Events view:
 <img src="README_data/events.png">
 
-Spectra:
+Spectra view:
 <img src="README_data/spectra.png">
 
-Stances:
+Stances view:
 <img src="README_data/stances.png">
 
 Winnie The Pooh Details:
 <img src="README_data/person_details.png">
 
+We can see that Winnie is strongly ProHoney (39/50) and is very consistenr (8) in his opinions.
+
+# Technical Documentation
+
 ## Tech Stack
 
-| Component | Technology |
-| --------- | ---------- |
-| Frontend  | React      |
-| Backend   | FastApi    |
-| Database  | SQLite     |
-
-## Requirements
-
-- npm 9.2.0
-  - react 19.1.0
-  - react-dom 19.1.0
-  - react-router 7.6.3
-  - react-router-dom 7.6.3
-  - vite 7.0.4
-- Python 3.12.11
-  - pydantic 2.11.7
-  - FastApi 0.112.2
-  - SQLAlchemy 2.0.41
-- Docker [not yet implemented]
+| Component | Technology          |
+| --------- | ------------------- |
+| Frontend  | React               |
+| Backend   | FastApi             |
+| Database  | SQLite (SQLAlchemy) |
 
 ## Frontend
 
-React frontend created with Vite. `src` directory is devided by views for specific views and data models (eg. `src/Header` for navigation and header, `src/Login` for user login and registration, `src/Person` for CRUD operations on Person data model). Reusable components have been created in `src/shared` directory to keepthe style consistent across all views and to minimize code repetitions (mostly css). This react app is using React Router to redirect to specific views/components.
+React frontend created with Vite. `src` directory is devided by views views and data models (`src/Header` for navigation and header, `src/Login` for user login and registration, `src/Person` for CRUD operations on Person data model etc.). Reusable components (tiles, panels, grids, headings etc.) have been created in `src/shared` directory to keep the style consistent across all views and to minimize code repetitions (mostly css). This react app is using React Router to redirect to specific views/components.
 
 ## Backend
 
-Python FastApi api handling all CRUD operations on different data models, authentication, generating and removing JSON Web Tokens (JWT).
-It is using Pydantic data models to verify body of the request.
+Backend has been created with Python FastApi and besides standard open endpoints has implemented authentication with JSON Web Token. The api is using pydantic data models to validate requests and responses.
 
 ## Database
 
-SQLite database created with Python SQLAlchemy. For each database data model there is matching Pydantic model for validation (`backend.src.models.PersonDB` -> `backend.src.models_validators.Person` etc.).
+SQLite database has been created with Python SQLAlchemy. For each database data model there is matching Pydantic model for validation (`backend.src.models.PersonDB` -> `backend.src.models_validators.Person` etc.).
 
 ## Authorization and Authentication
 
-Authentication is managed by JWT. Token are automatically removed from database after their expiration datetime is exceeded (via celery scheduled job [not yet implemented]). Authorization is devided into 4 levels specified in `backend.src.models_validators.Authorizations`:
+Authentication is managed by JWT. Token are automatically removed from database after their expiration datetime is exceeded (with dedicated scheduled reoccuring job).
+
+Authorization is devided into 4 levels specified in `backend.src.models_validators.Authorizations`. The basis of each authorization level are CRUD operation on different models:
 
 ```python
 class Authorizations(Enum):
-    ADMIN = "admin"  # all permissions, assigning autorhizations to other users
+    ADMIN = "admin"  # all permissions
     DATA_ANALYST = "data_analyst"  # all below + CU on stances
     DATA_PROVIDER = "data_provider"  # all below + CU events, spectra, people
     GUEST = "guest"  # R all
@@ -83,6 +79,8 @@ Users with higher level of authorization can change status of users with lower l
 <img src="README_data/user_approval.png">
 
 Until approved, user has lowest authorization level (guest). [not yet implemented]
+
+[restrictions for authorization levels not yet implemented]
 
 ## Containerization (Docker)
 
@@ -97,7 +95,6 @@ Run backend:
 
 ```bash
 docker run -p 8000:8000 -v polvolVolume:/data backend:0.0.1
-# or docker run -d -p 8000:8000 backend:0.0.1
 ```
 
 Build docker image for backend:
@@ -110,8 +107,7 @@ docker build -t frontend:0.0.1
 Run frontend:
 
 ```bash
-docker run -p 5173:80 font:0.0.1
-# or docker run -p 5173:80 font:0.0.1
+docker run -p 5173:80 frontend:0.0.1
 ```
 
 All services and volumes are referenced in docker compose.yml file.
@@ -122,11 +118,15 @@ Currently there is one background job `backend.src.automation.clear_tokens` impl
 
 ## DevOps (GitHub Actions)
 
-not yet implemented
+As of today, GitHub Actions has been configured to perform formatting checks on frondend (prettier) and backend code (black), as well as type checks on backend (mypy).
+
+It will be further extended to run unit and module tests on the api (once I create the tests...) and to build and tag docker images.
 
 ## Cloud (Azure)
 
 not yet implemented
+
+The platform is hosted on Azure Container App with Docker compose under [this link](https://www.youtube.com/watch?v=dQw4w9WgXcQ).
 
 ## LLM (Ollama / HuggingFace)
 

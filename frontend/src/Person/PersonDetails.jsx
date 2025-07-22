@@ -18,7 +18,7 @@ function PersonScores({ personId }) {
       setError("");
       try {
         const res = await fetch(
-          `${API_ROOT}/persons/${personId}/average_spectra_scores`,
+          `${API_ROOT}/persons/${personId}/average_spectra_scores`
         );
         if (!res.ok) throw new Error(await res.text());
         const data = await res.json();
@@ -124,7 +124,7 @@ export default function PersonDetails({ personId }) {
         <strong>Middle Name:</strong> {person.middle_name}
       </div>
       <div>
-        <strong>First Name:</strong> {person.last_name}
+        <strong>Last Name:</strong> {person.last_name}
       </div>
       <div>
         <strong>ID:</strong> {person.id}
