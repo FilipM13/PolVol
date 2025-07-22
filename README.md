@@ -1,13 +1,15 @@
 # PolVol
 
-Sample project of online platform.
+PolVol is a full-stack web platform designed to analyze the volatility of public individuals’ political opinions. Built with React, FastAPI, and SQLite, it includes user authentication, customizable authorization levels, and interactive visualizations of stance consistency.
 
-1. [Platform concept (just for context)](#platform-concept)
-2. [Technical documentation](#technical-documentation)
+## Table of Contents
+
+- [Platform concept (just for context)](#platform-concept)
+- [Technical documentation](#technical-documentation)
 
 # Platform Concept
 
-The initial idea of this platform was to measure how volatile are political stances of public individuals (hence the name PolVol), which in perect world would allow people to identify those who are trustworthy. The main goal for me was to give it a meaning, motivating myself to make progress in the first phase of development (it worked). The context of the app is not realative to actual goal of the project - creating something complex. Below you will find description of main features of the app (possibly not up to date, so I recomend launching the app).
+The initial idea of this platform was to measure how volatile are political opinions of public individuals (hence the name PolVol). The main goal for me was to give it a meaning, motivating myself to make progress in the first phase of development (it worked). While the political theme adds context, the main goal of this project was to build and deploy a complex full-stack application. Below you will find description of main features of the app (maybe not up to date, so I recomend launching the app).
 
 ## Main Features / Components
 
@@ -21,22 +23,27 @@ Next these elements can be linked via Stance (stance of a person on an event) wh
 
 ## Example for Winnie The Pooh
 
-People view:
-<img src="README_data/people.png">
+#### People view:
 
-Events view:
-<img src="README_data/events.png">
+<img src="README_data/people.png" style="height: 300px">
 
-Spectra view:
-<img src="README_data/spectra.png">
+#### Events view:
 
-Stances view:
-<img src="README_data/stances.png">
+<img src="README_data/events.png" style="height: 300px">
 
-Winnie The Pooh Details:
-<img src="README_data/person_details.png">
+#### Spectra view:
 
-We can see that Winnie is strongly ProHoney (39/50) and is very consistenr (8) in his opinions.
+<img src="README_data/spectra.png" style="height: 300px">
+
+#### Stances view:
+
+<img src="README_data/stances.png" style="height: 300px">
+
+#### Winnie The Pooh Details:
+
+<img src="README_data/person_details.png" style="height: 300px">
+
+We can see that Winnie is strongly ProHoney (39/50) and is very consistent (8) in his opinions.
 
 # Technical Documentation
 
@@ -50,7 +57,7 @@ We can see that Winnie is strongly ProHoney (39/50) and is very consistenr (8) i
 
 ## Frontend
 
-React frontend created with Vite. `src` directory is devided by views views and data models (`src/Header` for navigation and header, `src/Login` for user login and registration, `src/Person` for CRUD operations on Person data model etc.). Reusable components (tiles, panels, grids, headings etc.) have been created in `src/shared` directory to keep the style consistent across all views and to minimize code repetitions (mostly css). This react app is using React Router to redirect to specific views/components.
+React frontend created with Vite. `src` directory is divided by views views and data models (`src/Header` for navigation and header, `src/Login` for user login and registration, `src/Person` for CRUD operations on Person data model etc.). Reusable components (tiles, panels, grids, headings etc.) have been created in `src/shared` directory to keep the style consistent across all views and to minimize code repetitions (mostly css). This react app is using React Router to redirect to specific views/components.
 
 ## Backend
 
@@ -62,7 +69,7 @@ SQLite database has been created with Python SQLAlchemy. For each database data 
 
 ## Authorization and Authentication
 
-Authentication is managed by JWT. Token are automatically removed from database after their expiration datetime is exceeded (with dedicated scheduled reoccuring job).
+Authentication is managed by JWT. Tokens are automatically removed from database after their expiration datetime is exceeded (with dedicated scheduled reoccuring job).
 
 Authorization is devided into 4 levels specified in `backend.src.models_validators.Authorizations`. The basis of each authorization level are CRUD operation on different models:
 
@@ -97,7 +104,7 @@ Run backend:
 docker run -p 8000:8000 -v polvolVolume:/data backend:0.0.1
 ```
 
-Build docker image for backend:
+Build docker image for frontend:
 
 ```bash
 cd frontend
