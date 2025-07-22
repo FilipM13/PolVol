@@ -21,6 +21,5 @@ runs:
     - name: dependencies
       run: |
         cd ${{inputs.path}}
-        python -m pip install .
         python -m pip install -r requirements_dev.txt
       shell: bash
