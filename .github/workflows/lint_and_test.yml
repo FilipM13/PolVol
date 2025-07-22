@@ -32,6 +32,7 @@ jobs:
           cd frontend
           npm ci
           npm install prettier
+          npm install eslint
       - name: run lint check on js
         uses: wearerequired/lint-action@v2
         with:
