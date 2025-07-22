@@ -10,8 +10,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "prettier": "^3.6.2",
     "eslint": "^9.31.0",
+    "node": "^20.19.4",
+    "prettier": "^3.6.2",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-router": "^7.6.3",
