@@ -63,7 +63,7 @@ export default function EditPerson({ personId }) {
           {
             method: "POST",
             body: formData,
-          }
+          },
         );
         if (!res_pic.ok) throw new Error(await res_pic.text());
       }

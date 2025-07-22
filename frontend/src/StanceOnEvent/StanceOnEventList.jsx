@@ -44,7 +44,7 @@ export default function StanceOnEventList() {
         setSpectrums(spectrumsData);
       } catch (err) {
         setError(
-          err.message || "Failed to fetch stances/persons/events/spectrums"
+          err.message || "Failed to fetch stances/persons/events/spectrums",
         );
       } finally {
         setLoading(false);
@@ -99,7 +99,7 @@ export default function StanceOnEventList() {
                   {s.scores &&
                     s.scores.map((score, idx) => {
                       const spectrum = spectrums.find(
-                        (sp) => sp.id === score.spectrum_id
+                        (sp) => sp.id === score.spectrum_id,
                       );
                       return (
                         <SpectrumDisplay
