@@ -2,7 +2,7 @@
 
 Sample project of online platform.
 
-1. [Platform concept (just for context)](#concept)
+1. [Platform concept (just for context)](#platform-concept)
 2. [Technical documentation](#technical-documentation)
 
 # Platform Concept
