@@ -5,13 +5,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - run: cd backend
       - uses: ./.github/actions/manage_dependencies
         with:
           python-version: "3.10"
       - name: check black and mypy
         run: |
-          python -m black --check backend/src
-          python -m mypy backend/src
+          python -m black --check src
+          python -m mypy src
 
   JS:
     runs-on: ubuntu-latest
