@@ -32,10 +32,11 @@ jobs:
           cd frontend
           npm ci
           npm install prettier
-      - name: run lint check on js
-        uses: wearerequired/lint-action@v2
-        with:
-          prettier: true
+          prettier --check .
+      # - name: run lint check on js
+      #   uses: wearerequired/lint-action@v2
+      #   with:
+      #     prettier: true
 
   # test-unit:
   #   strategy:
