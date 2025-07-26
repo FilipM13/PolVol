@@ -1,10 +1,10 @@
 services:
   frontend:
-    image: frontend:0.0.1
+    image: filipm13/polvol-frontend:latest
     ports:
       - 5173:80
   backend:
-    image: backend:0.0.1
+    image: filipm13/polvol-backend:latest
     volumes:
       - polvolVolume:/data
     ports:
