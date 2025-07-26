@@ -2,6 +2,7 @@ name: Check MyPy and Black Formatting for Python and Formatting for Js
 on: [push, workflow_dispatch, workflow_call]
 jobs:
   Pyhton:
+    name: Check Python code typing and formatting
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -16,6 +17,7 @@ jobs:
           python -m mypy backend/src
 
   JS:
+    name: Check JS code formatting
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -33,7 +35,7 @@ jobs:
   # test-unit:
   #   strategy:
   #     matrix:
-  #       py_ver: ['3.9', '3.10', '3.11', '3.13']
+  #       py_ver: ['3.9', '3.10', '3.11', '3.12', '3.13']
   #       os: [ubuntu-latest, windows-latest]
   #   name: run unit tests
   #   runs-on: ${{ matrix.os }}

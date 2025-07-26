@@ -49,11 +49,13 @@ We can see that Winnie is strongly ProHoney (39/50) and is very consistent (8) i
 
 ## Tech Stack
 
-| Component | Technology          |
-| --------- | ------------------- |
-| Frontend  | React               |
-| Backend   | FastApi             |
-| Database  | SQLite (SQLAlchemy) |
+| Component  | Technology                           |
+| ---------- | ------------------------------------ |
+| Frontend   | React                                |
+| Backend    | FastApi                              |
+| Database   | SQLite (SQLAlchemy)                  |
+| DevOps     | GitHub Actions                       |
+| Deployment | Docker Compose + Azure Container App |
 
 ## Frontend
 
