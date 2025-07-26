@@ -49,13 +49,14 @@ We can see that Winnie is strongly ProHoney (39/50) and is very consistent (8) i
 
 ## Tech Stack
 
-| Component  | Technology                           |
-| ---------- | ------------------------------------ |
-| Frontend   | React                                |
-| Backend    | FastApi                              |
-| Database   | SQLite (SQLAlchemy)                  |
-| DevOps     | GitHub Actions                       |
-| Deployment | Docker Compose + Azure Container App |
+| Component     | Technology                           |
+| ------------- | ------------------------------------ |
+| Frontend      | React                                |
+| Backend       | FastApi                              |
+| Database      | SQLite (SQLAlchemy)                  |
+| DevOps        | GitHub Actions                       |
+| Deployment    | Docker Compose + Azure Container App |
+| Observability | Grafana & Prometheus                 |
 
 ## Frontend
 
@@ -121,6 +122,10 @@ docker run -p 5173:80 frontend:0.0.1
 
 All services and volumes are referenced in docker compose.yml file.
 
+```bash
+docker compose up
+```
+
 ## Background Jobs [might be changed to Celery + Redis]
 
 Currently there is one background job `backend.src.automation.clear_tokens` implemented running every 2 minutes. It is removing outdated tokens from the database. The job is setup using [schedule](https://pypi.org/project/schedule/) package in Python.
@@ -146,6 +151,10 @@ docker compose up
 
 The platform is hosted on Azure Container App with Docker compose under [this link]() (not deployed, no valid url).
 
+## Observability
+
+not yet implemented (Grafana & Prometheus)
+
 ## LLM (Ollama / HuggingFace)
 
-not yet implemented
+not yet implemented (for processing event descriptions, from subjective to objective)
