@@ -29,7 +29,7 @@ jobs:
         with:
           context: "{{defaultContext}}:backend"
           push: true
-          tags: ${{ vars.DOCKERHUB_USERNAME }}/PolVolBackend:latest
+          tags: ${{ vars.DOCKERHUB_USERNAME }}/polvol-backend:latest
 
   build_frontend:
     name: Build Docker image for frontend
