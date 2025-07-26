@@ -1,9 +1,14 @@
-name: Build Backend and Frontend Docker Images
+name: Build Images and Release
 
 on:
-  release:
-    types: [created]
   workflow_dispatch:
+    inputs:
+      backend_version:
+        type: string
+        required: true
+      frontend_version:
+        type: string
+        required: true
 
 jobs:
   lint_and_test:

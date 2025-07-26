@@ -33,11 +33,12 @@ jobs:
           npx prettier --check .
 
   # test-unit:
+  #   name: run unit tests
+  #   needs: Python
   #   strategy:
   #     matrix:
   #       py_ver: ['3.9', '3.10', '3.11', '3.12', '3.13']
   #       os: [ubuntu-latest, windows-latest]
-  #   name: run unit tests
   #   runs-on: ${{ matrix.os }}
   #   steps:
   #     - uses: actions/checkout@v4
@@ -55,11 +56,12 @@ jobs:
   #         path: logs-unit
 
   # test-module:
+  #   name: run module tests
+  #   needs: JS
   #   strategy:
   #     matrix:
   #       py_ver: ['3.9', '3.10', '3.11', '3.13']
   #       os: [ubuntu-latest, windows-latest]
-  #   name: run module tests
   #   runs-on: ${{ matrix.os }}
   #   steps:
   #     - uses: actions/checkout@v4
