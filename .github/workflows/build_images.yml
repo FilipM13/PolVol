@@ -57,7 +57,7 @@ jobs:
           tags: ${{ vars.DOCKERHUB_USERNAME }}/polvol-frontend:${{ inputs.frontend_version }}, ${{ vars.DOCKERHUB_USERNAME }}/polvol-frontend:latest
 
   release:
-    name: Release newest verion on Azure Container App
+    name: Release newest version on Azure Container App
     needs:
       - build_backend
       - build_frontend
