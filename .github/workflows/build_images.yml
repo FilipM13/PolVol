@@ -33,7 +33,7 @@ jobs:
         with:
           context: "{{defaultContext}}:backend"
           push: true
-          tags: ${{ vars.DOCKERHUB_USERNAME }}/polvol-backend:latest
+          tags: ${{ vars.DOCKERHUB_USERNAME }}/polvol-backend:${{ inputs.backend_version }}
 
   build_frontend:
     name: Build Docker image for frontend
@@ -54,7 +54,7 @@ jobs:
         with:
           context: "{{defaultContext}}:frontend"
           push: true
-          tags: ${{ vars.DOCKERHUB_USERNAME }}/polvol-frontend:latest
+          tags: ${{ vars.DOCKERHUB_USERNAME }}/polvol-frontend:${{ inputs.frontend_version }}
 
   release:
     name: Release newest verion on Azure Container App
