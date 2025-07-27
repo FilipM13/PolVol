@@ -4,22 +4,38 @@ services:
   backend:
     build:
       context: backend
+    deploy:
+      resources:
+        limits:
+          cpus: "1.0"
+          memory: 1G
+        reservations:
+          cpus: "0.5"
+          memory: 500M
     volumes:
       - app_data:/data
     ports:
       - 8000:8000
     networks:
-      - appnet
+      - app_net
 
   frontend:
     depends_on:
       - backend
     build:
       context: frontend
+    deploy:
+      resources:
+        limits:
+          cpus: "1.0"
+          memory: 1G
+        reservations:
+          cpus: "0.5"
+          memory: 500M
     ports:
       - 5173:80
     networks:
-      - appnet
+      - app_net
 
 volumes:
   app_data:
