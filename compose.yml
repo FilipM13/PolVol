@@ -1,13 +1,28 @@
+name: polvol
+
 services:
-  frontend:
-    image: filipm13/polvol-frontend:latest
-    ports:
-      - 5173:80
   backend:
-    image: filipm13/polvol-backend:latest
+    build:
+      context: backend
     volumes:
-      - polvolVolume:/data
+      - app_data:/data
     ports:
       - 8000:8000
+    networks:
+      - appnet
+
+  frontend:
+    depends_on:
+      - backend
+    build:
+      context: frontend
+    ports:
+      - 5173:80
+    networks:
+      - appnet
+
 volumes:
-  polvolVolume:
+  app_data:
+
+networks:
+  app_net:

@@ -144,9 +144,13 @@ The project can be run locally with commands below:
 
 ```bash
 git clone https://github.com/FilipM13/PolVol.git
-docker build -t backend:0.0.1 ./backend
-docker build -t frontend:0.0.1 ./frontend
-docker compose up
+docker compose up -d
+```
+
+And switched off with:
+
+```bash
+docker compose down
 ```
 
 The platform is hosted on Azure Container App with Docker compose under [this link]() (not deployed, no valid url).
