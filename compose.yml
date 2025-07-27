@@ -12,6 +12,7 @@ services:
         reservations:
           cpus: "0.5"
           memory: 500M
+    restart: on-failure:3
     volumes:
       - app_data:/data
     ports:
@@ -32,6 +33,7 @@ services:
         reservations:
           cpus: "0.5"
           memory: 500M
+    restart: on-failure:3
     ports:
       - 5173:80
     networks:
