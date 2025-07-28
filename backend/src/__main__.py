@@ -26,5 +26,5 @@ s = Process(target=run_schedule, name="Scheduled Jobs")
 api.start()
 s.start()
 
-api.join()  # wait untill api is killed
+api.join()  # wait until api is killed
 s.kill()  # kill scheduler

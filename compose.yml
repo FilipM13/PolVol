@@ -12,6 +12,11 @@ services:
         reservations:
           cpus: "0.5"
           memory: 500M
+    develop:
+      watch:
+        - path: ./backend/src
+          action: rebuild
+
     restart: on-failure:3
     volumes:
       - app_data:/data
@@ -33,6 +38,11 @@ services:
         reservations:
           cpus: "0.5"
           memory: 500M
+    develop:
+      watch:
+        - path: ./frontend/
+          action: rebuild
+
     restart: on-failure:3
     ports:
       - 5173:80
