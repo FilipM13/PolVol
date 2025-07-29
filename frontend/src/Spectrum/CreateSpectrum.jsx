@@ -9,6 +9,10 @@ import Loading from "../shared/Loading";
 
 const initialState = {
   name: "",
+  description: "",
+  left_label: "",
+  middle_label: "",
+  right_label: "",
 };
 
 export default function CreateSpectrum() {
@@ -54,6 +58,36 @@ export default function CreateSpectrum() {
           value={form.name}
           onChange={handleChange}
           placeholder="Name"
+          required
+        />
+        <input
+          id="description"
+          name="description"
+          value={form.description}
+          onChange={handleChange}
+          placeholder="Description"
+        />
+        <input
+          id="left_label"
+          name="left_label"
+          value={form.left_label}
+          onChange={handleChange}
+          placeholder="Left Label"
+          required
+        />
+        <input
+          id="middle_label"
+          name="middle_label"
+          value={form.middle_label}
+          onChange={handleChange}
+          placeholder="Middle Label"
+        />
+        <input
+          id="right_label"
+          name="right_label"
+          value={form.right_label}
+          onChange={handleChange}
+          placeholder="Right Label"
           required
         />
         <Button type="submit">Create</Button>

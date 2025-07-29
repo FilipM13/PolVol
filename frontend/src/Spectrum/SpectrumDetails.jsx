@@ -47,6 +47,18 @@ export default function SpectrumDetails({ spectrumId }) {
         <strong>Name:</strong> {spectrum.name}
       </div>
       <div>
+        <strong>Description:</strong> {spectrum.description}
+      </div>
+      <div>
+        <strong>Left Label:</strong> {spectrum.left_label}
+      </div>
+      <div>
+        <strong>Middle Label:</strong> {spectrum.middle_label}
+      </div>
+      <div>
+        <strong>Right Label:</strong> {spectrum.right_label}
+      </div>
+      <div>
         <strong>ID:</strong> {spectrum.id}
       </div>
       <H level={2}>Scores</H>

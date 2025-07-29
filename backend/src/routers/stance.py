@@ -48,15 +48,16 @@ def create_stance(stance: StanceOnEvent, db: Session = Depends(get_db)):
 
 @router.get("/", response_model=List[StanceOnEvent])
 def list_stances(db: Session = Depends(get_db)):
-    stances = db.query(
-        StanceOnEventDB, 
-        EventDB, 
-        SpectrumScoreDB, 
-        PersonDB
-    ).filter(
-        StanceOnEventDB.event_id == EventDB.id,
-        StanceOnEventDB.person_id == PersonDB.id,
-    ).all()
+    # stances = db.query(
+    #     StanceOnEventDB,
+    #     EventDB,
+    #     SpectrumScoreDB,
+    #     PersonDB
+    # ).filter(
+    #     StanceOnEventDB.event_id == EventDB.id,
+    #     StanceOnEventDB.person_id == PersonDB.id,
+    # ).all()
+    stances = db.query(StanceOnEventDB).all()
     print(stances)
     stance_fields = StanceOnEvent.model_fields.keys()
     score_fields = SpectrumScore.model_fields.keys()

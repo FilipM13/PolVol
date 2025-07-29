@@ -18,7 +18,7 @@ function PersonScores({ personId }) {
       setError("");
       try {
         const res = await fetch(
-          `${API_ROOT}/persons/${personId}/average_spectra_scores`
+          `${API_ROOT}/persons/${personId}/average_spectra_scores`,
         );
         if (!res.ok) throw new Error(await res.text());
         const data = await res.json();

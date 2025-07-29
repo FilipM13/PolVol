@@ -21,7 +21,13 @@ export default function EditSpectrum({ spectrumId }) {
         const res = await fetch(`${API_ROOT}/spectra/${spectrumId}`);
         if (!res.ok) throw new Error(await res.text());
         const data = await res.json();
-        setForm({ name: data.name || "" });
+        setForm({
+          name: data.name || "",
+          description: data.description || "",
+          left_label: data.left_label || "",
+          middle_label: data.middle_label || "",
+          right_label: data.right_label || "",
+        });
       } catch (err) {
         setError(err.message || "Failed to fetch spectrum");
       } finally {
@@ -70,6 +76,36 @@ export default function EditSpectrum({ spectrumId }) {
           value={form.name || ""}
           onChange={handleChange}
           placeholder="Name"
+          required
+        />
+        <input
+          id="description"
+          name="description"
+          value={form.description}
+          onChange={handleChange}
+          placeholder="Description"
+        />
+        <input
+          id="left_label"
+          name="left_label"
+          value={form.left_label}
+          onChange={handleChange}
+          placeholder="Left Label"
+          required
+        />
+        <input
+          id="middle_label"
+          name="middle_label"
+          value={form.middle_label}
+          onChange={handleChange}
+          placeholder="Middle Label"
+        />
+        <input
+          id="right_label"
+          name="right_label"
+          value={form.right_label}
+          onChange={handleChange}
+          placeholder="Right Label"
           required
         />
         <Button type="submit">Update</Button>

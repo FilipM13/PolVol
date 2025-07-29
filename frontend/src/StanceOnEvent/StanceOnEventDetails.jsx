@@ -60,6 +60,9 @@ export default function StanceOnEventDetails({ stanceId }) {
       <div>
         <strong>Event:</strong> {event.name} ({event.date})
       </div>
+      <div>
+        <strong>Description:</strong> {stance.description}
+      </div>
       <H level={2}>Spectrum Scores</H>
       <ul>
         {stance.scores &&
