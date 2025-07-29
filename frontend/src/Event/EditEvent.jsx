@@ -21,7 +21,11 @@ export default function EditEvent({ eventId }) {
         const res = await fetch(`${API_ROOT}/events/${eventId}`);
         if (!res.ok) throw new Error(await res.text());
         const data = await res.json();
-        setForm({ name: data.name || "", date: data.date || "" });
+        setForm({
+          name: data.name || "",
+          date: data.date || "",
+          description: data.description || "",
+        });
       } catch (err) {
         setError(err.message || "Failed to fetch event");
       } finally {
@@ -84,6 +88,20 @@ export default function EditEvent({ eventId }) {
           onChange={handleChange}
           type="date"
           placeholder="Date"
+          required
+          style={{
+            padding: "0.7rem",
+            marginBottom: "1rem",
+            borderRadius: "8px",
+            border: "1px solid #e0d7fa",
+            fontSize: "1.1rem",
+          }}
+        />
+        <input
+          name="description"
+          value={form.description}
+          onChange={handleChange}
+          placeholder="Description"
           required
           style={{
             padding: "0.7rem",

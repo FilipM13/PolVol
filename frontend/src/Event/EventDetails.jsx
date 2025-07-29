@@ -43,6 +43,9 @@ export default function EventDetails({ eventId }) {
         <strong>Date:</strong> {event.date}
       </div>
       <div>
+        <strong>Description:</strong> {event.description}
+      </div>
+      <div>
         <strong>ID:</strong> {event.id}
       </div>
     </Panel>
