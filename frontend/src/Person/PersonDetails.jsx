@@ -18,7 +18,7 @@ function PersonScores({ personId }) {
       setError("");
       try {
         const res = await fetch(
-          `${API_ROOT}/persons/${personId}/average_spectra_scores`,
+          `${API_ROOT}/persons/${personId}/average_spectra_scores`
         );
         if (!res.ok) throw new Error(await res.text());
         const data = await res.json();
@@ -75,7 +75,6 @@ export default function PersonDetails({ personId }) {
         const res = await fetch(`${API_ROOT}/persons/${personId}`);
         if (!res.ok) throw new Error(await res.text());
         const data = await res.json();
-        console.log(data);
         setPerson(data);
       } catch (err) {
         setError(err.message || "Failed to fetch person");
@@ -125,6 +124,12 @@ export default function PersonDetails({ personId }) {
       </div>
       <div>
         <strong>Last Name:</strong> {person.last_name}
+      </div>
+      <div>
+        <strong>Description:</strong> {person.description_md}
+      </div>
+      <div>
+        <strong>Date of Birth:</strong> {person.date_of_birth}
       </div>
       <div>
         <strong>ID:</strong> {person.id}

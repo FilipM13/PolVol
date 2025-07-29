@@ -50,6 +50,10 @@ class Spectrum(BaseModel):
 
     id: Optional[int] = None
     name: str
+    description: Optional[str] = None
+    left_label: str
+    middle_label: Optional[str] = None
+    right_label: str
 
 
 class SpectrumScore(BaseModel):
@@ -71,6 +75,8 @@ class Person(BaseModel):
     first_name: str
     middle_name: Optional[str] = None
     last_name: str
+    description_md: Optional[str]
+    date_of_birth: date
 
 
 class Event(BaseModel):
@@ -81,6 +87,7 @@ class Event(BaseModel):
     id: Optional[int] = None
     name: str
     date: date
+    description: str
 
 
 class StanceOnEvent(BaseModel):
@@ -92,6 +99,7 @@ class StanceOnEvent(BaseModel):
     event_id: int
     person_id: int
     date: date
+    description: str
     scores: Optional[List["SpectrumScore"]] = None
 
 

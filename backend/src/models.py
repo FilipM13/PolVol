@@ -56,6 +56,10 @@ class SpectrumDB(Base):  # type: ignore [misc, valid-type]
     __tablename__ = "spectrums"
     id = Column(Integer, primary_key=True)
     name = Column(String, nullable=False, unique=True)
+    description = Column(String, nullable=True)
+    left_label = Column(String, nullable=False)
+    middle_label = Column(String, nullable=True)
+    right_label = Column(String, nullable=False)
     scores = relationship(
         "SpectrumScoreDB", back_populates="spectrum", cascade="all, delete-orphan"
     )
@@ -93,6 +97,8 @@ class PersonDB(Base):  # type: ignore [misc, valid-type]
     middle_name = Column(String, nullable=True)
     last_name = Column(String, nullable=False)
     picture = Column(BLOB, nullable=True)
+    description_md = Column(String, nullable=True)
+    date_of_birth = Column(Date, nullable=False)
     stances = relationship(
         "StanceOnEventDB", back_populates="person", cascade="all, delete-orphan"
     )
@@ -107,6 +113,7 @@ class EventDB(Base):  # type: ignore [misc, valid-type]
     id = Column(Integer, primary_key=True)
     name = Column(String, nullable=False)
     date = Column(Date, nullable=False)
+    description = Column(String, nullable=False)
     stances = relationship(
         "StanceOnEventDB", back_populates="event", cascade="all, delete-orphan"
     )
@@ -122,6 +129,7 @@ class StanceOnEventDB(Base):  # type: ignore [misc, valid-type]
     event_id = Column(Integer, ForeignKey("events.id"))
     person_id = Column(Integer, ForeignKey("persons.id"))
     date = Column(Date, nullable=False)
+    description = Column(String, nullable=False)
     event = relationship("EventDB", back_populates="stances")
     person = relationship("PersonDB", back_populates="stances")
     scores = relationship(

@@ -11,6 +11,8 @@ const initialState = {
   first_name: "",
   middle_name: "",
   last_name: "",
+  description_md: "",
+  date_of_birth: "",
   picture: null,
 };
 
@@ -50,7 +52,7 @@ export default function CreatePerson() {
           {
             method: "POST",
             body: formData,
-          },
+          }
         );
         if (!res_pic.ok) throw new Error(await res_pic.text());
       }
@@ -102,6 +104,34 @@ export default function CreatePerson() {
           onChange={handleChange}
           placeholder="Last Name"
           required
+          style={{
+            padding: "0.7rem",
+            marginBottom: "1rem",
+            borderRadius: "8px",
+            border: "1px solid #e0d7fa",
+            fontSize: "1.1rem",
+          }}
+        />
+        <input
+          name="date_of_birth"
+          value={form.date_of_birth}
+          onChange={handleChange}
+          type="date"
+          placeholder="Date of Birth"
+          required
+          style={{
+            padding: "0.7rem",
+            marginBottom: "1rem",
+            borderRadius: "8px",
+            border: "1px solid #e0d7fa",
+            fontSize: "1.1rem",
+          }}
+        />
+        <input
+          name="description_md"
+          value={form.description_md}
+          onChange={handleChange}
+          placeholder="Description"
           style={{
             padding: "0.7rem",
             marginBottom: "1rem",

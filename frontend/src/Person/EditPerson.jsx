@@ -25,6 +25,8 @@ export default function EditPerson({ personId }) {
           first_name: data.first_name,
           middle_name: data.middle_name,
           last_name: data.last_name,
+          description_md: data.description_md,
+          date_of_birth: data.date_of_birth,
         });
       } catch (err) {
         setError(err.message || "Failed to fetch person");
@@ -63,7 +65,7 @@ export default function EditPerson({ personId }) {
           {
             method: "POST",
             body: formData,
-          },
+          }
         );
         if (!res_pic.ok) throw new Error(await res_pic.text());
       }
@@ -116,6 +118,34 @@ export default function EditPerson({ personId }) {
           onChange={handleChange}
           placeholder="Last Name"
           required
+          style={{
+            padding: "0.7rem",
+            marginBottom: "1rem",
+            borderRadius: "8px",
+            border: "1px solid #e0d7fa",
+            fontSize: "1.1rem",
+          }}
+        />
+        <input
+          name="date_of_birth"
+          value={form.date_of_birth}
+          onChange={handleChange}
+          type="date"
+          placeholder="Date of Birth"
+          required
+          style={{
+            padding: "0.7rem",
+            marginBottom: "1rem",
+            borderRadius: "8px",
+            border: "1px solid #e0d7fa",
+            fontSize: "1.1rem",
+          }}
+        />
+        <input
+          name="description_md"
+          value={form.description_md}
+          onChange={handleChange}
+          placeholder="Description"
           style={{
             padding: "0.7rem",
             marginBottom: "1rem",
