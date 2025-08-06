@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: frontend-pod
+  labels:
+    app: polvol
+    sub: frontend
+  annotations:
+    description: "K8S pod running frontend of Polvol application (React app served with Nginx)."
+spec:
+  containers:
+    - name: frontend
+      image: filipm13/polvol-frontend:latest
+      resources: {}
+      ports:
+        - containerPort: 80

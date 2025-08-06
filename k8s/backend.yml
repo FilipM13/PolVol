@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: backend-pod
+  labels:
+    app: polvol
+    sub: backend
+  annotations:
+    description: "K8S pod running backend of Polvol application (FastAPI and SQLite DataBase)."
+spec:
+  containers:
+    - name: backend
+      image: filipm13/polvol-backend:latest
+      resources: {}
+      ports:
+        - containerPort: 8000
